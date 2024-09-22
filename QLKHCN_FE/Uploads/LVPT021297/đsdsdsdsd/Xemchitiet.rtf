@@ -1,0 +1,422 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 function xemchitiet(iddm) \{\
+        \
+        clear();\
+        \
+        fetch('https://localhost:5001/api/DanhMucXetDuyet/Get-id?IDDanhMuc=' + iddm, \{\
+            headers: \{\
+                'Authorization': 'Bearer ' + _token,\
+                'Content-Type': 'application/json'\
+            \}\
+        \}).then(response => response.json())\
+            .then(data => \{\
+                global_dmxd = data.type;\
+                articleId = data.idDanhMuc;\
+                //alert(data.status);\
+                if (data.status == "\uc0\u272 ang \u273 \u7907 i duy\u7879 t") \{\
+                    document.getElementById("btn-lvt").disabled = false;\
+                    document.getElementById("btn-lvtm").disabled = false;\
+                \} else if (data.status == "T\uc0\u7915  ch\u7889 i") \{\
+                    document.getElementById("btn-lvt").disabled = false;\
+                    document.getElementById("btn-lvtm").disabled = false;\
+                \} else \{\
+                    document.getElementById("btn-lvt").disabled = true;\
+                    document.getElementById("btn-lvtm").disabled = true;\
+                \}\
+\
+                document.getElementById("iddmxd").value = data.idDanhMuc;\
+                var input_issn = document.getElementById("input_issn");\
+                var choose_lh = document.getElementById("choose_lh");\
+                var trangthaithanhtoan = document.getElementById("trangthaithanhtoan");\
+                var chonLoaiCongTrinh = document.getElementById("chonLoaiCongTrinh");\
+                var optionslh = document.querySelector('#loaiHinhKeKhai');\
+                var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;\
+                document.getElementById("tenSanPhamKHCN").value = data.tenBaiBao;\
+                sessionStorage.setItem("NguoiKhai", data.userId);\
+                sessionStorage.setItem("GhiChu", data.ghiChu);\
+                sessionStorage.setItem("NguoiSua", data.citations);\
+                sessionStorage.setItem("TrangThaiThanhToan", data.if_2022);\
+                var dateString = data.dateSubmit;\
+                var dateParts = dateString.split("T");\
+                var date = dateParts[0];\
+                var date1 = new Date(dateString);\
+                var dateSumbit = document.getElementById("datesubmit");\
+                date1.setDate(date1.getDate() + 1);\
+                dateSumbit.value = date1.toISOString().substring(0, 10);\
+                document.getElementById("sodoi").value = data.link;\
+                document.getElementById("myFile").value = data.image;\
+                var chonLoaiCongTrinh = document.querySelector('#chonLoaiCongTrinh');\
+                if (data.issn != "" && data.eissn != "") \{\
+                    document.getElementById("btn_Cissn").checked = true;\
+                    input_issn.style.display = "flex";\
+                    choose_lh.style.display = "flex";\
+                    chonLoaiCongTrinh.style.display = "none";\
+                    if (data.issn != "") \{\
+                        document.getElementById("traCuuIssn").value = data.issn;\
+                    \} else if (data.eissn != "") \{\
+                        document.getElementById("traCuuIssn").value = data.eissn;\
+                    \}\
+                    var radios = document.querySelectorAll('input[name="category"]');\
+                    for (var ra = 0; ra < radios.length; i++) \{\
+                        if (radios[ra].value == data.category) \{\
+                            radios[ra].checked = true;\
+                            break;\
+                        \}\
+                    \}\
+                \}\
+                else \{\
+                    document.getElementById("btn_Kissn").checked = true;\
+                    choose_lh.style.display = "flex";\
+                    chonLoaiCongTrinh.style.display = "flex";\
+                \}\
+                document.getElementById("loaiHinhKeKhai").value = data.loaiHinhKeKhai;\
+                //loadLoaiCongTrinh();\
+                if (data.loaiHinhKeKhai == "NCM") \{\
+                    chonLoaiCongTrinh.innerHTML = `\
+                                <div class="form-group row">\
+                                    <label class="col-form-label" for="loaiCongTrinh">Ch\uc0\u7885 n lo\u7841 i c\'f4ng tr\'ecnh</label>\
+                                    <select onchange="changeLoaiCongTrinh()" class="custom-select col-6" id="loaiCongTrinh" style="margin-left:4%">\
+                                        <option value="" selected >Ch\uc0\u7885 n lo\u7841 i c\'f4ng tr\'ecnh</option>\
+                                        <option value="BaiBao">B\'e0i b\'e1o</option>\
+                                        <option value="SPK">S\uc0\u7843 n ph\u7849 m kh\'e1c</option>\
+                                    </select>\
+                                </div>`;\
+                \}\
+                if (document.getElementById("loaiHinhKeKhai").value == "NCM") \{\
+                    ////////alert("a");\
+                    document.querySelector('#trangthaithanhtoan').innerHTML = `\
+                        <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Ch\uc0\u432 a thanh to\'e1n"><label for="tickthanhtoan">S\u7843 n ph\u7849 m x\'e9t thanh to\'e1n \u273 \u7907 t th\'e1ng 6/2023</label>`;\
+                    if (data.if_2022 == "Ch\uc0\u432 a thanh to\'e1n") \{\
+                        document.querySelector('#trangthaithanhtoan').innerHTML = `\
+                        <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" checked value="Ch\uc0\u432 a thanh to\'e1n"><label for="tickthanhtoan">S\u7843 n ph\u7849 m x\'e9t thanh to\'e1n \u273 \u7907 t th\'e1ng 6/2023</label>`;\
+                    \}\
+                \}\
+                try \{\
+                    document.getElementById("loaiCongTrinh").value = data.loaiCongTrinh;\
+                    ////////alert(data.loaiCongTrinh);\
+                    changeLoaiCongTrinh();\
+\
+                \}\
+                catch \{\
+\
+                \}\
+\
+                var tgp = 0;\
+                var tglh = 0;\
+                var tgc = 1;\
+                const kekhaitg = render_tg(data.groupUser);\
+                kekhaitg.forEach(function (row) \{\
+                    if (row[3] == "T\'e1c gi\uc0\u7843  ph\u7909 ") \{\
+                        tgp += 1;\
+                    \}\
+                    if (row[3] == "T\'e1c gi\uc0\u7843  li\'ean h\u7879 ") \{\
+                        tglh += 1;\
+                    \}\
+                \});\
+                document.querySelector('#sltgp').value = tgp;\
+                document.querySelector('#sltglh').value = tglh;\
+                ///////\
+                var a = ``;\
+                var sltgc = tgc;\
+                var sltgp = tgp;\
+                var sltglh = tglh;\
+                var valuerank = data.rank;\
+                var optionslh = document.querySelector('#loaiHinhKeKhai');\
+                var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;\
+                var sltg = sltgc + sltgp + sltglh;\
+                let i = 0;\
+                document.getElementById("btn-lvt").disabled = true;\
+                document.getElementById("btn-lvtm").disabled = true;\
+                //toastr.warning(valueloaihinh + valuerank);\
+\
+\
+\
+                document.querySelector('#tbtacgia2').innerHTML = `<thead style="background-color: #17a2b8;color: white;">\
+                            <th width="2%">STT</th>\
+                            <th width="15%">M\'e3 nh\'e2n vi\'ean</th>\
+                            <th width="15%">C\uc0\u417  quan c\'f4ng t\'e1c</th>\
+                            <th width="15%">Lo\uc0\u7841 i t\'e1c gi\u7843 </th>\
+                            <th width="10%">T\uc0\u7893 ng nh\u7853 n tr\u432 \u7899 c thu\u7871 </th>\
+                            <th width="10%">Th\uc0\u7921 c nh\u7853 n</th>\
+                            <th width="5%">\uc0\u272 i\u7875 m</th>\
+                            <th width="5%">Ti\uc0\u7871 t chu\u7849 n</th>\
+                            </thead>\
+                            <tbody id="tablethanhtoan">\
+                            </tbody>`;\
+                try \{\
+                    var tien = data.total;\
+\
+                \} catch \{ \}\
+\
+                kekhaitg.forEach(function (row) \{\
+                    var vop2 = ``;\
+                    if (row[2] == " --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--") \{\
+                        vop = `<div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" value="$\{row[1]\}" id="coquancongtac-$\{i\}" class="form-control">\
+                                <option value="0" selected> --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--</option>\
+                                <option value="1" >C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)</option>\
+                                <option value="0.5">Hutech-Qu\uc0\u7889 c t\u7871  (50%)</option>\
+                                <option value="0">Qu\uc0\u7889 c t\u7871  - Hutech (0%)</option>\
+                                <option value="0">C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)</option>\
+                            </select>\
+                        </div>`;\
+                    \}\
+                    if (row[2] == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                        vop = `<div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" value="$\{row[1]\}" id="coquancongtac-$\{i\}" class="form-control">\
+                                <option value="0"> --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--</option>\
+                                <option value="1" selected>C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)</option>\
+                                <option value="0.5">Hutech-Qu\uc0\u7889 c t\u7871  (50%)</option>\
+                                <option value="0">Qu\uc0\u7889 c t\u7871  - Hutech (0%)</option>\
+                                <option value="0">C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)</option>\
+                            </select>\
+                        </div>`;\
+                    \}\
+                    if (row[2] == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                        vop = `<div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="coquancongtac-$\{i\}" class="form-control">\
+                                <option value="0"> --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--</option>\
+                                <option value="1" >C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)</option>\
+                                <option value="0.5" selected>Hutech-Qu\uc0\u7889 c t\u7871  (50%)</option>\
+                                <option value="0">Qu\uc0\u7889 c t\u7871  - Hutech (0%)</option>\
+                                <option value="0">C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)</option>\
+                            </select>\
+                        </div>`;\
+                    \}\
+                    if (row[2] == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)") \{\
+                        vop = `<div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="coquancongtac-$\{i\}" class="form-control">\
+                                <option value="0"> --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--</option>\
+                                <option value="1" >C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)</option>\
+                                <option value="0.5" >Hutech-Qu\uc0\u7889 c t\u7871  (50%)</option>\
+                                <option value="0" selected>Qu\uc0\u7889 c t\u7871  - Hutech (0%)</option>\
+                                <option value="0">C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)</option>\
+                            </select>\
+                        </div>`;\
+                    \}\
+                    if (row[2] == "C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                        vop = `<div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="coquancongtac-$\{i\}" class="form-control">\
+                                <option value="0"> --Ch\uc0\u7885 n c\u417  quan c\'f4ng t\'e1c--</option>\
+                                <option value="1" >C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)</option>\
+                                <option value="0.5" >Hutech-Qu\uc0\u7889 c t\u7871  (50%)</option>\
+                                <option value="0" >Qu\uc0\u7889 c t\u7871  - Hutech (0%)</option>\
+                                <option value="0" selected>C\uc0\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)</option>\
+                            </select>\
+                        </div>`;\
+                    \}\
+                    if (row[3] == "T\'e1c gi\uc0\u7843  li\'ean h\u7879 ") \{\
+                        vop2 = `<option>T\'e1c gi\uc0\u7843  li\'ean h\u7879 </option>`;\
+                    \}\
+                    if (row[3] == "T\'e1c gi\uc0\u7843  ph\u7909 ") \{\
+                        vop2 = `<option>T\'e1c gi\uc0\u7843  ph\u7909 </option>`;\
+                    \}\
+                    if (row[3] == "T\'e1c gi\uc0\u7843  ch\'ednh") \{\
+                        vop2 = `<option>T\'e1c gi\uc0\u7843  ch\'ednh</option>`;\
+                    \}\
+\
+\
+                    //document.querySelector('#tongtacgia').innerHTML = `<a>T\uc0\u7893 ng s\u7889  t\'e1c gi\u7843 : <a id="tongsltg">$\{sltg\}</a></a>`;\
+                    if (sltgc == 1 && valueloaihinh == "\uc0\u272 \u7873  t\'e0i" && valuerank.includes("GV")) \{\
+                        for (i; i < sltgc; i++) \{\
+                            a += `<tr><td>$\{i + 1\}</td>\
+                            <td ><input class="form-control" type="text" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH" value="$\{data.rank\}"   id="inp-username-id-mail-$\{i\}" oninput="inpsearch($\{i\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="tg-$\{i\}"  class="form-control">\
+                                 <option >Ch\uc0\u7911  nhi\u7879 m</option>\
+                                 <option >Th\'e0nh vi\'ean</option>\
+                                 </select></td></tr>`;\
+                        \}\
+                        for (i; i < (sltgp + sltgc); i++) \{\
+                            a += `<tr><td>$\{i + 1\}</td>\
+                            <td ><input class="form-control" type="text" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH"   id="inp-username-id-mail-$\{i\}" oninput="inpsearch($\{i\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="tg-$\{i\}" class="form-control">\
+                                 <option >Th\'e0nh vi\'ean</option>\
+\
+                            <option >Ch\uc0\u7911  nhi\u7879 m</option>\
+                                 </select>\
+                                 </td>\
+                                 </tr>`;\
+                        \} for (i; i < sltg; i++) \{\
+                            a += `<tr><td>$\{i + 1\}</td>\
+                            <td ><input class="form-control" type="text" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH"   id="inp-username-id-mail-$\{i\}" oninput="inpsearch($\{i\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac" onchange="checknullhutech($\{i\})" id="tg-$\{i\}" class="form-control">\
+                                 <option >Th\'e0nh vi\'ean</option>\
+\
+                                 <option >Ch\uc0\u7911  nhi\u7879 m</option></select>\
+                                 </td></tr>`;\
+                        \}\
+\
+                        try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+\
+                    \}\
+\
+                    if (sltgc == 1 && valueloaihinh == "K\'ea khai kh\uc0\u7889 i l\u432 \u7907 ng" && valuerank.includes("GV")) \{\
+                        a += `<tr><td>$\{i += 1\}</td >\
+                            <td ><input class="form-control" type="text" value="$\{row[1]\}" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH" id="inp-username-id-mail-$\{i - 1\}"   oninput="inpsearch($\{i - 1\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i - 1\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac-$\{i - 1\}" onchange="checknullhutech($\{i + 1\})" id="tg-$\{i - 1\}" class="form-control" disabled>\
+\
+                                 $\{vop2\}\
+\
+                                 </select></td>\
+\
+                                 </tr>`;\
+                        document.querySelector('#addtacgia').innerHTML = ``;\
+                        try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+\
+                    \}\
+                    ///\
+                    if (sltgc == 1 && valueloaihinh == "K\'ea khai kh\uc0\u7889 i l\u432 \u7907 ng" && valuerank.includes("NCV")) \{\
+\
+                        a += `<tr><td>$\{i += 1\}</td >\
+                            <td ><input class="form-control" type="text" value="$\{row[1]\}" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH" id="inp-username-id-mail-$\{i - 1\}"   oninput="inpsearch($\{i - 1\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i - 1\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac-$\{i - 1\}" onchange="checknullhutech($\{i + 1\})" id="tg-$\{i - 1\}" class="form-control" disabled>\
+\
+                                 $\{vop2\}\
+\
+                                 </select></td>\
+\
+                                 </tr>`;\
+                        try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+                    \}\
+                    ///\
+\
+                    if (sltgc == 1 && valueloaihinh == "Nghi\'ean c\uc0\u7913 u m\u7841 nh" && valuerank.includes("GV")) \{\
+                        if (valueloaihinh == "Nghi\'ean c\uc0\u7913 u m\u7841 nh") \{\
+                            var tienrow = row[4] / tien * 100;\
+                            document.querySelector('#tbtacgiasl').innerHTML = `<thead style="background-color: #17a2b8;color: white;">\
+                        <th width="2%">STT</th>\
+                        <th width="20%">M\'e3 nh\'e2n vi\'ean</th>\
+                        <th width="20%">C\uc0\u417  quan c\'f4ng t\'e1c</th>\
+                        <th width="10%">Lo\uc0\u7841 i t\'e1c gi\u7843 </th>\
+                        <th width="7%">\uc0\u272 \'f3ng g\'f3p (%)</th>\
+                        </thead>\
+\
+                        <tbody id="addtacgia" onchange="loadtable()">\
+                        </tbody>`;\
+                        \}\
+                        a += `<tr><td>$\{i += 1\}</td >\
+                            <td ><input class="form-control" type="text" value="$\{row[1]\}" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH" id="inp-username-id-mail-$\{i - 1\}"   oninput="inpsearch($\{i - 1\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i - 1\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac-$\{i - 1\}" onchange="checknullhutech($\{i + 1\})" id="tg-$\{i - 1\}" class="form-control" disabled>\
+\
+                                 $\{vop2\}\
+\
+                                 </select></td>\
+                                 <td ><input class="form-control" type="number" placeholder="Nh\uc0\u7853 p % \u273 \'f3ng g\'f3p" value="$\{tienrow\}" id="donggop-$\{i - 1\}"></td>\
+                                 </tr>`;\
+                        document.querySelector('#addtacgia').innerHTML = ``;\
+                        try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+                        tienrow = 0;\
+\
+                    \}\
+                    if (sltgc == 1 && valueloaihinh == "Nghi\'ean c\uc0\u7913 u m\u7841 nh" && valuerank.includes("NCV")) \{\
+                        ////alert("a");\
+                        if (valueloaihinh == "Nghi\'ean c\uc0\u7913 u m\u7841 nh") \{\
+                            var tienrow = row[4] / tien * 100;\
+                            document.querySelector('#tbtacgiasl').innerHTML = `<thead style="background-color: #17a2b8;color: white;">\
+                        <th width="2%">STT</th>\
+                        <th width="20%">M\'e3 nh\'e2n vi\'ean</th>\
+                        <th width="20%">C\uc0\u417  quan c\'f4ng t\'e1c</th>\
+                        <th width="10%">Lo\uc0\u7841 i t\'e1c gi\u7843 </th>\
+                        <th width="7%">\uc0\u272 \'f3ng g\'f3p (%)</th>\
+                        </thead>\
+\
+                        <tbody id="addtacgia" onchange="loadtable()">\
+                        </tbody>`;\
+                        \}\
+                        a += `<tr><td>$\{i += 1\}</td >\
+                            <td ><input class="form-control" type="text" value="$\{row[1]\}" placeholder="Nh\uc0\u7853 p M\'e3 GV/T\'ean t\'e1c gi\u7843  ph\u7909  thu\u7897 c HUTECH" id="inp-username-id-mail-$\{i - 1\}"   oninput="inpsearch($\{i - 1\},render_user)" />\
+                            <div id="themtg" style="display: flex">\
+                                <div width: 50%">\
+                                    <dl id="dl-user-$\{i - 1\}">\
+                                    </dl>\
+                                </div>\
+                            </div></td>\
+                            <td >$\{vop\}</td>\
+                            <td>\
+                            <div class="form-group">\
+                             <select name="coquancongtac-$\{i - 1\}" onchange="checknullhutech($\{i + 1\})" id="tg-$\{i - 1\}" class="form-control" disabled>\
+\
+                                 $\{vop2\}\
+\
+                                 </select></td>\
+                                 <td ><input class="form-control" type="number" placeholder="Nh\uc0\u7853 p % \u273 \'f3ng g\'f3p" value="$\{tienrow\}" id="donggop-$\{i - 1\}"></td>\
+                                 </tr>`;\
+                        document.querySelector('#addtacgia').innerHTML = ``;\
+                        try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+                        tienrow = 0;\
+\
+                    \}\
+\
+                    else if (sltgc > 1) \{\
+                        toastr.warning("Duy nh\uc0\u7845 t 1 t\'e1c gi\u7843  ch\'ednh!");\
+                    \}\
+                    try \{ document.querySelector('#addtacgia').innerHTML = a; \} catch \{ \}\
+\
+                    /////\
+                    Get_issn(renderGet_issn);\
+                    //document.querySelector('#tbtacgiasl').EditData = false;\
+                \});//\
+\
+            \});\
+        \
+    \}}

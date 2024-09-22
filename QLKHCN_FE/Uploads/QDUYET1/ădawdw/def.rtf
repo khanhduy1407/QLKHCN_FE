@@ -1,0 +1,362 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 if (valuerank == "Gi\uc0\u7843 ng vi\'ean" && valueloaihinh == "Kh\u7889 i l\u432 \u7907 ng") \{\
+                    for (let i = 0; i < sltg; i++) \{\
+                        trtable += `<tr>\
+                        <td>$\{i + 1\}</td>\
+                        <td></td>\
+                        <td></td>\
+                        <td></td>\
+                        <td></td>\
+                        <td></td>\
+                        <td></td>\
+                        <td></td>\
+\
+                    </tr>`;\
+                    \}\
+                    table.innerHTML = trtable;\
+                    for (let i = 0; i < sltg; i++) \{\
+                        var tacgia = document.querySelector('#inp-username-id-mail-' + i).value;\
+                        table.rows[i].cells[1].innerHTML = tacgia;\
+                    \}\
+                    for (let i = 0; i < sltg; i++) \{\
+                        var optionscongtac = document.querySelector('#coquancongtac-' + i);\
+                        var textcongtac = optionscongtac.options[optionscongtac.selectedIndex].textContent;\
+                        table.rows[i].cells[2].innerHTML = textcongtac;\
+                    \} for (let i = 0; i < sltg; i++) \{\
+                        var optionstg = document.querySelector('#tg-' + i);\
+                        var texttg = optionstg.options[optionstg.selectedIndex].textContent;\
+                        table.rows[i].cells[3].innerHTML = texttg;\
+                    \}\
+                    if (sltgc == 1 && sltgp > 0 && sltglh == 0) \{\
+                        if (sltgc == 1 && sltgp > 0 && sltglh == 0) \{\
+                            for (let i = 0; i < sltg; i++) \{\
+                                var coquan = table.rows[0].cells[2].textContent;\
+                                try \{ var donggop = Number(document.querySelector('#donggop-' + i).value); \} catch \{ \}\
+                                if (sltg > 1) \{\
+                                    if (coquan == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || coquan == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `0`;\
+                                        table.rows[0].cells[7].innerHTML = `0`;\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.2 / sltgp\}`;\
+\
+                                            \}\
+\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.2 / sltgp\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \} if (coquan == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                        if (hdsv == "HDSV") \{\
+                                            table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                        \} else \{\
+                                            table.rows[0].cells[7].innerHTML = `$\{tietchuan / 2 * 0.8\}`;\
+                                        \}\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.2 / sltgp\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.2 / sltgp\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \} else if (coquan == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                        if (hdsv == "HDSV") \{\
+                                            table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                        \} else \{\
+                                            table.rows[0].cells[7].innerHTML = `$\{tietchuan * 0.8\}`;\
+                                        \}\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.2 / sltgp\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.2 / sltgp\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \}\
+                                \}\
+                            \}\
+\
+                        \}\
+                    \}\
+                        if (sltgc == 1 && sltgp == 0 && sltglh > 0) \{\
+                            for (let i = 1; i < sltg; i++) \{\
+                                var coquan = table.rows[0].cells[2].textContent;\
+                                try \{ var donggop = Number(document.querySelector('#donggop-' + i).value); \} catch \{ \}\
+                                if (sltg > 1) \{\
+                                    if (coquan == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || coquan == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `0`;\
+                                        table.rows[0].cells[7].innerHTML = `0`;\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \} if (coquan == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                        if (hdsv == "HDSV") \{\
+                                            table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                        \} else \{\
+                                            table.rows[0].cells[7].innerHTML = `$\{tietchuan / 2 * 0.5\}`;\
+                                        \}\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \} else if (coquan == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                        table.rows[0].cells[4].innerHTML = `0`;\
+                                        table.rows[0].cells[5].innerHTML = `0`;\
+                                        table.rows[0].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                        if (hdsv == "HDSV") \{\
+                                            table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                        \} else \{\
+                                            table.rows[0].cells[7].innerHTML = `$\{tietchuan * 0.5\}`;\
+                                        \}\
+                                        if (table.rows[i].cells[2].textContent == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                            if (hdsv == "HDSV") \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                            \} else \{\
+                                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / 2 * 0.5 / sltglh\}`;\
+                                            \}\
+                                        \} if (table.rows[i].cells[2].textContent == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || table.rows[i].cells[2].textContent == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                            table.rows[i].cells[4].innerHTML = `0`;\
+                                            table.rows[i].cells[5].innerHTML = `0`;\
+                                            table.rows[i].cells[6].innerHTML = `0`;\
+                                            table.rows[i].cells[7].innerHTML = `0`;\
+                                        \}\
+                                    \}\
+                                \}\
+                            \}\
+                    \}\
+                    else if (sltg > 2 && (sltgc + sltglh) > 1 && sltgp > 0) \{\
+                        for (let i = 0; i < sltg; i++) \{\
+                            try \{ var donggop = Number(document.querySelector('#donggop-' + i).value); \} catch \{ \}\
+\
+                            var coquan = table.rows[i].cells[2].textContent;\
+                            var optionstg1 = document.querySelector('#tg-' + i);\
+                            var texttg1 = optionstg1.options[optionstg1.selectedIndex].textContent;\
+\
+                            if (coquan == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || coquan == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                                table.rows[i].cells[4].innerHTML = `0`;\
+                                table.rows[i].cells[5].innerHTML = `0`;\
+                                table.rows[i].cells[6].innerHTML = `0`;\
+                                table.rows[i].cells[7].innerHTML = `0`;\
+                            \} else if (coquan == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                                if (texttg1 == "T\'e1c gi\uc0\u7843  ch\'ednh") \{\
+                                    table.rows[i].cells[4].innerHTML = `0`;\
+                                    table.rows[i].cells[5].innerHTML = `0`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                    if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{(((tietchuan * 0.8) / (sltgc + sltglh))) / 2\}`;\
+                                    \}\
+\
+                                \} else if (texttg1 == "T\'e1c gi\uc0\u7843  ph\u7909 ") \{\
+                                    table.rows[i].cells[4].innerHTML = `0`;\
+                                    table.rows[i].cells[5].innerHTML = `0`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                    if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{(tietchuan * 0.2) / 2 / sltgp\}`;\
+                                    \}\
+                                \} else if (texttg1 == "T\'e1c gi\uc0\u7843  li\'ean h\u7879 ") \{\
+                                    table.rows[i].cells[4].innerHTML = `0`;\
+                                    table.rows[i].cells[5].innerHTML = `0`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                    if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{(tietchuan * 0.8) / 2 / (sltgc + sltglh)\}`;\
+                                    \}\
+                                \}\
+\
+                            \} else if (coquan == "C\uc0\u417  quan c\'f4ng t\'e1c duy nh\u7845 t Hutech (100%)") \{\
+                                if (texttg1 == "T\'e1c gi\uc0\u7843  ch\'ednh") \{\
+\
+                                    table.rows[i].cells[4].innerHTML = `$\{(((total * 0.75) / (sltgc + sltglh)))\}`;\
+                                    table.rows[i].cells[5].innerHTML = `$\{(((total * 0.75) / (sltgc + sltglh))) * 0.9\}`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                    if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{(((tietchuan * 0.8) / (sltgc + sltglh)))\}`;\
+                                    \}\
+\
+                                \} else if (texttg1 == "T\'e1c gi\uc0\u7843  ph\u7909 ") \{\
+                                    table.rows[i].cells[4].innerHTML = `$\{total * 0.25 / sltgp\}`;\
+                                    table.rows[i].cells[5].innerHTML = `$\{((total * 0.25) / sltgp) * 0.9\}`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`; if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan * 0.2 / sltgp\}`;\
+                                    \}\
+                                \} else if (texttg1 == "T\'e1c gi\uc0\u7843  li\'ean h\u7879 ") \{\
+                                    table.rows[i].cells[4].innerHTML = `$\{((total * 0.75) / (sltgc + sltglh))\}`;\
+                                    table.rows[i].cells[5].innerHTML = `$\{((total * 0.75) / (sltgc + sltglh)) * 0.9\}`;\
+                                    table.rows[i].cells[6].innerHTML = `$\{diem / 2\}`;\
+                                    if (hdsv == "HDSV") \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                                    \} else \{\
+                                        table.rows[i].cells[7].innerHTML = `$\{((tietchuan * 0.8) / (sltgc + sltglh))\}`;\
+                                    \}\
+                                \}\
+                            \}\
+\
+                        \}\
+                    \}\
+\
+\
+                    if (sltgc == 1 && sltg == 1) \{\
+                        var coquan = table.rows[0].cells[2].textContent;\
+                        try \{\
+                            var donggop = Number(document.querySelector('#donggop-0').value);\
+\
+                        \} catch \{ \}\
+\
+                        if (coquan == "Qu\uc0\u7889 c t\u7871  - Hutech (0%)" || coquan == "C\u417  quan c\'f4ng t\'e1c trong n\u432 \u7899 c - ngo\'e0i Hutech (0%)") \{\
+                            table.rows[0].cells[4].innerHTML = `0`;\
+                            table.rows[0].cells[5].innerHTML = `0`;\
+                            table.rows[0].cells[6].innerHTML = `0`;\
+                            table.rows[0].cells[7].innerHTML = `0`;\
+\
+                        \} else if (coquan == "Hutech-Qu\uc0\u7889 c t\u7871  (50%)") \{\
+                            table.rows[0].cells[4].innerHTML = `$\{total / 2\}`;\
+                            table.rows[0].cells[5].innerHTML = `$\{(total / 2) * 0.9\}`;\
+                            table.rows[0].cells[6].innerHTML = `$\{diem\}`;\
+                            if (hdsv == "HDSV") \{\
+                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                            \} else \{\
+                                table.rows[0].cells[7].innerHTML = `$\{tietchuan\}`;\
+                            \}\
+                        \} else \{\
+                            table.rows[0].cells[4].innerHTML = `$\{total\}`;\
+                            table.rows[0].cells[5].innerHTML = `$\{(total) * 0.9\}`;\
+                            table.rows[0].cells[6].innerHTML = `$\{diem\}`;\
+                            if (hdsv == "HDSV") \{\
+                                table.rows[i].cells[7].innerHTML = `$\{tietchuan / sltg\}`;\
+                            \} else \{\
+                                table.rows[0].cells[7].innerHTML = `$\{tietchuan\}`;\
+                            \}\
+                        \}\
+                    \}\
+                \}}

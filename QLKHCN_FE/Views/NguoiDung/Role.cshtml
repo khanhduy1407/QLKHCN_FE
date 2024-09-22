@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">XÉT DUYỆT NCKH</h3>
+    </div>
+    <div class="card-body">
+        <select id="mySelect">
+            <option value="Quyền cao nhất" selected>Quyền master</option>
+            <option value="Quyền duyệt 1">Duyệt 1</option>
+            <option value="Quyền duyệt 2">Duyệt 2</option>
+            <option value="Quyền duyệt 3">Duyệt 3</option>
+            <option value="">Người dùng</option>
+        </select>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="table-container">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>UserID</th>
+                        <th>Họ tên</th>
+                        <th>Đơn vị công tác</th>
+                        <th>Chức danh</th>
+                        <th>Quyền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function getData() {
+            fetch('https://localhost:44364/api/NguoiDung/Get-all', {
+                headers: {
+                    'Authorization': 'Bearer ' + _token,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#example1 tbody');
+                    data.forEach(function (row) {
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = "<td width='5%' align='center'>" + row.idUser + "</td>" +
+                            "<td>" + row.hoTen + "</td>" +
+                            "<td>" + row.donViCongTac + "</td>" +
+                            "<td>" + row.chucDanh + "</td>" +
+                            "<td width='20%'><select onchange='changeQuyen(`" + row.idUser + "`)' id='quyen" + row.idUser + "' class='custom-select'>" +
+                                    "<option value=''" + (row.quyen == "" ? " selected" : "") + ">Người dùng</option>" +
+                                    "<option value='Quyền cao nhất'" + (row.quyen == "Quyền cao nhất" ? " selected" : "") + ">Quyền cao nhất</option>" +
+                                    "<option value='Quyền duyệt 1'" + (row.quyen == "Quyền duyệt 1" ? " selected" : "") + ">Quyền duyệt lần 1</option>" +
+                                    "<option value='Quyền duyệt 2'" + (row.quyen == "Quyền duyệt 2" ? " selected" : "") + ">Quyền duyệt lần 2</option>" +
+                                    "<option value='Quyền duyệt 3'" + (row.quyen == "Quyền duyệt 3" ? " selected" : "") + ">Quyền duyệt lần 3</option>" +
+                            "</select></td>";
+                        tbody.appendChild(tr);
+                    });
+                    $(function () {
+                        $("#example1").DataTable({
+                            "paging": true,
+                            "searching": true,
+                            "ordering": true,
+                            "info": true,
+                            "responsive": true, "lengthChange": false, "autoWidth": false,
+                            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                    });
+                });
+
+        }
+        getData();
+
+    });
+
+    function changeQuyen(idUser) {
+        var value = document.getElementById('quyen' + idUser).value.toString();
+        var linksend = `https://localhost:44364/api/NguoiDung/Update/` + idUser;
+        var options = {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + _token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value),
+        };
+        fetch(linksend, options)
+            .then(response => {
+                if (response.ok) {
+                    toastr.warning('Sửa thành công');
+                    
+                } else {
+                    toastr.warning('Có lỗi');
+                }
+            });
+    }
+</script>
