@@ -323,4 +323,25 @@
         }
       });
   }
+
+  function importExcel() {
+    const input = document.querySelector('#importFileInput');
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('https://localhost:44364/api/NguoiDung/ImportExcel', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + _token,
+      },
+      body: formData
+    })
+      .then(response => {
+        if (!response.ok) {
+          return alert("Có lỗi xảy ra");
+        }
+        return alert("Nhập dữ liệu thành công");
+      })
+  }
 </script>
