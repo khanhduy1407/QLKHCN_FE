@@ -16,7 +16,7 @@
     // add list
     years.Add(new
     {
-      Year = $"{year}",
+      Year = $"{year}-07-01 00:00:00.0000000",
       YearOption = $"{year} - {nextYear}"
     });
   }
@@ -7338,15 +7338,9 @@
         }
   }
 
-    var myString = _idUser;
-    var decodedIdUser = decodeURIComponent(myString.replace(/&#(\d+);/g, function (match, dec) {
-        return String.fromCharCode(dec);
-    }));
-    var result = decodedIdUser.replace("Đ", "&#208;");
-    ////////alert("https://localhost:44364/api/NguoiDung/Get-user-id?input=" + decodedIdUser);
+    ////////alert("https://localhost:44364/api/NguoiDung/Get-user-id?input=" + _idUser);
     function Get_DonVi(callback) {
-
-        fetch(`https://localhost:44364/api/NguoiDung/Get-user-id?input=${decodedIdUser}`, {
+      fetch(`https://localhost:44364/api/NguoiDung/Get-user-id?input=${_idUser}`, {
             headers: {
                 'Authorization': 'Bearer ' + _token,
                 'Content-Type': 'application/json'
@@ -7358,7 +7352,6 @@
             .then(callback)
     }
     /////////
-    ////alert(decodedIdUser);
     var tenuser = "";
 
     function render_dv(dv) {
@@ -8613,11 +8606,7 @@
         } else {
             //document.getElementById("create").disabled = false;
         }
-        ////////alert(decodedIdUser);
-        var myString = _idUser;
-        var decodedIdUser = decodeURIComponent(myString.replace(/&#(\d+);/g, function (match, dec) {
-            return String.fromCharCode(dec);
-        }));
+        ////////
         var timeline = document.getElementById("timeline");
         timeline.addEventListener("change", function () {
             ////alert("a");
@@ -8628,10 +8617,10 @@
             getData();
 
         });
-        ////alert(decodedIdUser);
+        ////alert(_idUser);
         function getData() {
             var timeline = document.getElementById("timeline").value;
-          fetch('https://localhost:44364/api/DanhMucXetDuyet/Get-by-userid?userid=' + decodedIdUser + "&dtString=" + timeline, {
+          fetch('https://localhost:44364/api/DanhMucXetDuyet/Get-by-userid?userid=' + _idUser + "&startTimes=" + timeline, {
                 headers: {
                     'Authorization': 'Bearer ' + _token,
                     'Content-Type': 'application/json'
@@ -8664,7 +8653,7 @@
                         };
                         var grtg = row.groupUser;
 
-                        var tacgia = getOneAuthor(grtg, decodedIdUser);
+                        var tacgia = getOneAuthor(grtg, _idUser);
                         ////////alert(tacgia + "/// " + _idUser);
                         var tr = document.createElement('tr');
                         var ccs = "";
@@ -9442,7 +9431,7 @@
         if (!timeline) {
             timeline = "2020-01-01 00:00:00.0000000";
         }
-        var url = 'https://localhost:44364/api/DanhMucXetDuyet/ExcelUserid?userid=' + encodeURIComponent(decodedIdUser) + '&xuat=' + xuat + '&startTime=' + encodeURIComponent(timeline);
+        var url = 'https://localhost:44364/api/DanhMucXetDuyet/ExcelUserid?userid=' + _idUser + '&xuat=' + xuat + '&startTime=' + encodeURIComponent(timeline);
 
         fetch(url, {
             headers: {
@@ -10442,7 +10431,6 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
         var ghichu = sessionStorage.getItem("GhiChu");
         ////alert(ghichu);
         ////alert(Khoa + " - " + hoten);
-        ////////alert(decodedIdUser);
         ////////alert(loaiCongtrinh);
         if (iddmxd == "") {
             var data = {
@@ -10482,7 +10470,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 issn: valuelbissn,
                 eissn: valuelbeissn,
                 category: valuecategory,
-                citations: NguoiSua + decodedIdUser + "; ",
+                citations: NguoiSua + _idUser + "; ",
                 if_2022: trangthai,
                 jci: Khoa + " - " + hoten,
                 percentageOAGold: "",
