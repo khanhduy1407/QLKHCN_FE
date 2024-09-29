@@ -224,17 +224,24 @@ namespace QLKHCN_FE.Controllers
                     dynamic obj = JsonConvert.DeserializeObject(responseContent);
                     string token = obj.token;
 
-                    var chucdanh = obj.chucDanh;
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var authtoken = tokenHandler.ReadJwtToken(token);
+                    var claims = authtoken.Claims;
+                    var chucdanh = claims.FirstOrDefault(c => c.Type == "ChucDanh")?.Value;
 
                     string ngach = "GV";
 
+                    if (chucdanh.Contains("NCV"))
+                    {
+                        ngach = "NCV";
+                    }
                     var userlogin = new UserLogin
                     {
-                        IDUser = obj.idUser,
-                        HoTen = obj.hoTen,
+                        IDUser = claims.FirstOrDefault(c => c.Type == "IDUser")?.Value,
+                        HoTen = claims.FirstOrDefault(c => c.Type == "HoTen")?.Value,
                         Ngach = ngach,
-                        Role = "0",
-                        Token = stoken
+                        Role = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value,
+                        Token = token
                     };
                     HttpContext.Session.Add("CurrentUser", userlogin);
 
