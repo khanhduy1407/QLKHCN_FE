@@ -65,13 +65,27 @@
       </a>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="@Url.Action("Index","DanhMucScimago")">
+        <i class="bi bi-boxes"></i>
+        <span>Danh mục Scopus</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="@Url.Action("Index","DanhMucTrongNuoc")">
+        <i class="bi bi-buildings"></i>
+        <span>Danh mục HDGSNN</span>
+      </a>
+    </li>
+
     <li class="nav-heading">Danh mục (mới)</li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+      <a class="nav-link collapsed" data-bs-target="#wos-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-database"></i><span>Danh mục WOS</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="wos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         @for (int i = currentYear - numberOfYears + 1; i <= currentYear; i++)
         {
           <li>
@@ -85,17 +99,37 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="@Url.Action("Index","DanhMucScimago")">
-        <i class="bi bi-boxes"></i>
-        <span>Danh mục Scopus</span>
+      <a class="nav-link collapsed" data-bs-target="#scopus-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-boxes"></i><span>Danh mục Scopus</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
+      <ul id="scopus-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        @for (int i = currentYear - numberOfYears + 1; i <= currentYear; i++)
+        {
+          <li>
+            <a href="@Url.Action("Index", $"DanhMucScopus{i}")">
+              <i class="bi bi-circle"></i>
+              <span>Danh mục Scopus @i</span>
+            </a>
+          </li>
+        }
+      </ul>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="@Url.Action("Index","DanhMucTrongNuoc")">
-        <i class="bi bi-buildings"></i>
-        <span>Danh mục HDGSNN</span>
+      <a class="nav-link collapsed" data-bs-target="#hdgsnn-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-buildings"></i><span>Danh mục HDGSNN</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
+      <ul id="hdgsnn-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        @for (int i = currentYear - numberOfYears + 1; i <= currentYear; i++)
+        {
+          <li>
+            <a href="@Url.Action("Index", $"DanhMucHDGSNN{i}")">
+              <i class="bi bi-circle"></i>
+              <span>Danh mục HDGSNN @i</span>
+            </a>
+          </li>
+        }
+      </ul>
     </li>
 
     <li class="nav-item">
