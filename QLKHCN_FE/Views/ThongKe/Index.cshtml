@@ -1,6 +1,6 @@
 ﻿@{
   ViewBag.Title = "Index";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+  Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
 @{
@@ -72,247 +72,205 @@
     flex-grow: 1;
   }
 </style>
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">THỐNG KÊ</h3>
-    <select id="timeline">
-      <option selected disabled>-- Chọn năm học để xem thống kê --</option>
-      @foreach (var year in years)
-      {
-        <option value="@year.Year">@year.YearOption</option>
-      }
-    </select>
-    @*<input type="text" placeholder="Search" id="searchData" />
+
+<div class="pagetitle">
+  <h1>THỐNG KÊ</h1>
+  <select id="timeline">
+    <option selected disabled>-- Chọn năm học để xem thống kê --</option>
+    @foreach (var year in years)
+    {
+      <option value="@year.Year">@year.YearOption</option>
+    }
+  </select>
+  @*<input type="text" placeholder="Search" id="searchData" />
     <button class="btn btn-primary">Tìm kiếm</button>*@
-  </div>
 </div>
 
 <!-- Content Wrapper. Contains page content -->
 <!-- Main content -->
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <!-- AREA CHART -->
-        <div class="card card-primary" style=" display: none; ">
-          <div class="card-header">
-            <h3 class="card-title">Area Chart</h3>
+<section class="section">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- AREA CHART -->
+      <div class="card card-primary" style=" display: none; ">
+        <div class="card-header">
+          <h3 class="card-title">Area Chart</h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-          </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-        <!-- DONUT CHART -->
-        <div class="card card-danger" id="card1">
-          <div class="card-header">
-            <h3 class="card-title" id="totalBaiBaoMsg">(Tổng cộng có ... bài báo đã được nộp)</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
-          <div class="card-body">
-            <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            <div class="pagination">
-              <button id="previousPageBtn1" class="btn btn-primary" style="display: none">Trang trước</button>
-              <div class="pagination-nav">
-                <button id="nextPageBtn1" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
-              </div>
-            </div>
-            <!-- Thêm thẻ p để chứa thông báo -->
-
-          </div>
-          <!-- /.card-body -->
         </div>
-
-        <!-- /.card -->
-        <!-- PIE CHART -->
-        <div class="card card-danger" id="card2">
-          <div class="card-header">
-            <h3 class="card-title" id="totalUserMsg"></h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            <div class="pagination">
-
-              <button id="previousPageBtn2" class="btn btn-primary" style="display: none">Trang trước</button>
-
-              <div class="pagination-nav">
-                <button id="nextPageBtn2" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+        <!-- /.card-body -->
       </div>
-      <script>
+      <!-- /.card -->
+      <!-- DONUT CHART -->
+      <div class="card card-danger" id="card1">
+        <div class="card-body">
+          <h3 class="card-title" id="totalBaiBaoMsg">(Tổng cộng có ... bài báo đã được nộp)</h3>
 
-        if (_quyen == "Quyền cao nhất") {
-          document.getElementById("card1").style.display = "block";
-          document.getElementById("card2").style.display = "block";
-        } else {
-          document.getElementById("card1").style.display = "none";
-          document.getElementById("card2").style.display = "none";
-        }
-      </script>
-      <!-- /.col (LEFT) -->
-      <div class="col-md-6">
-        <!-- LINE CHART -->
-        <div class="card card-info" style=" display: none; ">
-          <div class="card-header">
-            <h3 class="card-title">Biểu đồ đường (Đợi cập nhật tiếp theo)</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
+          <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <div class="pagination">
+            <button id="previousPageBtn1" class="btn btn-primary" style="display: none">Trang trước</button>
+            <div class="pagination-nav">
+              <button id="nextPageBtn1" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
             </div>
           </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              <div class="pagination">
+          <!-- Thêm thẻ p để chứa thông báo -->
 
-                <button id="previousPageBtn3" class="btn btn-primary">Trang trước</button>
-
-                <div class="pagination-nav">
-                  <button id="nextPageBtn3" class="btn btn-primary">Trang tiếp theo</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-        <!-- BAR CHART -->
-        <div class="card card-success" style=" display: none; ">
-          <div class="card-header">
-            <h3 class="card-title">Bar Chart</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              <div class="pagination">
-
-                <button id="previousPageBtn4" class="btn btn-primary">Trang trước</button>
-
-                <div class="pagination-nav">
-                  <button id="nextPageBtn4" class="btn btn-primary">Trang tiếp theo</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-        <!-- STACKED BAR CHART -->
-        <div class="card card-success">
-          <div class="card-header">
-            <h3 class="card-title">Thống kê số bài báo theo trạng thái</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              <div class="pagination">
-
-                <button id="previousPageBtn5" class="btn btn-primary" style="display: none">Trang trước</button>
-
-                <div class="pagination-nav">
-                  <button id="nextPageBtn5" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-
-        <!-- STACKED BAR CHART THỂ LOẠI -->
-        <div class="card card-success">
-          <div class="card-header" style=" background-color: #fd7e14;">
-            <h3 class="card-title">Thống kê số bài báo theo thể loại</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="stackedBarChart_Theloai" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              <div class="pagination">
-
-                <button id="previousPageBtn6" class="btn btn-primary" style="display: none">Trang trước</button>
-
-                <div class="pagination-nav">
-                  <button id="nextPageBtn6" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+        <!-- /.card-body -->
       </div>
-      <!-- /.col (RIGHT) -->
+
+      <!-- /.card -->
+      <!-- PIE CHART -->
+      <div class="card card-danger" id="card2">
+        <div class="card-body">
+          <h3 class="card-title" id="totalUserMsg"></h3>
+
+          <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <div class="pagination">
+
+            <button id="previousPageBtn2" class="btn btn-primary" style="display: none">Trang trước</button>
+
+            <div class="pagination-nav">
+              <button id="nextPageBtn2" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+    <script>
+
+      if (_quyen == "Quyền cao nhất") {
+        document.getElementById("card1").style.display = "block";
+        document.getElementById("card2").style.display = "block";
+      } else {
+        document.getElementById("card1").style.display = "none";
+        document.getElementById("card2").style.display = "none";
+      }
+    </script>
+    <!-- /.col (LEFT) -->
+    <div class="col-md-6">
+      <!-- LINE CHART -->
+      <div class="card card-info" style=" display: none; ">
+        <div class="card-header">
+          <h3 class="card-title">Biểu đồ đường (Đợi cập nhật tiếp theo)</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <div class="pagination">
+
+              <button id="previousPageBtn3" class="btn btn-primary">Trang trước</button>
+
+              <div class="pagination-nav">
+                <button id="nextPageBtn3" class="btn btn-primary">Trang tiếp theo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+      <!-- BAR CHART -->
+      <div class="card card-success" style=" display: none; ">
+        <div class="card-header">
+          <h3 class="card-title">Bar Chart</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <div class="pagination">
+
+              <button id="previousPageBtn4" class="btn btn-primary">Trang trước</button>
+
+              <div class="pagination-nav">
+                <button id="nextPageBtn4" class="btn btn-primary">Trang tiếp theo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+      <!-- STACKED BAR CHART -->
+      <div class="card card-success">
+        <div class="card-body">
+          <h3 class="card-title">Thống kê số bài báo theo trạng thái</h3>
+
+          <div class="chart">
+            <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <div class="pagination">
+
+              <button id="previousPageBtn5" class="btn btn-primary" style="display: none">Trang trước</button>
+
+              <div class="pagination-nav">
+                <button id="nextPageBtn5" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+
+      <!-- STACKED BAR CHART THỂ LOẠI -->
+      <div class="card card-success">
+        <div class="card-body">
+          <h3 class="card-title">Thống kê số bài báo theo thể loại</h3>
+
+          <div class="chart">
+            <canvas id="stackedBarChart_Theloai" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            <div class="pagination">
+
+              <button id="previousPageBtn6" class="btn btn-primary" style="display: none">Trang trước</button>
+
+              <div class="pagination-nav">
+                <button id="nextPageBtn6" class="btn btn-primary" style="display: none">Trang tiếp theo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col (RIGHT) -->
+  </div>
+  <!-- /.row -->
 </section>
 <!-- /.content -->
 <!-- /.content-wrapper -->
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     function hideAllCharts() {
