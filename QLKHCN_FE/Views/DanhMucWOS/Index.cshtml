@@ -6,7 +6,7 @@
 <div class="pagetitle" style=" display: flex; align-items: center; justify-content: space-between;">
   <h1>DANH MỤC WOS @ViewBag.Year</h1>
   <div style=" display: flex; align-items: center;">
-    <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-lg-create">Thêm mới</a>
+    <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-lg-create">Thêm mới</a>
     <input type="file" id="importFileInput" accept=".xlsx,.xls">
     <button class="btn btn-sm btn-success" onclick="importExcel()">Import Excel</button>
   </div>
@@ -40,13 +40,11 @@
 </section>
 
 <div class="modal fade" id="modal-lg-create" data-backdrop="static">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Thêm mới</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="card">
@@ -55,32 +53,32 @@
             <div class="card-body">
               <div class="form-group">
                 <div class="form-group">
-                  <label for="tentapchicr">Tên tạp chí:</label>
+                  <label for="tentapchicr" class="form-label">Tên tạp chí:</label>
                   <input type="text" class="form-control" id="tentapchicr">
                 </div>
                 <div class="form-group">
-                  <label for="issncr">ISSN:</label>
+                  <label for="issncr" class="form-label">ISSN:</label>
                   <input type="text" class="form-control" id="issncr">
                 </div>
                 <div class="form-group">
-                  <label for="eissncr">EISSN:</label>
+                  <label for="eissncr" class="form-label">EISSN:</label>
                   <input type="text" class="form-control" id="eissncr">
                 </div>
                 <div class="row">
                   <div class="form-group col-6">
-                    <label for="category_1cr">Danh mục 1:</label>
+                    <label for="category_1cr" class="form-label">Danh mục 1:</label>
                     <input type="text" class="form-control" id="category_1cr">
                   </div>
                   <div class="form-group col-6">
-                    <label for="category_2cr">Danh mục 2:</label>
+                    <label for="category_2cr" class="form-label">Danh mục 2:</label>
                     <input type="text" class="form-control" id="category_2cr">
                   </div>
                   <div class="form-group col-6">
-                    <label for="category_3cr">Danh mục 3:</label>
+                    <label for="category_3cr" class="form-label">Danh mục 3:</label>
                     <input type="text" class="form-control" id="category_3cr">
                   </div>
                   <div class="form-group col-6">
-                    <label for="category_4cr">Danh mục 4:</label>
+                    <label for="category_4cr" class="form-label">Danh mục 4:</label>
                     <input type="text" class="form-control" id="category_4cr">
                   </div>
                 </div>
@@ -91,7 +89,7 @@
         </div>
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='/DanhMucScimago2023/Index'">Close</button>
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal" onclick="location.href='@("/DanhMucWOS" + ViewBag.Year + "/Index")'">Close</button>
         <button type="button" class="btn btn-primary" onclick="themMoi()">Add</button>
       </div>
     </div>
