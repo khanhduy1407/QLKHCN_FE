@@ -1,40 +1,44 @@
 ﻿@{
   ViewBag.Title = "Index";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+  Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
-<div class="card">
-  <div class="card-header" style=" display: flex; align-items: center; justify-content: space-between;">
-    <h3 class="card-title">DANH MỤC WOS @ViewBag.Year</h3>
-    <div style=" display: flex; align-items: center;">
-      <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-lg-create">Thêm mới</a>
-      <input type="file" id="importFileInput" accept=".xlsx,.xls">
-      <button class="btn btn-sm btn-success" onclick="importExcel()">Import Excel</button>
-    </div>
-  </div>
-  <!-- /.card-header -->
-  <div class="card-body" style="width: 100%!important; overflow-x: auto;">
-    <table id="example3" class="table table-bordered small table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Tên tạp chí</th>
-          <th>ISSN</th>
-          <th>EISSN</th>
-          <th>Danh mục 1</th>
-          <th>Danh mục 2</th>
-          <th>Danh mục 3</th>
-          <th>Danh mục 4</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    <!-- /.card-body -->
+<div class="pagetitle" style=" display: flex; align-items: center; justify-content: space-between;">
+  <h1>DANH MỤC WOS @ViewBag.Year</h1>
+  <div style=" display: flex; align-items: center;">
+    <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-lg-create">Thêm mới</a>
+    <input type="file" id="importFileInput" accept=".xlsx,.xls">
+    <button class="btn btn-sm btn-success" onclick="importExcel()">Import Excel</button>
   </div>
 </div>
+
+<section class="section">
+  <div class="card">
+    <h5 class="card-title"></h5>
+
+    <div class="card-body" style="width: 100%!important; overflow-x: auto;">
+      <table id="example3" class="table table-bordered small table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên tạp chí</th>
+            <th>ISSN</th>
+            <th>EISSN</th>
+            <th>Danh mục 1</th>
+            <th>Danh mục 2</th>
+            <th>Danh mục 3</th>
+            <th>Danh mục 4</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <div class="modal fade" id="modal-lg-create" data-backdrop="static">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -130,13 +134,13 @@
         {
           "data": null, "width": "3%", "orderable": false,
           "render": function (data, type, row, meta) {
-            return "<a type='button' data-toggle='modal' data-target='#modal-lg' onclick='xemchitiet(" + row.number + ")'><i class='fas fa-edit' style='color: #3276b1;'></i></a>";
+            return "<a type='button' data-toggle='modal' data-target='#modal-lg' onclick='xemchitiet(" + row.number + ")'><i class='bi bi-pencil-square' style='color: #3276b1;'></i></a>";
           }
         },
         {
           "data": null, "width": "3%", "orderable": false,
           "render": function (data, type, row, meta) {
-            return "<a type='button' onclick='deleteItem(" + row.number + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a>";
+            return "<a type='button' onclick='deleteItem(" + row.number + ")'><i class='bi bi-trash' style='color: #c82333;'></i></a>";
           }
         }
       ]
