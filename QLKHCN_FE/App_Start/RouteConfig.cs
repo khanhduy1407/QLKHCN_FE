@@ -16,6 +16,20 @@ namespace QLKHCN_FE
                 defaults: new { controller = "DanhMucWOS", action = "Index", year = UrlParameter.Optional }
             );
 
+            // Route dành cho các năm động (cụ thể cho Scopus)
+            routes.MapRoute(
+                name: "DanhMucScopus",
+                url: "DanhMucScopus{year}/{action}",
+                defaults: new { controller = "DanhMucScopus", action = "Index", year = UrlParameter.Optional }
+            );
+
+            // Route dành cho các năm động (cụ thể cho HDGSNN)
+            routes.MapRoute(
+                name: "DanhMucHDGSNN",
+                url: "DanhMucHDGSNN{year}/{action}",
+                defaults: new { controller = "DanhMucHDGSNN", action = "Index", year = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "DefaultWithToken",
                 url: "{controller}/{action}/{id}/{request}",

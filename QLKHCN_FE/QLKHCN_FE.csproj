@@ -147,6 +147,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DanhMucScopusController.cs" />
+    <Compile Include="Controllers\DanhMucHDGSNNController.cs" />
     <Compile Include="Controllers\DanhMucWOSController.cs" />
     <Compile Include="Controllers\DanhMucTrongNuocController.cs" />
     <Compile Include="Controllers\DanhMucScimagoController.cs" />
@@ -3533,6 +3535,8 @@
     <Content Include="Views\DanhMucWOS\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutNew.cshtml" />
     <Content Include="Views\Shared\_PartialSideBarNew.cshtml" />
+    <Content Include="Views\DanhMucScopus\Index.cshtml" />
+    <Content Include="Views\DanhMucHDGSNN\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
