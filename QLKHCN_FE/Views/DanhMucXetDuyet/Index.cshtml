@@ -1,6 +1,6 @@
 ﻿@{
   ViewBag.Title = "Index";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+  Layout = "~/Views/Shared/_LayoutNew.cshtml";
 }
 
 @{
@@ -166,8 +166,9 @@
       height: 50px;
       border: none;
       cursor: pointer;
-/*      z-index: 9999;*/
+      /*      z-index: 9999;*/
     }
+
     div[class^="col"].file-item {
       position: relative;
       padding: 10px;
@@ -176,21 +177,21 @@
     }
 
     .timeline-steps {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap
-}
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap
+    }
 
-.timeline-steps .timeline-step {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 1rem
-}
+      .timeline-steps .timeline-step {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin: 1rem
+      }
 
-@@media (min-width:768px) {
-    .timeline-steps .timeline-step:not(:last-child):after {
+    @@media (min-width:768px) {
+      .timeline-steps .timeline-step:not(:last-child):after {
         content: "";
         display: block;
         border-top: .25rem dotted #3b82f6;
@@ -198,8 +199,9 @@
         position: absolute;
         left: 7.5rem;
         top: .3125rem
-    }
-    .timeline-steps .timeline-step:not(:first-child):before {
+      }
+
+      .timeline-steps .timeline-step:not(:first-child):before {
         content: "";
         display: block;
         border-top: .25rem dotted #3b82f6;
@@ -207,173 +209,180 @@
         position: absolute;
         right: 7.5rem;
         top: .3125rem
+      }
     }
-}
 
-.timeline-steps .timeline-content {
-    width: 10rem;
-    text-align: center
-}
+    .timeline-steps .timeline-content {
+      width: 10rem;
+      text-align: center
+    }
 
-.timeline-steps .timeline-content .inner-circle {
-    border-radius: 50%;
-    height: 1rem;
-    width: 1rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #3b82f6
-}
+      .timeline-steps .timeline-content .inner-circle {
+        border-radius: 50%;
+        height: 1rem;
+        width: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #3b82f6
+      }
 
-.timeline-steps .timeline-content .inner-circle:before {
-    content: "";
-    background-color: #3b82f6;
-    display: inline-block;
-    height: 2rem;
-    width: 2rem;
-    min-width: 2rem;
-    border-radius: 50%;
-    opacity: .5
-}
-.timeline-steps .timeline-content .inner-circle.tick,
-.timeline-steps .timeline-content .inner-circle.tick:before {
-    background-color: #4CAF50;
-}
-.timeline-steps .timeline-content .inner-circle.cross,
-.timeline-steps .timeline-content .inner-circle.cross:before {
-    background-color: #F44336;
-}
+        .timeline-steps .timeline-content .inner-circle:before {
+          content: "";
+          background-color: #3b82f6;
+          display: inline-block;
+          height: 2rem;
+          width: 2rem;
+          min-width: 2rem;
+          border-radius: 50%;
+          opacity: .5
+        }
+
+        .timeline-steps .timeline-content .inner-circle.tick,
+        .timeline-steps .timeline-content .inner-circle.tick:before {
+          background-color: #4CAF50;
+        }
+
+        .timeline-steps .timeline-content .inner-circle.cross,
+        .timeline-steps .timeline-content .inner-circle.cross:before {
+          background-color: #F44336;
+        }
   </style>
 </head>
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">DANH MỤC XÉT DUYỆT</h3>
-  </div>
-  <!-- /.card-header -->
-  <div class="card-body">
-    <div class="btn-group">
-      <nav id="myNav">
-        <ul>
-          <li>
-            <a href="#" id="selectedKhoa" title="Chọn">Chọn</a>
-            <ul>
-              <li>
-                <a href="#" title="Khoa/Viện">Khoa/Viện</a>
-                <ul>
-                  <li id="dropdownMenu" style="max-height: 200px; overflow-y: auto; "></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" title="Nhóm nghiên cứu mạnh">Nhóm nghiên cứu mạnh</a>
-                <ul>
-                  <li id="dropdownMenu2" style="max-height: 200px; overflow-y: auto; "></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
 
-      <button class="btn btn-primary" id="click-down">Tải xuống</button>
+<div class="pagetitle">
+  <h1>DANH MỤC XÉT DUYỆT</h1>
+</div>
 
-      <button id="actionButton"></button>
+<section class="section">
+  <div class="card">
+    <h5 class="card-title"></h5>
+
+    <div class="card-body">
+      <div class="btn-group">
+        <nav id="myNav">
+          <ul>
+            <li>
+              <a href="#" id="selectedKhoa" title="Chọn">Chọn</a>
+              <ul>
+                <li>
+                  <a href="#" title="Khoa/Viện">Khoa/Viện</a>
+                  <ul>
+                    <li id="dropdownMenu" style="max-height: 200px; overflow-y: auto; "></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" title="Nhóm nghiên cứu mạnh">Nhóm nghiên cứu mạnh</a>
+                  <ul>
+                    <li id="dropdownMenu2" style="max-height: 200px; overflow-y: auto; "></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <button class="btn btn-primary" id="click-down">Tải xuống</button>
+
+        <button id="actionButton"></button>
 
 
-      <div>
         <div>
-          <script>
-            function calculateJaccardSimilarity(string1, string2) {
-              var set1 = new Set(string1);
-              var set2 = new Set(string2);
+          <div>
+            <script>
+              function calculateJaccardSimilarity(string1, string2) {
+                var set1 = new Set(string1);
+                var set2 = new Set(string2);
 
-              // Intersection of the two sets
-              var intersection = new Set([...set1].filter(character => set2.has(character)));
+                // Intersection of the two sets
+                var intersection = new Set([...set1].filter(character => set2.has(character)));
 
-              // Union of the two sets
-              var union = new Set([...set1, ...set2]);
+                // Union of the two sets
+                var union = new Set([...set1, ...set2]);
 
-              // Calculate Jaccard similarity coefficient
-              var similarity = intersection.size / union.size;
-              return similarity;
-            }
-            var actionButton = document.getElementById('actionButton');
-            actionButton.addEventListener('click', function () {
-              // Get the cells in Column 7 of each row
-              // Get the rows by their class names
-              var row1 = document.querySelector('.odd');
-              var row2 = document.querySelector('.even');
+                // Calculate Jaccard similarity coefficient
+                var similarity = intersection.size / union.size;
+                return similarity;
+              }
+              var actionButton = document.getElementById('actionButton');
+              actionButton.addEventListener('click', function () {
+                // Get the cells in Column 7 of each row
+                // Get the rows by their class names
+                var row1 = document.querySelector('.odd');
+                var row2 = document.querySelector('.even');
 
-              // Get the cells within each row
-              var row1Cells = row1.getElementsByTagName('td');
-              var row2Cells = row2.getElementsByTagName('td');
-              var table = document.getElementById("example1");
-              var dem = 0;
-              // Compare the values in the cells
-              for (var i = 0; i < table.rows.length - 1; i++) {
-                console.log(table.rows.length - 1);
-                var row1Value = table.rows[i].cells[6].textContent;
-                var row2Value = table.rows[i + 1].cells[6].textContent;
-                var similarity = calculateJaccardSimilarity(row1Value, row2Value);
-                if (similarity >= 0.7) {
-                  table.rows[i].cells[6].style.backgroundColor = 'yellow';
-                  table.rows[i + 1].cells[6].style.backgroundColor = 'yellow';
-                  dem++;
-                } else {
+                // Get the cells within each row
+                var row1Cells = row1.getElementsByTagName('td');
+                var row2Cells = row2.getElementsByTagName('td');
+                var table = document.getElementById("example1");
+                var dem = 0;
+                // Compare the values in the cells
+                for (var i = 0; i < table.rows.length - 1; i++) {
+                  console.log(table.rows.length - 1);
+                  var row1Value = table.rows[i].cells[6].textContent;
+                  var row2Value = table.rows[i + 1].cells[6].textContent;
+                  var similarity = calculateJaccardSimilarity(row1Value, row2Value);
+                  if (similarity >= 0.7) {
+                    table.rows[i].cells[6].style.backgroundColor = 'yellow';
+                    table.rows[i + 1].cells[6].style.backgroundColor = 'yellow';
+                    dem++;
+                  } else {
+                  }
                 }
-              }
-              if (dem > 0) {
-                toastr.warning("Có trùng: " + (dem) + " dòng dữ liệu!");
+                if (dem > 0) {
+                  toastr.warning("Có trùng: " + (dem) + " dòng dữ liệu!");
 
-              } else {
-                toastr.success('Không trùng!', '');
+                } else {
+                  toastr.success('Không trùng!', '');
 
-              }
-            });</script>
+                }
+              });</script>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-        <span>EXPORT EXCEL</span>
-      </button>
-      <select id="timeline">
-        @foreach (var year in years)
-        {
-          <option value="@year.Year" @(year.YearOption == currentYearOption ? "selected" : "")>@year.YearOption</option>
-        }
-      </select>
-      <div class="dropdown-menu" role="menu" style="">
-        <a class="dropdown-item" onclick="ExportToExcelDVCT(1, $('#selectedKhoa').text())" href="#">Nhóm Nghiên Cứu Mạnh</a>
-        <a class="dropdown-item" onclick="ExportToExcelDVCT(2, $('#selectedKhoa').text())" href="#">Khoa/Viện</a>
+      <div class="btn-group">
+        <button type="button" class="btn btn btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+          <span>EXPORT EXCEL</span>
+        </button>
+        <select id="timeline">
+          @foreach (var year in years)
+          {
+            <option value="@year.Year" @(year.YearOption == currentYearOption ? "selected" : "")>@year.YearOption</option>
+          }
+        </select>
+        <div class="dropdown-menu" role="menu" style="">
+          <a class="dropdown-item" onclick="ExportToExcelDVCT(1, $('#selectedKhoa').text())" href="#">Nhóm Nghiên Cứu Mạnh</a>
+          <a class="dropdown-item" onclick="ExportToExcelDVCT(2, $('#selectedKhoa').text())" href="#">Khoa/Viện</a>
+        </div>
       </div>
-    </div>
-    <table id="example1" class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Loại hình tạp chí</th>
-          <th>Issn</th>
-          <th>Category</th>
-          <th>UserID</th>
-          <th>Người khai</th>
-          <th>Tên bài báo</th>
-          <th>TT nhóm NCM</th>
-          <th>Ghi Chú</th>
-          <th>Tác giả</th>
-          <th>Trạng thái</th>
-          <th></th>
-          <th></th>
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Loại hình tạp chí</th>
+            <th>Issn</th>
+            <th>Category</th>
+            <th>UserID</th>
+            <th>Người khai</th>
+            <th>Tên bài báo</th>
+            <th>TT nhóm NCM</th>
+            <th>Ghi Chú</th>
+            <th>Tác giả</th>
+            <th>Trạng thái</th>
+            <th></th>
+            <th></th>
 
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <!-- /.card-body -->
-</div>
+</section>
+
 <div class="modal fade" id="modal-xl">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-body">
         <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -401,36 +410,36 @@
                     <div class="col-6">
                       <input type="hidden" class="form-control" id="idDanhMuc">
                       <div class="form-group">
-                        <label for="tenBaiBao">Tên bài báo</label>
+                        <label for="tenBaiBao" class="form-label">Tên bài báo</label>
                         <input type="text" class="form-control" disabled id="tenBaiBao">
                       </div>
                       <div class="form-group">
-                        <label for="type">type</label>
+                        <label for="type" class="form-label">type</label>
                         <input type="text" class="form-control" disabled id="type">
                       </div>
                       <div class="form-group">
-                        <label for="issn">issn</label>
+                        <label for="issn" class="form-label">issn</label>
                         <input type="text" class="form-control" disabled id="issn">
                       </div>
                       <div class="form-group">
-                        <label for="eissn">eissn</label>
+                        <label for="eissn" class="form-label">eissn</label>
                         <input type="text" class="form-control" disabled id="eissn">
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="form-group">
-                        <label for="rank">rank</label>
-                        <select class="custom-select" id="rank" disabled>
+                        <label for="rank" class="form-label">rank</label>
+                        <select class="form-control" id="rank" disabled>
                           <option value="GV">Giảng viên</option>
                           <option value="NCV">Nghiên cứu viên 1</option>
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="total2">total</label>
+                        <label for="total2" class="form-label">total</label>
                         <input type="text" class="form-control" disabled id="total2">
                       </div>
                       <div class="form-group">
-                        <label for="dateSubmit">Ngày gửi</label>
+                        <label for="dateSubmit" class="form-label">Ngày gửi</label>
                         <input type="datetime" class="form-control" id="dateSubmit" disabled>
                       </div>
                       <div class="form-group" id="status-quyen">
@@ -630,8 +639,8 @@
                   "<td>" + row.ghiChu + "</td>" +
                   "<td>" + tacgia + "</td>" +
                   "<td><span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + row.status + "</span></td>" +
-                  "<td width='3%'><a type='button' data-toggle='modal' data-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-eye' style='color: #3276b1;'></i></a></td>" +
-                  "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a></td></tr>";
+                  "<td width='3%'><a type='button' data-bs-toggle='modal' data-bs-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='bi bi-eye' style='color: #3276b1;'></i></a></td>" +
+                  "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='bi bi-trash' style='color: #c82333;'></i></a></td></tr>";
                 tbody.append(tr);
               }
             });
@@ -777,14 +786,14 @@
                     "data": null,
                     "width": "3%",
                     "render": function (data, type, row) {
-                      return "<a type='button' data-toggle='modal' data-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-eye' style='color: #3276b1;'></i></a>";
+                      return "<a type='button' data-bs-toggle='modal' data-bs-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='bi bi-eye' style='color: #3276b1;'></i></a>";
                     }
                   },
                   {
                     "data": null,
                     "width": "3%",
                     "render": function (data, type, row) {
-                      return "<a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a>";
+                      return "<a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='bi bi-trash' style='color: #c82333;'></i></a>";
                     }
                   }
                 ]
@@ -861,14 +870,14 @@
                     "data": null,
                     "width": "3%",
                     "render": function (data, type, row) {
-                      return "<a type='button' data-toggle='modal' data-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-eye' style='color: #3276b1;'></i></a>";
+                      return "<a type='button' data-bs-toggle='modal' data-bs-target='#modal-xl' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='bi bi-eye' style='color: #3276b1;'></i></a>";
                     }
                   },
                   {
                     "data": null,
                     "width": "3%",
                     "render": function (data, type, row) {
-                      return "<a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a>";
+                      return "<a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='bi bi-trash' style='color: #c82333;'></i></a>";
                     }
                   }
                 ]
@@ -1027,44 +1036,45 @@
         var selectStatus = document.getElementById("status-quyen");
         if (_quyen == "Quyền cao nhất") {
           selectStatus.innerHTML = `
-                    <label>Trạng thái</label>
-                    <select onchange="changeStatus()" class="custom-select" id="status">
-                        <option value="Đang đợi duyệt">Đang đợi duyệt</option>
-                        <option value="Duyệt lần 1">Duyệt lần 1</option>
-                        <option value="Duyệt lần 2">Duyệt lần 2</option>
-                        <option value="Từ chối">Từ chối</option>
-                        <option value="Hoàn Thành">Hoàn Thành</option>
-                    </select>`;
+                      <label class="form-label">Trạng thái</label>
+                      <select onchange="changeStatus()" class="form-control" id="status">
+                          <option value="Đang đợi duyệt">Đang đợi duyệt</option>
+                          <option value="Duyệt lần 1">Duyệt lần 1</option>
+                          <option value="Duyệt lần 2">Duyệt lần 2</option>
+                          <option value="Từ chối">Từ chối</option>
+                          <option value="Hoàn Thành">Hoàn Thành</option>
+                      </select>`;
         } else if (_quyen == "Quyền duyệt 1") {
           selectStatus.innerHTML = `
-                    <label>Trạng thái</label>
-                    <select onchange="changeStatus()" class="custom-select" id="status">
-                        <option value="Đang đợi duyệt">Đang đợi duyệt</option>
-                        <option value="Duyệt lần 1">Duyệt lần 1</option>
-                        <option value="Từ chối">Từ chối</option>
-                    </select>`;
+                      <label class="form-label">Trạng thái</label>
+                      <select onchange="changeStatus()" class="form-control" id="status">
+                          <option value="Đang đợi duyệt">Đang đợi duyệt</option>
+                          <option value="Duyệt lần 1">Duyệt lần 1</option>
+                          <option value="Từ chối">Từ chối</option>
+                      </select>`;
         } else if (_quyen == "Quyền duyệt 2") {
           selectStatus.innerHTML = `
-                    <label>Trạng thái</label>
-                    <select onchange="changeStatus()" class="custom-select" id="status">
-                        <option value="Duyệt lần 1">Duyệt lần 1</option>
-                        <option value="Duyệt lần 2">Duyệt lần 2</option>
-                        <option value="Từ chối" >Từ chối</option>
-                    </select>`;
+                      <label class="form-label">Trạng thái</label>
+                      <select onchange="changeStatus()" class="form-control" id="status">
+                          <option value="Duyệt lần 1">Duyệt lần 1</option>
+                          <option value="Duyệt lần 2">Duyệt lần 2</option>
+                          <option value="Từ chối" >Từ chối</option>
+                      </select>`;
         } else if (_quyen == "Quyền duyệt 3") {
           selectStatus.innerHTML = `
-                    <label>Trạng thái</label>
-                    <select onchange="changeStatus()" class="custom-select" id="status">
-                        <option value="Duyệt lần 2">Duyệt lần 2</option>
-                        <option value="Từ chối" >Từ chối</option>
-                        <option value="Hoàn Thành">Hoàn Thành</option>
-                    </select>`;
+                      <label class="form-label">Trạng thái</label>
+                      <select onchange="changeStatus()" class="form-control" id="status">
+                          <option value="Duyệt lần 2">Duyệt lần 2</option>
+                          <option value="Từ chối" >Từ chối</option>
+                          <option value="Hoàn Thành">Hoàn Thành</option>
+                      </select>`;
         }
 
         document.getElementById("status").value = data.status;
 
         // status timeline
         const statusTimeline = document.getElementById("status-timeline");
+        statusTimeline.innerHTML = "";
         if (data.review1 != null) {
           statusTimeline.appendChild(createTimelineStep("Duyệt lần 1", data.review1, true));
         }
@@ -1095,8 +1105,7 @@
             "<td contenteditable='true'>" + row[4] + "</td>" +
             "<td contenteditable='true'>" + row[5] + "</td>" +
             "<td contenteditable='true'>" + row[6] + "</td>" +
-            "<td contenteditable='true'>" + row[7] + "</td>"
-            ;
+            "<td contenteditable='true'>" + row[7] + "</td>";
 
           tbody.appendChild(tr);
 
@@ -1213,11 +1222,11 @@
     timelineStep.className = "timeline-step";
 
     timelineStep.innerHTML = `
-    <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top">
-      <div class="inner-circle ${isTick ? 'tick' : 'cross'}"></div>
-      <p class="h6 mt-3 mb-1">${title}</p>
-      <p class="h6 text-muted mb-0 mb-lg-0">${content}</p>
-    </div>`;
+      <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top">
+        <div class="inner-circle ${isTick ? 'tick' : 'cross'}"></div>
+        <p class="h6 mt-3 mb-1">${title}</p>
+        <p class="h6 text-muted mb-0 mb-lg-0">${content}</p>
+      </div>`;
 
     return timelineStep;
   }
@@ -1336,4 +1345,5 @@
 
     groupUser = groupUser.slice(0, -1);
     return groupUser;
-  }</script>
+  }
+</script>
