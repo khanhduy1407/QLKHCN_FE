@@ -8688,11 +8688,15 @@
                     document.getElementById("tongDiem").textContent = tongDiem;
                     $(function () {
                         $("#example1").DataTable({
-                            "paging": true,
-                            "searching": true,
-                            "ordering": true,
-                            "info": true,
-                            "responsive": true, "lengthChange": false, "autoWidth": false
+                          "paging": true,
+                          "searching": true,
+                          "ordering": true,
+                          "info": true,
+                          "lengthChange": false,
+                          "autoWidth": false,
+                          "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
+                          "scrollX": true,  // Kích hoạt scroll ngang
+                          "scrollCollapse": true, // Tự động thu gọn chiều rộng
                         })
                     });
                 });

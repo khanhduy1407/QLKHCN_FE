@@ -247,7 +247,11 @@
               "searching": true,
               "ordering": true,
               "info": true,
-              "responsive": true, "lengthChange": false, "autoWidth": false,
+              "lengthChange": false,
+              "autoWidth": false,
+              "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
+              "scrollX": true,  // Kích hoạt scroll ngang
+              "scrollCollapse": true, // Tự động thu gọn chiều rộng
               "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
           });

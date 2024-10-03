@@ -718,17 +718,16 @@
             });
             if (_quyen == "Quyền duyệt 1" || _quyen == "Quyền duyệt 2") {
               $("#example1").DataTable({
-
-
-
                 "paging": true,
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "responsive": true,
                 "lengthChange": false,
                 "lengthMenu": [20, 40, 60, 80, 100],
                 "autoWidth": false,
+                "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
+                "scrollX": true,  // Kích hoạt scroll ngang
+                "scrollCollapse": true, // Tự động thu gọn chiều rộng
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 "data": data,
                 "columns": [
@@ -802,17 +801,16 @@
             }
             else {
               $("#example1").DataTable({
-
-
-
                 "paging": true,
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "responsive": true,
                 "lengthChange": false,
                 "lengthMenu": [20, 40, 60, 80, 100],
                 "autoWidth": false,
+                "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
+                "scrollX": true,  // Kích hoạt scroll ngang
+                "scrollCollapse": true, // Tự động thu gọn chiều rộng
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 "data": data,
                 "columns": [
