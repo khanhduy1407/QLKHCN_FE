@@ -36,7 +36,7 @@
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-      <a class="nav-link " href="@Url.Action("DeTai", "NguoiDung")">
+      <a class="nav-link collapsed" href="@Url.Action("DeTai", "NguoiDung")">
         <i class="bi bi-house-door"></i>
         <span>Trang chủ</span>
       </a>
@@ -67,15 +67,22 @@
 
     <li class="nav-heading">Danh mục (mới)</li>
 
-    @for (int i = currentYear - numberOfYears + 1; i <= currentYear; i++)
-    {
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="@Url.Action("Index", $"DanhMucWOS{i}")">
-          <i class="bi bi-database"></i>
-          <span>Danh mục WOS @i</span>
-        </a>
-      </li>
-    }
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-database"></i><span>Danh mục WOS</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        @for (int i = currentYear - numberOfYears + 1; i <= currentYear; i++)
+        {
+          <li>
+            <a href="@Url.Action("Index", $"DanhMucWOS{i}")">
+              <i class="bi bi-circle"></i>
+              <span>Danh mục WOS @i</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </li>
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="@Url.Action("Index","DanhMucScimago")">
