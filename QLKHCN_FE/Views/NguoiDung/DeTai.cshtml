@@ -109,6 +109,7 @@
     cursor: not-allowed; /* Biểu tượng con trỏ chỉ đọc */
   }
 </style>
+
 <div class="all">
   <div class="card">
     <div class="card-header">
@@ -180,6 +181,7 @@
     <!-- /.card-body -->
   </div>
 </div>
+
 <div class="modal fade" id="modal-xl" data-backdrop="static">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -312,6 +314,7 @@
     </div>
   </div>
 </div>
+
 <div class="modal fade" id="modal-xl-create">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -442,7 +445,7 @@
                     </div>
                   </div>
 
-                  <button class="btn btn-success" onclick="stepper.previous()">VỀ TRƯỚC</button>
+                  <button class="btn btn-success" onclick="stepperPrevious()">VỀ TRƯỚC</button>
                   <!--<input class="btn btn-info" id="inpsearchs" type="submit" value="Xác nhận gửi" onclick="handleSend()" style="margin-left:2%">-->
                 </div>
               </div>
@@ -454,8 +457,8 @@
           @*<a class="btn btn-outline-danger" href="@Url.Action("DeTai","NguoiDung")">THOÁT</a>*@
           @* Sử dụng sự kiện đóng modal và reset form thay vì reload lại trang *@
           <button class="btn btn-outline-danger" data-dismiss="modal">ĐÓNG</button>
-          <button type="button" class="btn btn btn-primary" id="btn-lvt" style="margin-left:-62%" onclick="handleSend('lvt')">LƯU VÀ ĐÓNG</button>
-          <button type="button" class="btn btn btn-primary" id="btn-lvtm" onclick="luuVaThemMoi()">LƯU VÀ THÊM MỚI</button>
+          <button type="button" class="btn btn btn-primary" id="btn-lvt" style="display: none; margin-left:-62%" onclick="handleSend('lvt')">LƯU VÀ ĐÓNG</button>
+          <button type="button" class="btn btn btn-primary" id="btn-lvtm" style="display: none" onclick="luuVaThemMoi()">LƯU VÀ THÊM MỚI</button>
         </div>
       </div>
     </div>
@@ -7400,7 +7403,9 @@
         input_issn.style.display = "none";
         choose_lh.style.display = "none";
         chonLoaiCongTrinh.style.display = "none";
-        stepper.previous();
+        document.getElementById("btn-lvt").style.display = "none";
+        document.getElementById("btn-lvtm").style.display = "none";
+        stepperPrevious();
     }
     function luuVaThemMoi() {
         handleSend("lvtm");
@@ -7466,7 +7471,7 @@
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-success" onclick="stepper.previous()">VỀ TRƯỚC</button>`;
+                                    <button class="btn btn-success" onclick="stepperPrevious()">VỀ TRƯỚC</button>`;
             }
         }
         else {
@@ -7512,10 +7517,19 @@
             return toastr.warning("Vui lòng tra cứu hoặc chọn loại hình sản phẩm!");
 
         } else {
-            stepper.next()
-            try { } catch { }
+          stepper.next()
 
+          document.getElementById("btn-lvt").style.display = "unset";
+          document.getElementById("btn-lvtm").style.display = "unset";
+
+          try { } catch { }
        }
+    }
+    function stepperPrevious() {
+      stepper.previous();
+
+      document.getElementById("btn-lvt").style.display = "none";
+      document.getElementById("btn-lvtm").style.display = "none";
     }
     function click_radioIssn() {
         document.querySelector('#isIssn').innerHTML = ``;
