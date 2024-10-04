@@ -2969,6 +2969,7 @@
     <Content Include="Content\Images\logo-1.png" />
     <Content Include="Content\Images\logo_hutech.png" />
     <Content Include="Content\Images\seach.png" />
+    <Content Include="Content\Images\check.png" />
     <Content Include="Content\Js\fetch_api.js" />
     <Content Include="Content\Js\load_loai_bai_bao.js" />
     <Content Include="Content\Js\thanh_toan.js" />
