@@ -1225,6 +1225,7 @@
   function changeStatus() {
     var idDanhMuc = document.getElementById("idDanhMuc").value;
     var status = document.getElementById("status").value;
+    // TODO: add send _idUser for update on timeline state
     fetch(`https://localhost:44364/api/DanhMucXetDuyet/${idDanhMuc}`, {
       method: 'PUT',
       headers: {

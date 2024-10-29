@@ -3,6 +3,7 @@ using System;
 using System.Net.Mail;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using System.Web;
 
 namespace QLKHCN_FE.Controllers
 {
@@ -41,36 +42,39 @@ namespace QLKHCN_FE.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveFile(string fileName, string fileData, string userId, string valuetenbaibao)
+        public ActionResult SaveFile(HttpPostedFileBase file, string userId, string valuetenbaibao)
         {
             try
             {
-                // Giải mã dữ liệu base64
-                var base64Data = fileData;
-                var bytes = Convert.FromBase64String(base64Data);
-
-                // Đường dẫn thư mục lưu trữ tệp tin
-                var uploadDirectory = Server.MapPath($"~/Uploads/{userId}/{valuetenbaibao}/");
-
-                // Tạo thư mục lưu trữ nếu chưa tồn tại
-                if (!Directory.Exists(uploadDirectory))
+                if (file != null && file.ContentLength > 0)
                 {
-                    Directory.CreateDirectory(uploadDirectory);
+                    // Đường dẫn thư mục lưu trữ tệp tin
+                    var uploadDirectory = Server.MapPath($"~/Uploads/{userId}/{valuetenbaibao}/");
+
+                    // Tạo thư mục lưu trữ nếu chưa tồn tại
+                    if (!Directory.Exists(uploadDirectory))
+                    {
+                        Directory.CreateDirectory(uploadDirectory);
+                    }
+
+                    // Đường dẫn tới tệp tin mới
+                    var targetPath = Path.Combine(uploadDirectory, Path.GetFileName(file.FileName));
+
+                    // Lưu file vào hệ thống
+                    file.SaveAs(targetPath);
+
+                    // Trả về kết quả thành công
+                    return Json(new { success = true, filePath = "/Uploads/" + userId + "/" + valuetenbaibao + "/" + file.FileName });
                 }
-
-                // Đường dẫn tới tệp tin mới
-                var targetPath = Path.Combine(uploadDirectory, fileName);
-
-                // Ghi dữ liệu vào tệp tin
-                System.IO.File.WriteAllBytes(targetPath, bytes);
-
-                // Trả về kết quả thành công
-                return Json(new { success = true, filePath = "/Uploads/" + userId + "/" + valuetenbaibao + "/" + fileName });
+                else
+                {
+                    return Json(new { success = false, message = "Không có tệp tin nào được tải lên." });
+                }
             }
             catch (Exception)
             {
                 // Xử lý ngoại lệ khi lưu trữ tệp tin thất bại
-                return Json(new { success = false });
+                return Json(new { success = false, message = "Đã xảy ra lỗi khi lưu trữ tệp tin." });
             }
         }
 

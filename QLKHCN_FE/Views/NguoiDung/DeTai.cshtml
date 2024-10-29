@@ -8444,50 +8444,43 @@
 
   // Hàm upload file
   function uploadFiles() {
-    var fileInput = document.getElementById('fileInput');
-    var files = fileInput.files;
-    const userId = _idUser;
-    const valuetenbaibao = document.querySelector('#tenSanPhamKHCN').value;
-
-    const maxFileSize = 10 * 1024 * 1024; // Giới hạn dung lượng là 10MB
-
-    if (files.length === 0) {
-      toastr.warning('Vui lòng chọn tệp tin để tải lên.');
-      return;
-    }
-
-    let uploadPromises = []; // Mảng chứa các Promise upload file
-
-    Array.from(files).forEach(file => { // Duyệt qua từng file để upload
-      // Kiểm tra dung lượng file
-      if (file.size > maxFileSize) {
-        toastr.error(`Tệp tin ${file.name} vượt quá giới hạn dung lượng 10MB.`);
+      var fileInput = document.getElementById('fileInput');
+      var files = fileInput.files;
+      const userId = _idUser;
+      const valuetenbaibao = document.querySelector('#tenSanPhamKHCN').value;
+  
+      const maxFileSize = 10 * 1024 * 1024; // Giới hạn dung lượng là 10MB
+  
+      if (files.length === 0) {
+        toastr.warning('Vui lòng chọn tệp tin để tải lên.');
         return;
       }
-
-      const reader = new FileReader();
-
-      // Tạo Promise upload file
-      let uploadPromise = new Promise((resolve, reject) => {
-        reader.onload = function (event) {
-          // Chuyển file thành base64 string
-          const base64String = event.target.result.replace('data:', '').replace(/^.+,/, '');
-
-          var data = {
-            fileName: file.name,
-            fileData: base64String,
-            userId: userId,
-            valuetenbaibao: valuetenbaibao,
-          };
-
+  
+      let uploadPromises = []; // Mảng chứa các Promise upload file
+  
+      Array.from(files).forEach(file => {
+        // Kiểm tra dung lượng file
+        if (file.size > maxFileSize) {
+          toastr.error(`Tệp tin ${file.name} vượt quá giới hạn dung lượng 10MB.`);
+          return;
+        }
+  
+        // Tạo FormData để upload file dạng binary
+        let formData = new FormData();
+        formData.append('file', file);
+        formData.append('fileName', file.name);
+        formData.append('userId', userId);
+        formData.append('valuetenbaibao', valuetenbaibao);
+  
+        let uploadPromise = new Promise((resolve, reject) => {
           $.ajax({
             url: '/Article/SaveFile',
             type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
+            data: formData,
+            processData: false, // Không xử lý dữ liệu
+            contentType: false, // Không thiết lập tiêu đề content-type
             success: function (result) {
               if (result.success) {
-                //console.log(result.filePath);
                 resolve(result.filePath);
               } else {
                 reject('Tải lên thất bại.');
@@ -8497,26 +8490,21 @@
               reject('Đã xảy ra lỗi khi tải lên.');
             }
           });
-        };
-
-        reader.readAsDataURL(file); // Đọc file dưới dạng base64
+        });
+  
+        uploadPromises.push(uploadPromise); // Thêm Promise vào mảng
       });
-
-      uploadPromises.push(uploadPromise); // Thêm Promise vào mảng
-    });
-
-    // Khi tất cả các file đã upload xong
-    Promise.all(uploadPromises)
-      .then(filePaths => {
-        toastr.success('Tải lên thành công.');
-        // Hiển thị danh sách file đã upload thành công
-        selectedFilesArray = filePaths;
-        displayUploadedFiles(filePaths);
-      })
-      .catch(error => {
-        toastr.error(error);
-      });
-  }
+  
+      // Khi tất cả các file đã upload xong
+      Promise.all(uploadPromises)
+        .then(filePaths => {
+          toastr.success('Tải lên thành công.');
+          displayUploadedFiles(filePaths); // Hiển thị danh sách file đã upload thành công
+        })
+        .catch(error => {
+          toastr.error(error);
+        });
+    }
 
   // Hàm load hiển thị danh sách file đã upload dùng xem chi tiết
   function loadUploadedFiles(fileList) {
