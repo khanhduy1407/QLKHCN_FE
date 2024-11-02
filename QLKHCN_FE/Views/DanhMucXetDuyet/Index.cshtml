@@ -1076,11 +1076,11 @@
         if (data.status == "Đang đợi duyệt") {
           statusTimeline.appendChild(createTimelineStep("Đang đợi duyệt", data.status, false));
         }
-        if (data.status == "Hoàn Thành") {
-          statusTimeline.appendChild(createTimelineStep("Hoàn thành", data.status, true));
+        if (data.completedBy) {
+          statusTimeline.appendChild(createTimelineStep("Hoàn thành", data.completedBy, true));
         }
-        if (data.status == "Từ chối") {
-          statusTimeline.appendChild(createTimelineStep("Từ chối", data.status, false));
+        if (data.rejectBy) {
+          statusTimeline.appendChild(createTimelineStep("Từ chối", data.rejectBy, false));
         }
 
         const kekhaitg = render_tg(data.groupUser);
