@@ -7434,7 +7434,7 @@
                 document.querySelector('.form-group .col-form-label[for="sltglh"]').innerHTML = `Đồng GVHD`;
              } else {
                 document.getElementById("information-part").innerHTML = `<div class="row">
-                                        <div class="form-group col-3 row">
+                                        <div class="form-group col-6 row">
                                             <label class="col-form-label" for="sltgc">Chủ nhiệm</label>
                                             <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng chủ nhiệm" id="sltgc" disabled value="1" min="1" max="1" oninput="clear_hinhthuc()" />
                                         </div>
@@ -7442,7 +7442,8 @@
                                             <label class="col-form-label" for="sltgp">Thành viên</label>
                                             <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng thành viên" id="sltgp" min="1" oninput="clear_hinhthuc()" />
                                         </div>
-                                        <div class="form-group col row" style="margin-left:2%">
+                                        <!-- TODO: remove -->
+                                        <div class="form-group col row" style="margin-left:2%; display: none">
                                             <label class="col-form-label" for="sltglh">Đồng chủ nhiệm</label>
                                             <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng đồng chủ nhiệm" id="sltglh" min="1" oninput="clear_hinhthuc()" />
                                         </div>
@@ -8621,7 +8622,7 @@
         ////alert(_idUser);
         function getData() {
             var timeline = document.getElementById("timeline").value;
-          fetch('https://localhost:44364/api/DanhMucXetDuyet/Get-by-userid?userid=' + _idUser + "&startTimes=" + timeline, {
+          fetch('https://localhost:44364/api/DanhMucXetDuyet/Get-by-userid?userid=' + _idUser + "&startTimes=" + timeline + "&type=1", {
                 headers: {
                     'Authorization': 'Bearer ' + _token,
                     'Content-Type': 'application/json'
@@ -8677,13 +8678,13 @@
                                 "<td><span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + ccs + "</span></td>" +
                                 "<td width='3%'><a type='button' data-toggle='modal' data-target='#modal-xl-create' data-backdrop='static' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-edit' style='color: #3276b1;'></i></a></td>" +
                                 "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a></td>";
-                            if (row.dateSubmit_now) {
-                                var date = new Date(row.dateSubmit_now);
-                                var day = date.getDate().toString().padStart(2, "0");
-                                var month = (date.getMonth() + 1).toString().padStart(2, "0");
-                                var year = date.getFullYear();
-                                tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${day}/${month}/${year}`);
-                            }
+
+                            var date = new Date(row.dateSubmit_now);
+                            var day = date.getDate().toString().padStart(2, "0");
+                            var month = (date.getMonth() + 1).toString().padStart(2, "0");
+                            var year = date.getFullYear();
+                            tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${day}/${month}/${year}`);
+
                             tbody.appendChild(tr);
                             stt += 1;
                             tongTien += tacgia[4] ? parseFloat(tacgia[4]) : 0;
@@ -9487,7 +9488,7 @@
                 .then(response => {
                     if (response.ok) {
                         toastr.success('Xóa dữ liệu thành công!');
-                        window.location.href = '/NguoiDung/DeTai';
+                        window.location.href = '/NguoiDung/DeTaiSinhVien';
                     }
                     else if (response.status == 400) {
                         toastr.warning('Không có quyền xóa với trạng thái hiện tại');
@@ -10304,11 +10305,11 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
             .then(response => {
                 if (response.ok) {
                     toastr.success('Đăng ký thành công', '');
-                    window.location.href = '/NguoiDung/DeTai';
+                    window.location.href = '/NguoiDung/DeTaiSinhVIen';
                     if (a == "lvtm") {
 
                     } else if (a == "lvt") {
-                        window.location.href = '/NguoiDung/DeTai';
+                        window.location.href = '/NguoiDung/DeTaiSinhVien';
                     }
                 } else if (response.status == 400) {
 
@@ -10334,7 +10335,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
             .then(response => {
                 if (response.ok) {
                     toastr.success('Sửa thành công');
-                    window.location.href = '/NguoiDung/DeTai';
+                    window.location.href = '/NguoiDung/DeTaiSinhVien';
                 } else {
                     toastr.warning('Có lỗi');
                 }
@@ -10472,7 +10473,8 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 total: s.toString(),
                 ghiChu: "",
                 dateSubmit: date,
-                dateSubmit_now: formattedDate
+                dateSubmit_now: formattedDate,
+                moduleType: 1
             }
         } else {
             var data = {
@@ -10501,7 +10503,8 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 total: s.toString(),
                 ghiChu: ghichu.toString(),
                 dateSubmit: date,
-                dateSubmit_now: formattedDate
+                dateSubmit_now: formattedDate,
+                moduleType: 1
 
             }
         }

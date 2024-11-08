@@ -42,6 +42,16 @@ namespace QLKHCN_FE.Controllers
             }
             return View();
         }
+        public ActionResult DeTaiSinhVien()
+        {
+
+            if (!IsAuthenticated)
+            {
+                Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+                return RedirectToAction("Login", "NguoiDung");
+            }
+            return View();
+        }
 
         public ActionResult LyLich()
         {
