@@ -8499,6 +8499,7 @@
       Promise.all(uploadPromises)
         .then(filePaths => {
           toastr.success('Tải lên thành công.');
+          selectedFilesArray = filePaths;
           displayUploadedFiles(filePaths); // Hiển thị danh sách file đã upload thành công
         })
         .catch(error => {
