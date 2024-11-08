@@ -8499,9 +8499,25 @@
       // Khi tất cả các file đã upload xong
       Promise.all(uploadPromises)
         .then(filePaths => {
-          toastr.success('Tải lên thành công.');
-          selectedFilesArray = filePaths;
-          displayUploadedFiles(filePaths); // Hiển thị danh sách file đã upload thành công
+          // Lọc ra những file chưa tồn tại trong selectedFilesArray
+          let newFiles = filePaths.filter(filePath => {
+              // Kiểm tra file (đường dẫn) có tồn tại trong selectedFilesArray không
+              let fileName = filePath.split('/').pop(); // Lấy tên file từ đường dẫn
+              if (selectedFilesArray.includes(filePath)) {
+                  toastr.warning(`Đã cập nhật tệp ${fileName}.`);
+                  return false; // Nếu file đã tồn tại, không thêm vào
+              }
+              return true; // Nếu file chưa tồn tại, thêm vào
+          });
+
+          if (newFiles.length > 0) {
+              // Cập nhật lại danh sách file đã chọn và hiển thị
+              selectedFilesArray = selectedFilesArray.concat(newFiles);
+              toastr.success('Tải lên thành công.');
+              displayUploadedFiles(selectedFilesArray); // Hiển thị danh sách file đã upload thành công
+          } else {
+              // toastr.warning('Không có file mới nào được thêm vào.');
+          }
         })
         .catch(error => {
           toastr.error(error);
