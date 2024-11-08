@@ -8677,7 +8677,13 @@
                                 "<td><span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + ccs + "</span></td>" +
                                 "<td width='3%'><a type='button' data-toggle='modal' data-target='#modal-xl-create' data-backdrop='static' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-edit' style='color: #3276b1;'></i></a></td>" +
                                 "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a></td>";
-                            tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${row.dateSubmit_now}`);
+                            if (row.dateSubmit_now) {
+                                var date = new Date(row.dateSubmit_now);
+                                var day = date.getDate().toString().padStart(2, "0");
+                                var month = (date.getMonth() + 1).toString().padStart(2, "0");
+                                var year = date.getFullYear();
+                                tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${day}/${month}/${year}`);
+                            }
                             tbody.appendChild(tr);
                             stt += 1;
                             tongTien += tacgia[4] ? parseFloat(tacgia[4]) : 0;
