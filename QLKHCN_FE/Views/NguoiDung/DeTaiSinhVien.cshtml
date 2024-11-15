@@ -1353,12 +1353,18 @@
                 
                 loadSPDuKien();
 
+                document.getElementById("fileDangKy").style.display = "none";
                 loadFileUploaded(data.fileDangKy, 'fileDangKyDetail');
                 document.getElementById("fileDangKy_hidden").value = data.fileDangKy;
+                document.getElementById("fileThuyetMinh").style.display = "none";
                 loadFileUploaded(data.fileThuyetMinh, 'fileThuyetMinhDetail');
                 document.getElementById("fileThuyetMinh_hidden").value = data.fileThuyetMinh;
+                document.getElementById("fileDinhKemLyLich").style.display = "none";
                 loadFileUploaded(data.fileDinhKemLyLich, 'fileDinhKemLyLichDetail');
                 document.getElementById("fileDinhKemLyLich_hidden").value = data.fileDinhKemLyLich;
+                
+                @* TODO: xử lý chia cột hiển thị cho file kiểm duyệt *@
+                // File sau khi kiểm duyệt sẽ từ cột bên trái hiển thị sang cột bên phải 
 
                 var tgp = 0;
                 var tgc = 1;
