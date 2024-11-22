@@ -57,14 +57,16 @@ namespace QLKHCN_FE.Controllers
                         Directory.CreateDirectory(uploadDirectory);
                     }
 
+                    var filename = GetTimestamp(DateTime.Now) + "_" + file.FileName;
+
                     // Đường dẫn tới tệp tin mới
-                    var targetPath = Path.Combine(uploadDirectory, Path.GetFileName(file.FileName));
+                    var targetPath = Path.Combine(uploadDirectory, Path.GetFileName(filename));
 
                     // Lưu file vào hệ thống
                     file.SaveAs(targetPath);
 
                     // Trả về kết quả thành công
-                    return Json(new { success = true, filePath = "/Uploads/" + userId + "/" + valuetenbaibao + "/" + file.FileName });
+                    return Json(new { success = true, filePath = "/Uploads/" + userId + "/" + valuetenbaibao + "/" + filename });
                 }
                 else
                 {
@@ -76,6 +78,11 @@ namespace QLKHCN_FE.Controllers
                 // Xử lý ngoại lệ khi lưu trữ tệp tin thất bại
                 return Json(new { success = false, message = "Đã xảy ra lỗi khi lưu trữ tệp tin." });
             }
+        }
+        
+        private static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmssffff");
         }
 
         [HttpPost]

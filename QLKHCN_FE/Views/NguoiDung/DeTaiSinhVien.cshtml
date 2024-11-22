@@ -1938,6 +1938,8 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
 
         var formattedDate = year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
         var NguoiKhai = sessionStorage.getItem("NguoiKhai");
+        var Khoa = sessionStorage.getItem("Khoa");
+        var hoten = document.getElementById("xinchao").textContent;
         var iddmxd = document.getElementById("iddmxd").value;
         var sltgc = Number(document.querySelector('#sltgc').value);
         var sltgp = Number(document.querySelector('#sltgp').value);
@@ -1969,6 +1971,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 moTaBaiBao: valuemotabaibao,
                 thoiGianThucHien: tgThucHien,
                 groupUser: tg,
+                jci: Khoa + " - " + hoten,
                 quantity: sltg.toString(),
                 category: sanPhamDuKien,
                 kinhPhi: kinhPhi || 0,
@@ -1979,6 +1982,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
                 status: "Đang đợi duyệt",
+                fileStatus: "000", // 3 số 0 tương ứng với trạng thái kiểm duyệt 3 file
             }
         } else {
             var data = {
@@ -1988,6 +1992,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 moTaBaiBao: valuemotabaibao,
                 thoiGianThucHien: tgThucHien,
                 groupUser: tg,
+                jci: Khoa + " - " + hoten,
                 quantity: sltg.toString(),
                 category: sanPhamDuKien,
                 kinhPhi: kinhPhi || 0,
@@ -1997,6 +2002,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
                 status: "Đang đợi duyệt",
+                fileStatus: "000", // 3 số 0 tương ứng với trạng thái kiểm duyệt 3 file
             }
         }
 
