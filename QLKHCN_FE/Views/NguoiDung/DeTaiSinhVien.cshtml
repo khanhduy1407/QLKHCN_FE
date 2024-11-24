@@ -1441,16 +1441,25 @@
         document.getElementById('fileDangKyDetailStatus').innerHTML = `
           <i class="bi ${fs1 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs1 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
         document.getElementById('fileDangKyDetailStatus').style.color = fs1 == "1" ? "#4CAF50" : "#F44336";
+        if (fs1 == 0) {
+            document.getElementById('fileDangKyBtn').style.display = "unset";
+        }
       }
       if (fs2 != "-") {
         document.getElementById('fileThuyetMinhDetailStatus').innerHTML = `
           <i class="bi ${fs2 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs2 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
         document.getElementById('fileThuyetMinhDetailStatus').style.color = fs2 == "1" ? "#4CAF50" : "#F44336";
+        if (fs2 == 0) {
+            document.getElementById('fileThuyetMinhBtn').style.display = "unset";
+        }
       }
       if (fs3 != "-") {
         document.getElementById('fileDinhKemLyLichDetailStatus').innerHTML = `
           <i class="bi ${fs3 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs3 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
         document.getElementById('fileDinhKemLyLichDetailStatus').style.color = fs3 == "1" ? "#4CAF50" : "#F44336";
+        if (fs3 == 0) {
+            document.getElementById('fileDinhKemLyLichBtn').style.display = "unset";
+        }
       }
     }
 
@@ -1955,6 +1964,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 category: sanPhamDuKien,
                 kinhPhi: kinhPhi || 0,
                 ghiChu: ghichu.toString(),
+                dateSubmit: formattedDate, // @* TODO: xử lý tạm thời vì "NULL", cần cập nhật xử lý giữ nguyên giá trị ban đầu trường này *@
                 dateSubmit_now: formattedDate,
                 fileDangKy: fileDangKy,
                 fileThuyetMinh: fileThuyetMinh,
