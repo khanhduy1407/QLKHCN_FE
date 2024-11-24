@@ -179,139 +179,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal-xl" data-backdrop="static">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-body">
-        <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Thông tin</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Tác giả</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="custom-content-above-messages-tab" data-toggle="pill" href="#custom-content-above-messages" role="tab" aria-controls="custom-content-above-messages" aria-selected="false">Minh Chứng</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="custom-content-above-tabContent">
-          <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">THÔNG TIN ĐĂNG KÝ BÀI BÁO</h3>
-              </div>
-              <form>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <input type="hidden" class="form-control" id="idDanhMuc">
-                      <div class="form-group">
-                        <label for="tenBaiBao">Tên bài báo</label>
-                        <input type="text" class="form-control" disabled id="tenBaiBao">
-                      </div>
-                      <div class="form-group">
-                        <label for="type">type</label>
-                        <input type="text" class="form-control" disabled id="type">
-                      </div>
-                      <div class="form-group">
-                        <label for="issn">issn</label>
-                        <input type="text" class="form-control" disabled id="issn">
-                      </div>
-                      <div class="form-group">
-                        <label for="eissn">eissn</label>
-                        <input type="text" class="form-control" disabled id="eissn">
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="rank">rank</label>
-                        <select class="custom-select" id="rank" disabled>
-                          <option value="GV">Giảng viên</option>
-                          <option value="NCV">Nghiên cứu viên</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="total">total</label>
-                        <input type="text" class="form-control" disabled id="total2">
-                      </div>
-                      <div class="form-group">
-                        <label for="dateSubmit">Ngày gửi</label>
-                        <input type="datetime" class="form-control" id="dateSubmit" disabled>
-                      </div>
-                      <div class="form-group" id="status-quyen">
-                        <label for="status">Status</label>
-                        <input type="text" class="form-control" disabled id="status">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="ghiChu">Ghi chú</label>
-                        <textarea type="text" class="form-control" disabled id="ghiChu"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">KÊ KHAI TÁC GIẢ</h3>
-              </div>
-              <div class="card-body">
-                <table id="tbtacgia" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Stt</th>
-                      <th>MaNV - Họ tên</th>
-                      <th>Cơ quan công tác</th>
-                      <th>Loại tác giả</th>
-                      <th>Tổng nhận trước thuế</th>
-                      <th>Thực nhận</th>
-                      <th>Điểm</th>
-                      <th>Tiết chuẩn</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="custom-content-above-messages" role="tabpanel" aria-labelledby="custom-content-above-messages-tab">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">MINH CHỨNG</h3>
-              </div>
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label>Số DOI: </label>
-                    <a href="#" target="_blank" id="link">#</a>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="image">Ảnh: </label>
-                    <div id="image"></div>
-                    <div id="file"></div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="modal fade" id="modal-xl-create">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -342,7 +209,7 @@
                 <!-- your steps content here -->
                 <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                   <div class="form-group row">
-                    <label class="col-form-label" for="tenSanPhamKHCN">Tên đề tài*:</label>
+                    <label class="col-form-label" for="tenSanPhamKHCN">Tên đề tài:</label>
                     <input type="text" class="form-control col" id="tenSanPhamKHCN" placeholder="Tạp chí, bài báo, sách, kỷ yếu..." style="margin-left:2%">
                   </div>
                   <div class="form-group row">
@@ -351,7 +218,7 @@
                   </div>
                   <div class="row">
                     <div class="form-group col row">
-                        <label class="col-form-label" for="tgThucHien">Thời gian thực hiện (tháng)*</label>
+                        <label class="col-form-label" for="tgThucHien">Thời gian thực hiện (tháng):</label>
                         <input id="tgThucHien" type="number" placeholder="Nhập số từ 5 - 12" min="5" max="12" value="5" class="form-control col" style="margin-left:6%" />
                     </div>
                     <div class="form-group col row" style="margin-left:2%">
@@ -370,38 +237,54 @@
                     <input type="text" class="form-control col" id="kinhPhi" placeholder="Nhập tiền" style="margin-left:2%">
                   </div>
                   <div class="row">
-                    <div class="form-group col row" style="margin-left:2%">
-                      <label class="col-form-label" for="fileDangKy">Tải lên file đăng ký đề tài:</label>
-                      <input type="file" class="form-control col-7" id="fileDangKy" onchange="handleSelectFile('fileDangKy', 'fileDangKyDetail')" />
-                      @* TODO: Giải pháp tạm thời *@
-                      <input type="hidden" id="fileDangKy_hidden" />
-                    </div>
-                    <div id="fileDangKyDetail" class="form-group col row">
-                      <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
-                    </div>
+                      <div class="col-4">
+                          <div class="form-group col row">
+                              <label class="col-form-label">File đăng ký:</label>
+                              <button type="button" id="fileDangKyBtn" class="btn btn-primary" onclick="document.getElementById('fileDangKy').click();" style="margin-left:4%">Chọn file</button>
+                              <input type="file" id="fileDangKy" onchange="handleSelectFile('fileDangKy', 'fileDangKyDetail')" style="display: none;" />
+                              <div id="fileDangKyDetail" class="col-12" style="margin-top: 1px;">
+                                  <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
+                              </div>
+                              @* TODO: Giải pháp tạm thời *@
+                              <input type="hidden" id="fileDangKy_hidden" />
+                          </div>
+                      </div>
+                      <div class="col-4">
+                          <div class="form-group col row">
+                              <label class="col-form-label">File thuyết minh:</label>
+                              <button type="button" id="fileThuyetMinhBtn" class="btn btn-primary" onclick="document.getElementById('fileThuyetMinh').click();" style="margin-left:4%">Chọn file</button>
+                              <input type="file" class="form-control col-7" id="fileThuyetMinh" onchange="handleSelectFile('fileThuyetMinh', 'fileThuyetMinhDetail')" style="display: none;" />
+                              <div id="fileThuyetMinhDetail" class="col-12" style="margin-top: 1px;">
+                                  <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
+                              </div>
+                              @* TODO: Giải pháp tạm thời *@
+                              <input type="hidden" id="fileThuyetMinh_hidden" />
+                          </div>
+                      </div>
+                      <div class="col-4">
+                          <div class="form-group col row">
+                              <label class="col-form-label">Đính kèm lý lịch:</label>
+                              <button type="button" id="fileDinhKemLyLichBtn" class="btn btn-primary" onclick="document.getElementById('fileDinhKemLyLich').click();" style="margin-left:4%">Chọn file</button>
+                              <input type="file" class="form-control col-7" id="fileDinhKemLyLich" onchange="handleSelectFile('fileDinhKemLyLich', 'fileDinhKemLyLichDetail')" style="display: none;" />
+                              <div id="fileDinhKemLyLichDetail" class="col-12" style="margin-top: 1px;">
+                                  <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
+                              </div>
+                              @* TODO: Giải pháp tạm thời *@
+                              <input type="hidden" id="fileDinhKemLyLich_hidden" />
+                          </div>
+                      </div>
                   </div>
-                  <div class="row">
-                    <div class="form-group col row" style="margin-left:2%">
-                      <label class="col-form-label" for="fileThuyetMinh">Tải lên file thuyết minh đề tài:</label>
-                      <input type="file" class="form-control col-7" id="fileThuyetMinh" onchange="handleSelectFile('fileThuyetMinh', 'fileThuyetMinhDetail')" />
-                      @* TODO: Giải pháp tạm thời *@
-                      <input type="hidden" id="fileThuyetMinh_hidden" />
-                    </div>
-                    <div id="fileThuyetMinhDetail" class="form-group col row">
-                      <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col row" style="margin-left:2%">
-                      <label class="col-form-label" for="fileDinhKemLyLich">Đính kèm lý lịch:</label>
-                      <input type="file" class="form-control col-7" id="fileDinhKemLyLich" onchange="handleSelectFile('fileDinhKemLyLich', 'fileDinhKemLyLichDetail')" />
-                      @* TODO: Giải pháp tạm thời *@
-                      <input type="hidden" id="fileDinhKemLyLich_hidden" />
-                    </div>
-                    <div id="fileDinhKemLyLichDetail" class="form-group col row">
-                      <!-- Danh sách file đã upload thành công sẽ hiển thị tại đây -->
-                    </div>
-                  </div>
+                    <div class="row" id="adminResponse" style="display: none">
+                        <hr />
+                        <div class="form-group col row">
+                            <label class="form-label">Phản hồi từ Hội đồng</label>
+                            <textarea id="ghiChu" class="col-12" disabled></textarea>
+                            <div class="form-group col-12" id="attachContainer" style="display: none">
+                                <span>Đính kèm</span>
+                                <div class="row" id="adminFileListContainer"></div>
+                            </div>
+                        </div>
+                    </div>  
                   <div class="row" style="display: flex; justify-content: flex-end;">
                     <button class="btn btn-success" onclick="check_result()">TIẾP TỤC</button>
                   </div>
@@ -944,13 +827,22 @@
         document.getElementById('sanPhamDuKien').value = "";
         document.getElementById('kinhPhi').value = "";
         document.getElementById('fileDangKy').value = "";
+        document.getElementById("fileDangKyBtn").style.display = "unset";
         document.getElementById('fileDangKyDetail').innerHTML = "";
         document.getElementById('fileThuyetMinh').value = "";
+        document.getElementById("fileThuyetMinhBtn").style.display = "unset";
         document.getElementById('fileThuyetMinhDetail').innerHTML = "";
         document.getElementById('fileDinhKemLyLich').value = "";
+        document.getElementById("fileDinhKemLyLichBtn").style.display = "unset";
         document.getElementById('fileDinhKemLyLichDetail').innerHTML = "";
         document.getElementById("btn-lvt").style.display = "none";
         document.getElementById("btn-lvtm").style.display = "none";
+        
+        document.getElementById("adminResponse").style.display = "none";
+        document.getElementById("ghiChu").value = "";
+        document.getElementById('attachContainer').style.display = 'none'
+        document.getElementById('adminFileListContainer').innerHTML = ''
+        
         stepperPrevious();
     }
     function luuVaThemMoi() {
@@ -1054,7 +946,7 @@
     linkapiID3NCV = "https://localhost:44364/api/ThanhToanNCV/Get-id?id=";
 
   // Hàm rút gọn tên file
-  function shortenFileName(fileName, maxLength = 15) {
+  function shortenFileName(fileName, maxLength = 30) {
     // Kiểm tra độ dài fileName, nếu nhỏ hơn hoặc bằng maxLength thì không cần rút gọn
     if (fileName.length <= maxLength) return fileName;
 
@@ -1063,8 +955,8 @@
     const baseName = fileName.slice(0, extIndex); // Phần tên trước dấu chấm
 
     // Giữ lại 7 ký tự đầu và 4 ký tự cuối, giữa là '...'
-    const start = baseName.slice(0, 7);
-    const end = baseName.slice(-4);
+    const start = baseName.slice(0, 13);
+    const end = baseName.slice(-7);
 
     return `${start}...${end}${extension}`;
   }
@@ -1128,20 +1020,30 @@
     }
 
   // Hàm load hiển thị danh sách file đã upload dùng xem chi tiết
-  function loadFileUploaded(fileUrl, documentId) {
+  function loadFileUploaded(fileUrl, documentId, className = 'col-12 file-item', clearContentBefore = true, isAdminFile = false) {
     const uploadedFilesContainer = document.getElementById(documentId);
-    uploadedFilesContainer.innerHTML = ''; // Xóa nội dung cũ
+    if (clearContentBefore) {
+      uploadedFilesContainer.innerHTML = ''; // Xóa nội dung cũ
+    }
 
     const fileDiv = document.createElement('div');
-    fileDiv.className = 'col-4 file-item';
+    fileDiv.className = className;
 
     const fileLink = document.createElement('a');
     fileLink.href = fileUrl;
-    fileLink.textContent = shortenFileName(fileUrl.split('/').pop()); // Hiển thị tên file đã rút gọn
+    const fileName = fileUrl.split('/').pop();
+    fileLink.innerHTML = `${getFileIcon(fileName)} ${shortenFileName(fileName)}`; // Hiển thị tên file đã rút gọn kèm icon file
     fileLink.target = '_blank';
     fileLink.className = 'd-block';
 
     fileDiv.appendChild(fileLink);
+    
+    if (!isAdminFile) {
+      const fileStatusSpan = document.createElement('span');
+      fileStatusSpan.id = `${documentId}Status`;
+      fileDiv.appendChild(fileStatusSpan);
+    }
+    
     uploadedFilesContainer.appendChild(fileDiv);
   }
 
@@ -1151,11 +1053,12 @@
     uploadedFilesContainer.innerHTML = ''; // Xóa nội dung cũ
 
     const fileDiv = document.createElement('div');
-    fileDiv.className = 'col-4 file-item';
+    fileDiv.className = 'col-12 file-item';
 
     const fileLink = document.createElement('a');
     fileLink.href = fileUrl;
-    fileLink.textContent = shortenFileName(fileUrl.split('/').pop()); // Hiển thị tên file đã rút gọn
+    const fileName = fileUrl.split('/').pop();
+    fileLink.innerHTML = `${getFileIcon(fileName)} ${shortenFileName(fileName)}`; // Hiển thị tên file đã rút gọn kèm icon file
     fileLink.target = '_blank';
     fileLink.className = 'd-block';
 
@@ -1172,6 +1075,25 @@
     fileDiv.appendChild(fileLink);
     fileDiv.appendChild(removeButton);
     uploadedFilesContainer.appendChild(fileDiv);
+  }
+  
+  function getFileIcon(fileName) {
+    const ext = fileName.split('.').pop();
+    if (ext == 'png' || ext == 'jpg' || ext == 'jpeg') {
+      return '<i class="bi bi-file-earmark-image"></i>';
+    } else if (ext == 'pdf') {
+      return '<i class="bi bi-file-earmark-pdf"></i>';
+    } else if (ext == 'ppt' || ext == 'pptx') {
+      return '<i class="bi bi-file-earmark-slides"></i>';
+    } else if (ext == 'xls' || ext == 'xlsx' || ext == 'csv') {
+      return '<i class="bi bi-file-earmark-spreadsheet"></i>';
+    } else if (ext == 'doc' || ext == 'docx') {
+      return '<i class="bi bi-file-earmark-word"></i>';
+    } else if (ext == 'zip' || ext == 'rar' || ext == 'tar' || ext == 'gz' || ext == '7z') {
+      return '<i class="bi bi-file-earmark-zip"></i>';
+    } else {
+      return '<i class="bi bi-file-earmark-text"></i>';
+    }
   }
 
   // Hàm xóa file đã upload
@@ -1249,7 +1171,7 @@
                         } else {
                             txtcolor = "rgba(42, 148, 70, 1)";
                             bgcolor = "rgba(42, 148, 70, 0.07)";
-                        };
+                        }
                         var grtg = row.groupUser;
 
                         var tacgia = getOneAuthor(grtg, _idUser);
@@ -1337,8 +1259,9 @@
                     document.getElementById("btn-lvt").disabled = false;
                     document.getElementById("btn-lvtm").disabled = false;
                 } else {
-                    document.getElementById("btn-lvt").remove();
-                    document.getElementById("btn-lvtm").remove();
+                    // nên ẩn đi, không xóa 2 nút này
+                    document.getElementById("btn-lvt").style.display = "none";
+                    document.getElementById("btn-lvtm").style.display = "none";
                 }
                 
                 sessionStorage.setItem("NguoiKhai", data.userId);
@@ -1353,18 +1276,30 @@
                 
                 loadSPDuKien();
 
-                document.getElementById("fileDangKy").style.display = "none";
+                document.getElementById("fileDangKyBtn").style.display = "none";
                 loadFileUploaded(data.fileDangKy, 'fileDangKyDetail');
                 document.getElementById("fileDangKy_hidden").value = data.fileDangKy;
-                document.getElementById("fileThuyetMinh").style.display = "none";
+                document.getElementById("fileThuyetMinhBtn").style.display = "none";
                 loadFileUploaded(data.fileThuyetMinh, 'fileThuyetMinhDetail');
                 document.getElementById("fileThuyetMinh_hidden").value = data.fileThuyetMinh;
-                document.getElementById("fileDinhKemLyLich").style.display = "none";
+                document.getElementById("fileDinhKemLyLichBtn").style.display = "none";
                 loadFileUploaded(data.fileDinhKemLyLich, 'fileDinhKemLyLichDetail');
                 document.getElementById("fileDinhKemLyLich_hidden").value = data.fileDinhKemLyLich;
                 
-                @* TODO: xử lý chia cột hiển thị cho file kiểm duyệt *@
-                // File sau khi kiểm duyệt sẽ từ cột bên trái hiển thị sang cột bên phải 
+                checkApprovedFile(data.fileStatus);
+                
+                if (data.status != "Đang đợi duyệt") {
+                    document.getElementById("adminResponse").style.display = "unset";
+                    document.getElementById("ghiChu").value = data.ghiChu;
+                    
+                    if (data.fileList && data.fileList.length > 0) {
+                        document.getElementById('attachContainer').style.display = 'unset'
+                        document.getElementById('adminFileListContainer').innerHTML = ''
+                        data.fileList.forEach((fileUrl) => {
+                            loadFileUploaded(fileUrl, 'adminFileListContainer', 'col-3 file-item', false, true);
+                        });
+                    }
+                }
 
                 var tgp = 0;
                 var tgc = 1;
@@ -1494,6 +1429,29 @@
                 });//
 
             });
+    }
+    
+    function checkApprovedFile(fileStatus) {
+      // ví dụ fileStatus = "01-"
+      const fs1 = fileStatus[0]; // 0
+      const fs2 = fileStatus[1]; // 1
+      const fs3 = fileStatus[2]; // -
+      
+      if (fs1 != "-") {
+        document.getElementById('fileDangKyDetailStatus').innerHTML = `
+          <i class="bi ${fs1 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs1 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+        document.getElementById('fileDangKyDetailStatus').style.color = fs1 == "1" ? "#4CAF50" : "#F44336";
+      }
+      if (fs2 != "-") {
+        document.getElementById('fileThuyetMinhDetailStatus').innerHTML = `
+          <i class="bi ${fs2 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs2 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+        document.getElementById('fileThuyetMinhDetailStatus').style.color = fs2 == "1" ? "#4CAF50" : "#F44336";
+      }
+      if (fs3 != "-") {
+        document.getElementById('fileDinhKemLyLichDetailStatus').innerHTML = `
+          <i class="bi ${fs3 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs3 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+        document.getElementById('fileDinhKemLyLichDetailStatus').style.color = fs3 == "1" ? "#4CAF50" : "#F44336";
+      }
     }
 
 
@@ -1982,7 +1940,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
                 status: "Đang đợi duyệt",
-                fileStatus: "000", // 3 số 0 tương ứng với trạng thái kiểm duyệt 3 file
+                fileStatus: "---", // 3 - tương ứng với trạng thái kiểm duyệt ban đầu cho 3 file
             }
         } else {
             var data = {
@@ -2002,7 +1960,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
                 status: "Đang đợi duyệt",
-                fileStatus: "000", // 3 số 0 tương ứng với trạng thái kiểm duyệt 3 file
+                fileStatus: "---", // 3 - tương ứng với trạng thái kiểm duyệt ban đầu cho 3 file
             }
         }
 

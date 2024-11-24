@@ -176,6 +176,11 @@
       border: 2px solid white;
     }
 
+    div[class^="col"].admin-file-item {
+      position: relative;
+      padding: 10px;
+    }
+
     .timeline-steps {
       display: flex;
       justify-content: center;
@@ -404,6 +409,7 @@
                   <div class="row">
                     <div class="col-6">
                       <input type="hidden" class="form-control" id="idDanhMuc">
+                      <input type="hidden" class="form-control" id="userId">
                       <div class="form-group">
                         <label for="tenBaiBao" class="form-label">Tên bài báo</label>
                         <input type="text" class="form-control" disabled id="tenBaiBao">
@@ -420,20 +426,6 @@
                         <label for="kinhPhi" class="form-label">Kinh phí dự kiến</label>
                         <input type="text" class="form-control" disabled id="kinhPhi">
                       </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="dateSubmit" class="form-label">Ngày gửi</label>
-                        <input type="datetime" class="form-control" id="dateSubmit" disabled>
-                      </div>
-                      <div class="form-group" id="status-quyen">
-                      </div>
-                      <div class="timeline-steps aos-init aos-animate" id="status-timeline" data-aos="fade-up">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
                       <div class="form-group">
                         <label class="col-form-label">File đăng ký:</label>
                         <div id="fileDangKyDetail" class="form-group col row">
@@ -451,28 +443,25 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <div class="form-group" id="fileDangKyState" style="display: none;">
-                        <label class="col-form-label">Đã duyệt file đăng ký:</label>
-                        <div id="fileDangKyDuyet" class="form-group col row">
-                        </div>
+                      <div class="form-group">
+                        <label for="dateSubmit" class="form-label">Ngày gửi</label>
+                        <input type="datetime" class="form-control" id="dateSubmit" disabled>
                       </div>
-                      <div class="form-group" id="fileThuyetMinhState" style="display: none;">
-                        <label class="col-form-label">Đã duyệt file thuyết minh:</label>
-                        <div id="fileThuyetMinhDuyet" class="form-group col row">
-                        </div>
+                      <div class="form-group" id="status-quyen">
                       </div>
-                      <div class="form-group" id="fileDinhKemLyLichState" style="display: none;">
-                        <label class="col-form-label">Đã duyệt file lý lịch:</label>
-                        <div id="fileDinhKemLyLichDuyet" class="form-group col row">
-                        </div>
+                      <div class="timeline-steps aos-init aos-animate" id="status-timeline" data-aos="fade-up">
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
                       <div class="form-group">
                         <label for="ghiChu">Ghi chú</label>
                         <textarea type="text" class="form-control" id="ghiChu"></textarea>
+                      </div>
+                      <div class="form-group" style="margin: 0.5rem 0;">
+                        <label>Thêm file phản hồi:</label>
+                        <button class="btn btn-primary" onclick="openAdminFileSelect()" type="button">Chọn file</button>
+                        <input type="file" id="adminFileRes" multiple onchange="handleAdminFileSelected()" style="display: none">
+                      </div>
+                      <div class="form-group row" id="adminFilesUploaded">
+                        @* Danh sách các file đã upload thành công sẽ hiển thị tại đây *@
                       </div>
                     </div>
                   </div>
@@ -553,6 +542,8 @@
 
 
 <script>
+  var selectedFilesArray = []; // Mảng chứa danh sách file đã chọn
+
   document.addEventListener("DOMContentLoaded", function () {
 
     var timeline = document.getElementById("timeline");
@@ -807,7 +798,11 @@
                     }, "editable": false
                   },
                   { "data": "moTaBaiBao" },
-                  { "data": "category" },
+                  { "data": "category",
+                    "render": function (data) {
+                      return getCategory(data);
+                    } 
+                  },
                   { "data": "kinhPhi" },
                   { "data": "thoiGianThucHien" },
                   { "data": "ghiChu" },
@@ -860,6 +855,11 @@
 
     }
     getData();
+    
+    // Khi modal đóng
+    $('#modal-xl-create').on('hidden.bs.modal', function () {
+      selectedFilesArray = [];
+    })
   });
   function ExportToExcelDVCT(xuat, donViCongTac) {
     // Tạo URL cho API ExportToExcelDVCT
@@ -982,12 +982,18 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById("idDanhMuc").value = data.idDanhMuc;
+        document.getElementById("userId").value = data.userId;
         document.getElementById("tenBaiBao").value = data.tenBaiBao;
         document.getElementById("moTaBaiBao").value = data.moTaBaiBao;
-        document.getElementById("category").value = data.category;
+        document.getElementById("category").value = getCategory(data.category);
         document.getElementById("kinhPhi").value = data.kinhPhi;
         document.getElementById("dateSubmit").value = data.dateSubmit;
         document.getElementById("ghiChu").value = data.ghiChu;
+        
+        if (data.fileList) {
+          selectedFilesArray = data.fileList;
+          displayAdminFilesUploaded(selectedFilesArray);
+        }
 
         //hiển thị theo quyền
         var selectStatus = document.getElementById("status-quyen");
@@ -1084,97 +1090,83 @@
         loadFile(data.fileDinhKemLyLich, fileDinhKemLyLichDetail, 2);
         
         // check file đã duyệt
-        checkApprovedFile(data.fileDangKy, data.fileThuyetMinh, data.fileDinhKemLyLich, data.fileStatus);
+        checkApprovedFile(data.fileStatus);
       })
     groupUser();
   }
   
-  function checkApprovedFile(fileDK, fileTM, fileLL, fileStatus) {
-    // ví dụ fileStatus = "010"
-    const fs1 = parseInt(fileStatus[0]); // 0
-    const fs2 = parseInt(fileStatus[1]); // 1
-    const fs3 = parseInt(fileStatus[2]); // 0
+  function getCategory(string) {
+      if (string == "DT_NCKH_Seminar") {
+          return "Đề tài NCKH/Seminar"
+      } else if (string == "HDSV") {
+          return "Hướng dẫn sinh viên"
+      }
+  }
+  
+  function checkApprovedFile(fileStatus) {
+    // ví dụ fileStatus = "01-"
+    const fs1 = fileStatus[0]; // 0
+    const fs2 = fileStatus[1]; // 1
+    const fs3 = fileStatus[2]; // -
     
-    document.getElementById('fileDangKyDuyet').innerHTML = "";
-    document.getElementById('fileThuyetMinhDuyet').innerHTML = "";
-    document.getElementById('fileDinhKemLyLichDuyet').innerHTML = "";
-    
-    if (fs1 === 1) {
-      document.getElementById('fileDangKyState').style.display = "unset";
-      loadApprovedFile(fileDK, document.getElementById('fileDangKyDuyet'));
-      document.getElementById('btn-file-status-0').textContent = "Từ chối";
-      document.getElementById('btn-file-status-0').className = "btn btn-danger";
-    } else {
-      document.getElementById('fileDangKyState').style.display = "none";
-      document.getElementById('btn-file-status-0').textContent = "Duyệt";
-      document.getElementById('btn-file-status-0').className = "btn btn-success";
+    if (fs1 != "-") {
+      document.getElementById('file-status-0').innerHTML = `
+        <i class="bi ${fs1 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs1 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+      document.getElementById('file-status-0').style.color = fs1 == "1" ? "#4CAF50" : "#F44336";
     }
-    
-    if (fs2 === 1) {
-      document.getElementById('fileThuyetMinhState').style.display = "unset";
-      loadApprovedFile(fileTM, document.getElementById('fileThuyetMinhDuyet'));
-      document.getElementById('btn-file-status-1').textContent = "Từ chối";
-      document.getElementById('btn-file-status-1').className = "btn btn-danger";
-    } else {
-      document.getElementById('fileThuyetMinhState').style.display = "none";
-      document.getElementById('btn-file-status-1').textContent = "Duyệt";
-      document.getElementById('btn-file-status-1').className = "btn btn-success";
+    if (fs2 != "-") {
+      document.getElementById('file-status-1').innerHTML = `
+        <i class="bi ${fs2 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs2 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+      document.getElementById('file-status-1').style.color = fs2 == "1" ? "#4CAF50" : "#F44336";
     }
-    
-    if (fs3 === 1) {
-      document.getElementById('fileDinhKemLyLichState').style.display = "unset";
-      loadApprovedFile(fileLL, document.getElementById('fileDinhKemLyLichDuyet'));
-      document.getElementById('btn-file-status-2').textContent = "Từ chối";
-      document.getElementById('btn-file-status-2').className = "btn btn-danger";
-    } else {
-      document.getElementById('fileDinhKemLyLichState').style.display = "none";
-      document.getElementById('btn-file-status-2').textContent = "Duyệt";
-      document.getElementById('btn-file-status-2').className = "btn btn-success";
+    if (fs3 != "-") {
+      document.getElementById('file-status-2').innerHTML = `
+        <i class="bi ${fs3 == "1" ? 'bi-check' : 'bi-x'}"></i> ${fs3 == "1" ? 'Đã duyệt' : 'Từ chối'}`;
+      document.getElementById('file-status-2').style.color = fs3 == "1" ? "#4CAF50" : "#F44336";
     }
   }
   
-  function loadFile(fileUrl, container, fileIndex, maxNameLength = null) {
+  function loadFile(fileUrl, container, fileIndex) {
     const fileDiv = document.createElement('div');
-    fileDiv.className = 'col-9 file-item';
+    fileDiv.className = 'col-8 file-item';
 
     const fileLink = document.createElement('a');
     fileLink.href = fileUrl;
-    fileLink.textContent = shortenFileName(fileUrl.split('/').pop(), maxNameLength); // Hiển thị tên file đã rút gọn
+    fileLink.textContent = shortenFileName(fileUrl.split('/').pop()); // Hiển thị tên file đã rút gọn
     fileLink.target = '_blank';
     fileLink.className = 'd-block';
     
+    const fileStatusSpan = document.createElement('span');
+    fileStatusSpan.id = `file-status-${fileIndex}`;
+    
+    fileDiv.appendChild(fileLink);
+    fileDiv.appendChild(fileStatusSpan);
+    
     @* TODO: Thêm nút kiểm duyệt file (class col-3) ở đây *@
     const actionDiv = document.createElement('div');
-    actionDiv.className = 'col-3';
+    actionDiv.className = 'col-4 btn-group';
+    actionDiv.style.display = 'block';
     
     const approveBtn = document.createElement('button');
     approveBtn.className = 'btn btn-success';
     approveBtn.textContent = 'Duyệt';
-    approveBtn.setAttribute('id', `btn-file-status-${fileIndex}`);
     approveBtn.setAttribute('type', 'button');
-    approveBtn.setAttribute('onclick', `changeFileStatus(${fileIndex})`);
+    approveBtn.setAttribute('onclick', `changeFileStatus(${fileIndex}, 1)`);
+    
+    const rejectBtn = document.createElement('button');
+    rejectBtn.className = 'btn btn-danger';
+    rejectBtn.textContent = 'Từ chối';
+    rejectBtn.setAttribute('type', 'button');
+    rejectBtn.setAttribute('onclick', `changeFileStatus(${fileIndex}, 0)`);
     
     actionDiv.appendChild(approveBtn);
-    fileDiv.appendChild(fileLink);
+    actionDiv.appendChild(rejectBtn);
+    
     container.appendChild(fileDiv);
     container.appendChild(actionDiv);
   }
   
-  function loadApprovedFile(fileUrl, container) {
-    const fileDiv = document.createElement('div');
-    fileDiv.className = 'col-12 file-item';
-
-    const fileLink = document.createElement('a');
-    fileLink.href = fileUrl;
-    fileLink.textContent = shortenFileName(fileUrl.split('/').pop(), 36); // Hiển thị tên file đã rút gọn
-    fileLink.target = '_blank';
-    fileLink.className = 'd-block';
-    
-    fileDiv.appendChild(fileLink);
-    container.appendChild(fileDiv);
-  }
-  
-  function shortenFileName(fileName, maxLength = 32) {
+  function shortenFileName(fileName, maxLength = 25) {
     // Kiểm tra độ dài fileName, nếu nhỏ hơn hoặc bằng maxLength thì không cần rút gọn
     if (fileName.length <= maxLength) return fileName;
 
@@ -1183,8 +1175,8 @@
     const baseName = fileName.slice(0, extIndex); // Phần tên trước dấu chấm
 
     // Giữ lại 21 ký tự đầu và 11 ký tự cuối, giữa là '...'
-    const start = baseName.slice(0, 21);
-    const end = baseName.slice(-11);
+    const start = baseName.slice(0, 9);
+    const end = baseName.slice(-6);
 
     return `${start}...${end}${extension}`;
   }
@@ -1229,25 +1221,206 @@
       });
   }
   
-  function changeFileStatus(fileIndex) {
+  function changeFileStatus(fileIndex, status) {
+    if (confirm(`Xác nhận ${status == 1 ? 'duyệt' : 'từ chối duyệt'} tệp dữ liệu này.`)) {
+      var idDanhMuc = document.getElementById("idDanhMuc").value;
+      fetch(`https://localhost:44364/api/DanhMucXetDuyetSinhVien/File-Status?idDanhMuc=${idDanhMuc}&fileIndex=${fileIndex}&status=${status}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + _token,
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            @* TODO: cập nhật thay đổi show/hide file kiểm duyệt *@
+            checkApprovedFile(data.fileStatus);
+          }
+        })
+        .catch(error => {
+          //alert('Có lỗi xảy ra', error);
+        });
+    }
+  }
+  
+  function openAdminFileSelect() {
+    document.getElementById('adminFileRes').click();
+  }
+  
+  function handleAdminFileSelected() {
+    var fileInput = document.getElementById('adminFileRes');
+    var files = fileInput.files;
+    const userId = document.getElementById("userId").value;
+    const tenBaiBao = document.getElementById("tenBaiBao").value;
+    
+    const maxFileSize = 10 * 1024 * 1024; // 10MB
+    
+    if (files.length === 0) {
+      toastr.warning('Vui lòng chọn (các) tệp tin để tải lên.');
+      return;
+    }
+    
+    let uploadPromises = []; // Mảng chứa các Promise file upload
+    
+    Array.from(files).forEach(file => {
+      // Kiểm tra dung lượng file
+      if (file.size > maxFileSize) {
+        toastr.error(`Tệp tin ${file.name} vượt quá giới hạn dung lượng 10MB.`);
+        return;
+      }
+      
+      // Tạo FormData để upload file
+      let formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileName', "admin_" + file.name);
+      formData.append('userId', userId);
+      formData.append('valuetenbaibao', tenBaiBao);
+      
+      let uploadPromise = new Promise((resolve, reject) => {
+        $.ajax({
+          url: '/Article/SaveFile',
+          type: 'POST',
+          data: formData,
+          processData: false, // Không xử lý dữ liệu
+          contentType: false, // Không thiết lập tiêu đề content-type
+          success: function (result) {
+            if (result.success) {
+              resolve(result.filePath);
+            } else {
+              reject('Tải lên thất bại.');
+            }
+          },
+          error: function () {
+            reject('Đã xảy ra lỗi khi tải lên.');
+          }
+        });
+      });
+      
+      uploadPromises.push(uploadPromise); // Thêm Promise vào mảng
+    });
+    
+    // Khi tất cả các file đã upload 
+    Promise.all(uploadPromises)
+      .then(filePaths => {
+        // Lọc ra những file chưa tồn tại trong mảng selectedFilesArray
+        let newFiles = filePaths.filter(filePath => {
+          // Kiểm tra file (đường dẫn) có tồn tại trong selectedFilesArray không
+          let fileName = filePath.split('/').pop(); // Lấy tên file từ đường dẫn
+          if (selectedFilesArray.includes(filePath)) {
+            toastr.warning(`Đã cập nhật tệp ${fileName}.`);
+            return false; // Nếu file đã tồn tại, không thêm vào
+          }
+          return true; // Nếu file chưa tồn tại, thêm vào
+        });
+        if (newFiles.length > 0) {
+          // Cập nhật lại danh sách file đã chọn và hiển thị
+          selectedFilesArray = selectedFilesArray.concat(newFiles);
+          toastr.success('Tải lên thành công.');
+          // Gọi API cập nhật data ở Db
+          updateAdminFileToDb();
+          // Hiển thị danh sách file đã upload thành công
+          displayAdminFilesUploaded(selectedFilesArray);
+        } else {
+          // toastr.warning('Không có file mới nào được thêm vào.');
+        }
+      })
+      .catch(error => {
+        toastr.error(error);
+      });
+  }
+  
+  // Hàm hiển thị danh sách file đã upload
+  function displayAdminFilesUploaded(files) {
+    const filesUploadedContainer = document.getElementById('adminFilesUploaded');
+    filesUploadedContainer.innerHTML = ''; // Xóa nội dung cũ
+    
+    files.forEach((fileUrl) => {
+      const fileDiv = document.createElement('div');
+      fileDiv.className = 'col-6 admin-file-item';
+      
+      const fileLink = document.createElement('a');
+      fileLink.href = fileUrl;
+      const fileName = fileUrl.split('/').pop();
+      fileLink.innerHTML = `${getFileIcon(fileName)} ${shortenFileName(fileName, 15)}`;
+      fileLink.target = '_blank';
+      fileLink.className = 'd-block';
+      
+      const removeButton = document.createElement('button');
+      removeButton.className = 'btn';
+      removeButton.innerHTML = '<i class="bi bi-trash"></i>';
+      removeButton.type = 'button';
+      removeButton.style.color = '#F44336';
+      removeButton.style.position = 'absolute';
+      removeButton.style.top = '5px';
+      removeButton.style.right = '5px';
+      removeButton.onclick = function () {
+        deleteFileUploaded(fileUrl,  fileDiv);
+      };
+      
+      fileDiv.appendChild(fileLink);
+      fileDiv.appendChild(removeButton);
+      filesUploadedContainer.appendChild(fileDiv);
+    });
+  }
+  
+  function getFileIcon(fileName) {
+    const ext = fileName.split('.').pop();
+    if (ext == 'png' || ext == 'jpg' || ext == 'jpeg') {
+      return '<i class="bi bi-file-earmark-image"></i>';
+    } else if (ext == 'pdf') {
+      return '<i class="bi bi-file-earmark-pdf"></i>';
+    } else if (ext == 'ppt' || ext == 'pptx') {
+      return '<i class="bi bi-file-earmark-slides"></i>';
+    } else if (ext == 'xls' || ext == 'xlsx' || ext == 'csv') {
+      return '<i class="bi bi-file-earmark-spreadsheet"></i>';
+    } else if (ext == 'doc' || ext == 'docx') {
+      return '<i class="bi bi-file-earmark-word"></i>';
+    } else if (ext == 'zip' || ext == 'rar' || ext == 'tar' || ext == 'gz' || ext == '7z') {
+      return '<i class="bi bi-file-earmark-zip"></i>';
+    } else {
+      return '<i class="bi bi-file-earmark-text"></i>';
+    }
+  }
+  
+  // Hàm xóa file đã upload
+  function deleteFileUploaded(fileUrl, fileDiv) {
+    if (confirm("Bạn có chắc chắn muốn xóa tệp này không?")) {
+      $.ajax({
+        url: '/Article/DeleteFile',
+        type: 'POST',
+        data: JSON.stringify({ fileUrl: fileUrl }),
+        contentType: 'application/json',
+        success: function (result) {
+          if (result.success) {
+            toastr.success('Xóa tệp thành công.');
+            const index = selectedFilesArray.indexOf(fileUrl); // Tìm vị trí của phần tử
+            if (index > -1) { // Nếu tìm thấy
+              selectedFilesArray.splice(index, 1); // Xóa 1 phần tử tại vị trí `index`
+            }
+            // Xóa phần tử của file đã xóa khỏi giao diện
+            fileDiv.remove();
+            // Gọi API cập nhật data ở Db
+            updateAdminFileToDb();
+          }
+        },
+        error: function () {
+          toastr.error('Đã xảy ra lỗi khi xóa tệp.');
+        }
+      });
+    }
+  }
+  
+  function updateAdminFileToDb() {
     var idDanhMuc = document.getElementById("idDanhMuc").value;
-    fetch(`https://localhost:44364/api/DanhMucXetDuyetSinhVien/File-Status?idDanhMuc=${idDanhMuc}&fileIndex=${fileIndex}`, {
-      method: 'POST',
+    fetch(`https://localhost:44364/api/DanhMucXetDuyetSinhVien/Update-admin-files/${idDanhMuc}`, {
+      method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + _token,
         'Content-Type': 'application/json'
       },
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          @* TODO: cập nhật thay đổi show/hide file kiểm duyệt *@
-          checkApprovedFile(data.fileDangKy, data.fileThuyetMinh, data.fileDinhKemLyLich, data.fileStatus);
-        }
-      })
-      .catch(error => {
-        //alert('Có lỗi xảy ra', error);
-      });
+      body: JSON.stringify(selectedFilesArray),
+    });
   }
   
   function update() {

@@ -42,7 +42,7 @@ namespace QLKHCN_FE.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveFile(HttpPostedFileBase file, string userId, string valuetenbaibao)
+        public ActionResult SaveFile(HttpPostedFileBase file, string fileName, string userId, string valuetenbaibao)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace QLKHCN_FE.Controllers
                         Directory.CreateDirectory(uploadDirectory);
                     }
 
-                    var filename = GetTimestamp(DateTime.Now) + "_" + file.FileName;
+                    var filename = GetTimestamp(DateTime.Now) + "_" + fileName;
 
                     // Đường dẫn tới tệp tin mới
                     var targetPath = Path.Combine(uploadDirectory, Path.GetFileName(filename));
