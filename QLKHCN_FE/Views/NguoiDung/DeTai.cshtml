@@ -8861,8 +8861,9 @@
                     document.getElementById("btn-lvt").disabled = false;
                     document.getElementById("btn-lvtm").disabled = false;
                 } else {
-                    document.getElementById("btn-lvt").remove();
-                    document.getElementById("btn-lvtm").remove();
+                    // Nên ẩn đi, không xóa 2 nút này để tránh lỗi giao diện
+                    document.getElementById("btn-lvt").style.display = "none";
+                    document.getElementById("btn-lvtm").style.display = "none";
                 }
 
                 document.getElementById("iddmxd").value = data.idDanhMuc;
