@@ -8714,6 +8714,9 @@
                     document.getElementById("tongDiem").textContent = tongDiem;
                     $(function () {
                         $("#example1").DataTable({
+                          // See: https://datatables.net/reference/option/retrieve
+                          "retrieve": true, // Cho phép sử dụng lại bảng đã được khởi tạo mà không cần khởi tạo lại
+                          
                           "paging": true,
                           "searching": true,
                           "ordering": true,
