@@ -293,17 +293,12 @@
                 <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                   <div class="row">
                     <div class="form-group col-6 row">
-                      <label class="col-form-label" for="sltgc">Tác giả đầu</label>
-                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả chính" id="sltgc" disabled value="1" min="1" max="1" oninput="clear_hinhthuc()" />
+                      <label class="col-form-label" for="sltgc">Chủ nhiệm</label>
+                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng chủ nhiệm" id="sltgc" disabled value="1" min="1" max="1" oninput="clear_hinhthuc()" />
                     </div>
                     <div class="form-group col row" style="margin-left:2%">
-                      <label class="col-form-label" for="sltgp">Số lượng tác giả phụ</label>
-                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả phụ" id="sltgp" min="1" oninput="clear_hinhthuc()" />
-                    </div>
-                    @* TODO: remove *@
-                    <div class="form-group col row" style="margin-left:2%; display:  none">
-                      <label class="col-form-label" for="sltglh">Số lượng tác giả liên hệ</label>
-                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả liên hệ" id="sltglh" min="1" oninput="clear_hinhthuc()" />
+                      <label class="col-form-label" for="sltgp">Số lượng thành viên</label>
+                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng thành viên" id="sltgp" min="1" oninput="clear_hinhthuc()" />
                     </div>
                   </div>
 
@@ -407,9 +402,8 @@
     function loadtable() {
         var sltgc = Number(document.querySelector('#sltgc').value);
         var sltgp = Number(document.querySelector('#sltgp').value);
-        var sltglh = Number(document.querySelector('#sltglh').value);
 
-        var sltg = sltgc + sltgp + sltglh;
+        var sltg = sltgc + sltgp;
         try {
             var tietchuan = Number(document.querySelector('#tietchuan').textContent);
 
@@ -473,8 +467,8 @@
                 try { var texttg = optionstg.options[optionstg.selectedIndex].textContent; } catch { }
                 table.rows[i].cells[3].innerHTML = texttg;
             }
-            if (sltgc == 1 && sltgp > 0 && sltglh == 0) {
-                if (sltgc == 1 && sltgp > 0 && sltglh == 0) {
+            if (sltgc == 1 && sltgp > 0) {
+                if (sltgc == 1 && sltgp > 0) {
                     for (let i = 0; i < sltg; i++) {
                         var coquan = table.rows[0].cells[2].textContent;
                         try { var donggop = Number(document.querySelector('#donggop-' + i).value); } catch { }
@@ -576,187 +570,6 @@
                                     table.rows[i].cells[6].innerHTML = `0`;
                                     table.rows[i].cells[7].innerHTML = `0`;
                                 }
-                            }
-                        }
-                    }
-
-                }
-            }
-            if (sltgc == 1 && sltgp == 0 && sltglh > 0) {
-                for (let i = 1; i < sltg; i++) {
-                    var coquan = table.rows[0].cells[2].textContent;
-                    try { var donggop = Number(document.querySelector('#donggop-' + i).value); } catch { }
-                    if (sltg > 1) {
-                        if (coquan.includes("Quốc tế - Hutech (0%)") || coquan.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || coquan.includes(" --Chọn cơ quan công tác--")) {
-                            table.rows[0].cells[4].innerHTML = `0`;
-                            table.rows[0].cells[5].innerHTML = `0`;
-                            table.rows[0].cells[6].innerHTML = `0`;
-                            table.rows[0].cells[7].innerHTML = `0`;
-                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltglh}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltglh}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `0`;
-                                table.rows[i].cells[7].innerHTML = `0`;
-                            }
-                        } if (coquan.includes("Hutech-Quốc tế (50%)")) {
-                            table.rows[0].cells[4].innerHTML = `0`;
-                            table.rows[0].cells[5].innerHTML = `0`;
-                            table.rows[0].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                            } else {
-                                table.rows[0].cells[7].innerHTML = `${tietchuan / sltg * 0.5}`;
-                            }
-                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `0`;
-                                table.rows[i].cells[7].innerHTML = `0`;
-                            }
-                        } else if (coquan.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                            table.rows[0].cells[4].innerHTML = `0`;
-                            table.rows[0].cells[5].innerHTML = `0`;
-                            table.rows[0].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[0].cells[7].innerHTML = `${tietchuan / sltg}`;
-                            } else {
-                                table.rows[0].cells[7].innerHTML = `${tietchuan / sltg}`;
-                            }
-                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                } else {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                }
-                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                table.rows[i].cells[4].innerHTML = `0`;
-                                table.rows[i].cells[5].innerHTML = `0`;
-                                table.rows[i].cells[6].innerHTML = `0`;
-                                table.rows[i].cells[7].innerHTML = `0`;
-                            }
-                        }
-                    }
-                }
-            }
-
-            else if (sltg > 2 && (sltgc + sltglh) > 1 && sltgp > 0) {
-                for (let i = 0; i < sltg; i++) {
-                    try { var donggop = Number(document.querySelector('#donggop-' + i).value); } catch { }
-
-                    var coquan = table.rows[i].cells[2].textContent;
-                    var optionstg1 = document.querySelector('#tg-' + i);
-                    try { var texttg1 = optionstg1.options[optionstg1.selectedIndex].textContent; } catch { }
-
-                    if (coquan.includes("Quốc tế - Hutech (0%)") || coquan.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || coquan.includes(" --Chọn cơ quan công tác--")) {
-                        table.rows[i].cells[4].innerHTML = `0`;
-                        table.rows[i].cells[5].innerHTML = `0`;
-                        table.rows[i].cells[6].innerHTML = `0`;
-                        table.rows[i].cells[7].innerHTML = `0`;
-                    } else if (coquan.includes("Hutech-Quốc tế (50%)")) {
-                        if (texttg1 == ("Tác giả chính") || texttg1 == ("Chủ nhiệm") || texttg1 == ("Báo cáo viên") || texttg1 == ("GVHD")) {
-                            table.rows[i].cells[4].innerHTML = `0`;
-                            table.rows[i].cells[5].innerHTML = `0`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${(((tietchuan * 0.8) / (sltgc + sltglh))) / 2}`;
-                            }
-
-                        } else if (texttg1 == ("Tác giả phụ") || texttg1 == ("Thành viên") || texttg1 == ("Sinh viên")) {
-                            table.rows[i].cells[4].innerHTML = `0`;
-                            table.rows[i].cells[5].innerHTML = `0`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${(tietchuan * 0.2) / 2 / sltgp}`;
-                            }
-                        } else if (texttg1 == ("Tác giả liên hệ") || texttg1 == ("Đồng chủ nhiệm") || texttg1 == ("Đồng GVHD")) {
-                            table.rows[i].cells[4].innerHTML = `0`;
-                            table.rows[i].cells[5].innerHTML = `0`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${(tietchuan * 0.8) / 2 / (sltgc + sltglh)}`;
-                            }
-                        }
-
-                    } else if (coquan.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                        if (texttg1 == ("Tác giả chính") || texttg1 == ("Chủ nhiệm") || texttg1 == ("Báo cáo viên") || texttg1 == ("GVHD")) {
-                            table.rows[i].cells[4].innerHTML = `${(((total * 0.75) / (sltgc + sltglh)))}`;
-                            table.rows[i].cells[5].innerHTML = `${(((total * 0.75) / (sltgc + sltglh))) * 0.9}`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${(((tietchuan * 0.8) / (sltgc + sltglh)))}`;
-                            }
-                        } else if (texttg1 == ("Tác giả phụ") || texttg1 == ("Thành viên") || texttg1 == ("Sinh viên")) {
-                            table.rows[i].cells[4].innerHTML = `${total * 0.25 / sltgp}`;
-                            table.rows[i].cells[5].innerHTML = `${((total * 0.25) / sltgp) * 0.9}`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`; if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
-                            }
-                        } else if (texttg1 == ("Tác giả liên hệ") || texttg1 == ("Đồng chủ nhiệm") || texttg1 == ("Đồng GVHD")) {
-                            table.rows[i].cells[4].innerHTML = `${((total * 0.75) / (sltgc + sltglh))}`;
-                            table.rows[i].cells[5].innerHTML = `${((total * 0.75) / (sltgc + sltglh)) * 0.9}`;
-                            table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                            if (hdsv == "HDSV") {
-                                table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                            } else {
-                                table.rows[i].cells[7].innerHTML = `${((tietchuan * 0.8) / (sltgc + sltglh))}`;
                             }
                         }
                     }
@@ -865,11 +678,6 @@
                         <div class="form-group col row" style="margin-left:2%">
                             <label class="col-form-label" for="sltgp">Thành viên</label>
                             <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng thành viên" id="sltgp" min="1" oninput="clear_hinhthuc()" />
-                        </div>
-                        <!-- TODO: remove -->
-                        <div class="form-group col row" style="margin-left:2%; display: none">
-                            <label class="col-form-label" for="sltglh">Đồng chủ nhiệm</label>
-                            <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng đồng chủ nhiệm" id="sltglh" min="1" oninput="clear_hinhthuc()" />
                         </div>
                     </div>
             
@@ -1305,7 +1113,7 @@
                 var tgc = 1;
                 const kekhaitg = render_tg(data.groupUser);
                 kekhaitg.forEach(function (row) {
-                    if (row[3].includes("Tác giả phụ") || row[3].includes("Báo cáo viên") || row[3].includes("Tác giả chính")) {
+                    if (row[3].includes("Thành viên") || row[3].includes("Chủ nhiệm")) {
                         tgp += 1;
                     }
                 });
@@ -1386,17 +1194,17 @@
                         </select>
                     </div>`;
                     }
-                    if (row[3].includes("Tác giả phụ")) {
-                        vop2 = `<option>Tác giả phụ</option>`;
+                    if (row[3].includes("Thành viên")) {
+                        vop2 = `<option>Thành viên</option>`;
                     }
-                    if (row[3].includes("Tác giả chính")) {
-                        vop2 = `<option>Tác giả chính</option>`;
+                    if (row[3].includes("Chủ nhiệm")) {
+                        vop2 = `<option>Chủ nhiệm</option>`;
                     }
 
                     //document.querySelector('#tongtacgia').innerHTML = `<a>Tổng số tác giả: <a id="tongsltg">${sltg}</a></a>`;
                     if (sltgc == 1) {
                         a += `<tr><td>${i += 1}</td >
-                        <td ><input class="form-control" type="text" value="${row[1]}" placeholder="Nhập Mã GV/Tên tác giả phụ thuộc HUTECH" id="inp-username-id-mail-${i - 1}"   oninput="inpsearch(${i - 1},render_user)" />
+                        <td ><input class="form-control" type="text" value="${row[1]}" placeholder="Nhập Mã GV/Tên thành viên thuộc HUTECH" id="inp-username-id-mail-${i - 1}"   oninput="inpsearch(${i - 1},render_user)" />
                         <div id="themtg" style="display: flex">
                             <div width: 50%">
                                 <dl id="dl-user-${i - 1}">
@@ -1419,7 +1227,7 @@
                     }
 
                     else if (sltgc > 1) {
-                        toastr.warning("Duy nhất 1 tác giả chính!");
+                        toastr.warning("Duy nhất 1 chủ nhiệm!");
                     }
                     try { document.querySelector('#addtacgia').innerHTML = a; } catch { }
 
@@ -1622,7 +1430,6 @@
             var a = ``;
             var sltgc = Number(document.querySelector('#sltgc').value);
             var sltgp = Number(document.querySelector('#sltgp').value);
-            var sltglh = Number(document.querySelector('#sltglh').value);
             var valuerank = _ngach;
             var optionslh = document.querySelector('#loaiHinhKeKhai');
             var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;
@@ -1630,7 +1437,7 @@
             var selectedValue = selectElement.value;
             var selectedValueYc = document.querySelector('input[name="yc"]:checked').value;
             ////////alert(valueloaihinh);
-            var sltg = sltgc + sltgp + sltglh;
+            var sltg = sltgc + sltgp;
         } catch { }
         let i = 0;
         //toastr.warning(valueloaihinh + valuerank);
@@ -1649,7 +1456,7 @@
         
         for (i = 0; i < sltgc; i++) {
             a += `<tr><td>${i + 1}</td>
-                    <td ><input class="form-control" type="text" placeholder="Nhập Mã GV/Tên tác giả phụ thuộc HUTECH"   id="inp-username-id-mail-${i}" oninput="inpsearch(${i},render_user)" />
+                    <td ><input class="form-control" type="text" placeholder="Nhập Mã GV/Tên thành viên thuộc HUTECH"   id="inp-username-id-mail-${i}" oninput="inpsearch(${i},render_user)" />
                     <div id="themtg" style="display: flex">
                         <div width: 50%">
                             <dl id="dl-user-${i}">
@@ -1669,12 +1476,12 @@
                     <td>
                     <div class="form-group">
                      <select name="coquancongtac" onchange="checknullhutech(${i})" id="tg-${i}" class="form-control" disabled>
-                         <option >Tác giả chính</option>
+                         <option >Chủ nhiệm</option>
                          </select></td></tr>`;
         }
         for (i; i < (sltgp + sltgc); i++) {
             a += `<tr><td>${i + 1}</td>
-                    <td ><input class="form-control" type="text" placeholder="Nhập Mã GV/Tên tác giả phụ thuộc HUTECH" id="inp-username-id-mail-${i}"   oninput="inpsearch(${i},render_user)" />
+                    <td ><input class="form-control" type="text" placeholder="Nhập Mã GV/Tên thành viên thuộc HUTECH" id="inp-username-id-mail-${i}"   oninput="inpsearch(${i},render_user)" />
                     <div id="themtg" style="display: flex">
                         <div width: 50%">
                             <dl id="dl-user-${i}">
@@ -1694,34 +1501,9 @@
                     <div class="form-group">
                      <select name="coquancongtac" onchange="checknullhutech(${i})" id="tg-${i}" class="form-control" disabled>
 
-                         <option>Tác giả phụ</option>
+                         <option>Thành viên</option>
                          </td>
                          </tr>`;
-        } for (i; i < (sltgc + sltglh + sltgp); i++) {
-            a += `<tr><td>${i + 1}</td>
-                    <td ><input class="form-control" type="text" placeholder="Nhập Mã GV/Tên tác giả phụ thuộc HUTECH" id="inp-username-id-mail-${i}"   oninput="inpsearch(${i},render_user)" />
-                    <div id="themtg" style="display: flex">
-                        <div width: 50%">
-                            <dl id="dl-user-${i}">
-                            </dl>
-                        </div>
-                    </div></td>
-                    <td ><div class="form-group">
-                     <select name="coquancongtac" onchange="checknullhutech(${i})" id="coquancongtac-${i}" class="form-control">
-                        <option value="0"> --Chọn cơ quan công tác--</option>
-
-                        <option value="1">Cơ quan công tác duy nhất Hutech (100%)</option>
-                        <option value="0.5">Hutech-Quốc tế (50%)</option>
-                        <option value="0">Quốc tế - Hutech (0%)</option>
-                        <option value="0">Cơ quan công tác trong nước - ngoài Hutech (0%)</option>
-                    </select>
-                </div></td>
-                    <td>
-                    <div class="form-group">
-                     <select name="coquancongtac" onchange="checknullhutech(${i})" id="tg-${i}" class="form-control" disabled>
-
-                         <option>Tác giả liên hệ</option>
-                         </td></tr>`;
         }
 
         try { document.querySelector('#addtacgia').innerHTML = a; } catch { }
@@ -1731,8 +1513,7 @@
     function render_user(users) {
         var sltgc = Number(document.querySelector('#sltgc').value);
         var sltgp = Number(document.querySelector('#sltgp').value);
-        var sltglh = Number(document.querySelector('#sltglh').value);
-        var sltg = sltgc + sltgp + sltglh;
+        var sltg = sltgc + sltgp;
         for (let i = 0; i < sltg; i++) {
             try {
                 var tg = document.querySelector('#inp-username-id-mail-' + i);
@@ -1753,8 +1534,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
     function btnadd(id, iduser, name) {
         var sltgc = Number(document.querySelector('#sltgc').value);
         var sltgp = Number(document.querySelector('#sltgp').value);
-        var sltglh = Number(document.querySelector('#sltglh').value);
-        var sltg = sltgc + sltgp + sltglh;
+        var sltg = sltgc + sltgp;
 
         var tg = document.querySelector('#inp-username-id-mail-' + id);
         tg.value = ``;
@@ -1838,7 +1618,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                     }
                 } else if (response.status == 400) {
                     console.log(response);
-                    toastr.warning('Trùng tên bài báo');
+                    toastr.warning('Trùng tên đề tài');
                 } else {
 
                     toastr.error('Liên hệ hỗ trợ.', 'Gặp lỗi!')
