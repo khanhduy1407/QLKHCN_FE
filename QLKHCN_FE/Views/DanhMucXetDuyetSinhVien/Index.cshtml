@@ -690,6 +690,7 @@
             $('#example1').DataTable().clear().destroy();
             if (_quyen == "Quyền duyệt 1" || _quyen == "Quyền duyệt 2") {
               $("#example1").DataTable({
+                "retrieve": true, // Cho phép sử dụng lại bảng đã được khởi tạo mà không cần khởi tạo lại
                 "paging": true,
                 "searching": true,
                 "ordering": true,
@@ -767,6 +768,7 @@
             }
             else {
               $("#example1").DataTable({
+                "retrieve": true, // Cho phép sử dụng lại bảng đã được khởi tạo mà không cần khởi tạo lại
                 "paging": true,
                 "searching": true,
                 "ordering": true,
