@@ -486,6 +486,9 @@
   }
 </style>
 <script>
+    // đặt giá trị min cho input datetime
+    document.getElementById('datesubmit').min = new Date().toISOString().split('T')[0];
+            
     function loadtable() {
         var sltgc = Number(document.querySelector('#sltgc').value);
         var sltgp = Number(document.querySelector('#sltgp').value);
