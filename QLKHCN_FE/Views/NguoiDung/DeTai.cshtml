@@ -414,11 +414,11 @@
                     </div>
                     <div class="form-group col row" style="margin-left:2%">
                       <label class="col-form-label" for="sltgp">Số lượng tác giả phụ</label>
-                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả phụ" id="sltgp" min="1" oninput="clear_hinhthuc()" />
+                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả phụ" id="sltgp" min="0" value="0" oninput="clear_hinhthuc()" />
                     </div>
                     <div class="form-group col row" style="margin-left:2%">
                       <label class="col-form-label" for="sltglh">Số lượng tác giả liên hệ</label>
-                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả liên hệ" id="sltglh" min="1" oninput="clear_hinhthuc()" />
+                      <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng tác giả liên hệ" id="sltglh" min="0" value="0" oninput="clear_hinhthuc()" />
                     </div>
                   </div>
 
@@ -7443,11 +7443,11 @@
                                         </div>
                                         <div class="form-group col row" style="margin-left:2%">
                                             <label class="col-form-label" for="sltgp">Thành viên</label>
-                                            <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng thành viên" id="sltgp" min="1" oninput="clear_hinhthuc()" />
+                                            <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng thành viên" id="sltgp" min="0" value="0" oninput="clear_hinhthuc()" />
                                         </div>
                                         <div class="form-group col row" style="margin-left:2%">
                                             <label class="col-form-label" for="sltglh">Đồng chủ nhiệm</label>
-                                            <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng đồng chủ nhiệm" id="sltglh" min="1" oninput="clear_hinhthuc()" />
+                                            <input class="form-control col" style="margin-left:6%" type="number" placeholder="Số lượng đồng chủ nhiệm" id="sltglh" min="0" value="0" oninput="clear_hinhthuc()" />
                                         </div>
                                     </div>
 
@@ -7474,6 +7474,10 @@
                                     </div>
 
                                     <button class="btn btn-success" onclick="stepperPrevious()">VỀ TRƯỚC</button>`;
+                                        
+                // tự động hiển thị các trường nhập liệu sẵn
+                clear_hinhthuc();
+                themtacgia();
             }
         }
         else {
