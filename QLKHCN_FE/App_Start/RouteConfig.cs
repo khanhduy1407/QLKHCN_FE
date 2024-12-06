@@ -8,6 +8,13 @@ namespace QLKHCN_FE
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            // Route cho trang Hồ Sơ
+            routes.MapRoute(
+                name: "HoSo",
+                url: "HoSo/{userId}",
+                defaults: new { controller = "HoSo", action = "Index", userId = UrlParameter.Optional }
+            );
 
             // Route dành cho các năm động (cụ thể cho WOS)
             routes.MapRoute(

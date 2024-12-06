@@ -157,6 +157,7 @@
     <Compile Include="Controllers\DanhMucXetDuyetController.cs" />
     <Compile Include="Controllers\DanhMucXetDuyetSinhVienController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
     <Compile Include="Controllers\QuyDoiGVController.cs" />
     <Compile Include="Controllers\QuyDoiNCVController.cs" />
@@ -2601,6 +2602,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Views\DanhMucXetDuyetSinhVien\Index.cshtml" />
+    <Content Include="Views\HoSo\Index.cshtml" />
     <Content Include="Views\NguoiDung\DeTaiSinhVien.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
