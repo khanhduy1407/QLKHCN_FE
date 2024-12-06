@@ -510,12 +510,7 @@
             var optionshdsv = document.querySelector('#loaiCongTrinh');
             var hdsv = optionshdsv.options[optionshdsv.selectedIndex].value;
         } catch { }
-        try {
-            var total = Number(document.querySelector('#totaltien').textContent);
-
-        } catch {
-            var total = 0;
-        }
+        var total = Number(parseCurrency(document.querySelector('#totaltien').textContent)) || 0; // nếu số không xác định thì đặt thành 0
         var tongdonggop = 0;
         var valuerank = _ngach;
         var optionslh = document.querySelector('#loaiHinhKeKhai');
@@ -7502,12 +7497,7 @@
                 }
             }
         }
-        try {
-            var kinhphi = document.querySelector('#totaltien').textContent;
-
-        } catch {
-            var kinhphi = "";
-        }
+        var kinhphi = parseCurrency(document.querySelector('#totaltien').textContent) || "";
         if (tenspkhcn == "") {
             return toastr.warning("Vui lòng nhập tên sản phẩm!");
         }
@@ -10468,7 +10458,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
         try { var valuelbissn = document.querySelector('#lbissn').textContent; } catch {
             try { var valuelbissn = document.querySelector('#traCuuIssn').value; } catch { var valuelbissn = "" }
         }
-        var total = document.querySelector('#totaltien').textContent;
+        var total = parseCurrency(document.querySelector('#totaltien').textContent) || 0;
         try { var valuelbeissn = document.querySelector('#lbeissn').textContent; } catch { var valuelbeissn = "" }
         var tg = groupUser();
         var ghichu = sessionStorage.getItem("GhiChu");
@@ -10559,9 +10549,28 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
 
         return formatter.format(amount);
     }
+    // Dịch ngược currency về thành number.
+    function parseCurrency(currency) {
+        // Nếu đầu vào đã là số, trả về ngay
+        if (typeof currency === 'number') {
+            return currency;
+        }
+
+        // Nếu đầu vào là chuỗi, xử lý để chuyển thành số
+        if (typeof currency === 'string') {
+            // Xóa ký hiệu tiền tệ, khoảng trắng và dấu phân cách
+            let cleaned = currency.replace(/[^\d\-]/g, '');
+            
+            // Chuyển đổi chuỗi đã làm sạch thành số
+            return parseInt(cleaned, 10);
+        }
+    
+        // Nếu đầu vào không hợp lệ, trả về NaN
+        return NaN;
+    }
     // Chặn thoát
     function closeModal() {
         $('#modal-xl-create').modal('hide');
-  }
+    }
 </script>
 <script src="~/Scripts/toastr.js"></script>

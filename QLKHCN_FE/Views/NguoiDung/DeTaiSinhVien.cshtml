@@ -419,12 +419,7 @@
             var optionshdsv = document.querySelector('#loaiCongTrinh');
             var hdsv = optionshdsv.options[optionshdsv.selectedIndex].value;
         } catch { }
-        try {
-            var total = Number(document.querySelector('#totaltien').textContent);
-
-        } catch {
-            var total = 0;
-        }
+        var total = Number(parseCurrency(document.querySelector('#totaltien').textContent)) || 0;
         var tongdonggop = 0;
         for (let j = 0; j < sltg; j++) {
             try {
@@ -1781,6 +1776,25 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
         });
 
         return formatter.format(amount);
+    }
+    // Dịch ngược currency về thành number.
+    function parseCurrency(currency) {
+        // Nếu đầu vào đã là số, trả về ngay
+        if (typeof currency === 'number') {
+            return currency;
+        }
+
+        // Nếu đầu vào là chuỗi, xử lý để chuyển thành số
+        if (typeof currency === 'string') {
+            // Xóa ký hiệu tiền tệ, khoảng trắng và dấu phân cách
+            let cleaned = currency.replace(/[^\d\-]/g, '');
+            
+            // Chuyển đổi chuỗi đã làm sạch thành số
+            return parseInt(cleaned, 10);
+        }
+    
+        // Nếu đầu vào không hợp lệ, trả về NaN
+        return NaN;
     }
     // Chặn thoát
     function closeModal() {
