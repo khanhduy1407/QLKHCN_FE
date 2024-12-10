@@ -8416,7 +8416,7 @@
   var selectedFilesArray = []; // Mảng chứa danh sách file đã chọn
 
   // Hàm rút gọn tên file
-  function shortenFileName(fileName, maxLength = 15) {
+  function shortenFileName(fileName, maxLength = 35) {
     // Kiểm tra độ dài fileName, nếu nhỏ hơn hoặc bằng maxLength thì không cần rút gọn
     if (fileName.length <= maxLength) return fileName;
 
@@ -8425,8 +8425,8 @@
     const baseName = fileName.slice(0, extIndex); // Phần tên trước dấu chấm
 
     // Giữ lại 7 ký tự đầu và 4 ký tự cuối, giữa là '...'
-    const start = baseName.slice(0, 7);
-    const end = baseName.slice(-4);
+    const start = baseName.slice(0, 10);
+    const end = baseName.slice(-25);
 
     return `${start}...${end}${extension}`;
   }
@@ -8598,6 +8598,11 @@
         contentType: 'application/json',
         success: function (result) {
           if (result.success) {
+            // xóa file ra khỏi mảng
+            const index = selectedFilesArray.indexOf(fileUrl);
+            if (index > -1) {
+               selectedFilesArray.splice(index, 1);
+            }
             toastr.success('Xóa tệp thành công.');
             // Xóa phần tử của file đã xóa khỏi giao diện
             fileDiv.remove();
