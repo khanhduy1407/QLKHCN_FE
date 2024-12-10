@@ -357,7 +357,9 @@
                       <input type="text" class="form-control col" id="sodoi" placeholder="Nhập số DOI" style="margin-left:6%">
                     </div>
                     <div class="form-group col row" style="margin-left:2%">
-                      <input type="file" class="form-control col-7" id="fileInput" multiple onchange="handleFileSelect(event)" />
+                      <label class="col-form-label">Minh chứng:</label>
+                      <button class="btn btn-primary" onclick="openFileSelector()" style="margin-left:6%">Thêm minh chứng</button>
+                      <input type="file" class="form-control col-7" id="fileInput" multiple onchange="handleFileSelect(event)" style="display: none" />
                     </div>
                   </div>
                   <div id="uploadedFiles" class="row mt-1">
@@ -8429,6 +8431,10 @@
     const end = baseName.slice(-25);
 
     return `${start}...${end}${extension}`;
+  }
+  
+  function openFileSelector() {
+      document.getElementById("fileInput").click();
   }
 
   // Hàm xử lý khi chọn file
