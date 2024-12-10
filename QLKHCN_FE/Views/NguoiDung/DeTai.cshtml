@@ -7504,10 +7504,9 @@
         if (date == "") {
             return toastr.warning("Vui lòng chọn ngày công bố sản phẩm!");
         }
-        // TODO: refactor to check file input
-        //if (linkimage == "") {
-        //    return toastr.warning("Vui lòng nhập minh chứng!");
-        //}
+        if (selectedFilesArray.length == 0) {
+            return toastr.warning("Vui lòng thêm minh chứng!");
+        }
 
         if (valuecategory == "") {
             return toastr.warning("Vui lòng tra cứu hoặc chọn loại hình sản phẩm!");
