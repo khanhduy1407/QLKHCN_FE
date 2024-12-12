@@ -30,6 +30,8 @@
     
     <link rel="stylesheet" href="~/Content/clients/plugins/sweetalert2/sweetalert2.min.css">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    
     <style>
         body {
             font-family: "Lato", sans-serif;
@@ -53,9 +55,9 @@
             width: 15%;
         }
 
-            .logo img {
-                width: 256px;
-            }
+        .logo img {
+            width: 256px;
+        }
 
         .menu {
             width: 45%;
@@ -127,17 +129,17 @@
                 <p style="margin-top: 15px; color: white;">Xin chào</p> <p id="xinchao" style="margin-top: 15px;padding: 9px;"></p>
                 <br/>
 
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                            <span></span>
-                        </button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                        <span></span>
+                    </button>
 
-                        <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="@Url.Action("Index","DanhMucXetDuyet")">Quản lý</a>
-                            <a class="dropdown-item" href="@Url.Action("LyLich","NguoiDung")">Lý lịch cá nhân</a>
-                            <a class="dropdown-item" href="@Url.Action("Login","NguoiDung")" type="button" class="btn btn-outline-danger" style=" margin: 0px; ">Thoát</a>
-                        </div>
+                    <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="@Url.Action("Index","DanhMucXetDuyet")">Quản lý</a>
+                        <a class="dropdown-item" href="@Url.Action("LyLich","NguoiDung")">Lý lịch cá nhân</a>
+                        <a class="dropdown-item btn btn-outline-danger" href="@Url.Action("Login","NguoiDung")" type="button" style=" margin: 0px; ">Thoát</a>
                     </div>
+                </div>
             </div>
         </div>
     </div>

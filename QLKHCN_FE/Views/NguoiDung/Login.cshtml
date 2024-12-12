@@ -11,12 +11,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>THỐNG KÊ KHỐI LƯỢNG NCKH</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style>
-        #loginBox {
+        .login-box-container {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        #loginBox {
             background-color: #fff;
             border: 1px solid #ccc;
             box-shadow: 0px 2px 15px rgba(0,0,0,0.3);
@@ -486,23 +493,25 @@
 </div>
 
 <main id="main-page" style="display: none;">
-    <div class="form-signin" id="loginBox">
-        @using (Html.BeginForm("Login", "NguoiDung", FormMethod.Post))
-        {
-            <img class="mb-4" width="250px" src="~/Content/Images/Asset 5@2x.png" alt="logo">
-            <div id="abc"></div>
-            <label class="h6 mb-3 fw-bold" style="text-align: left;">Vui lòng nhập mã tài khoản và mật khẩu để đăng nhập</label>
-            <hr/>
-            <div class="form-floating">
-                @Html.TextBoxFor(m => m.username, new {@class = "form-control", @Value = ""})
-                <label for="floatingInput">Username</label>
-            </div>
-            <div class="form-floating">
-                @Html.PasswordFor(m => m.password, new {@class = "form-control", @Value = ""})
-                <label for="floatingPassword">Password</label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary mt-3" name="submit" type="submit">Đăng nhập</button>
-        }
+    <div class="login-box-container">
+        <div class="form-signin animate__animated animate__bounceIn" id="loginBox">
+            @using (Html.BeginForm("Login", "NguoiDung", FormMethod.Post))
+            {
+                <img class="mb-4" width="250px" src="~/Content/Images/Asset 5@2x.png" alt="logo">
+                <div id="abc"></div>
+                <label class="h6 mb-3 fw-bold" style="text-align: left;">Vui lòng nhập mã tài khoản và mật khẩu để đăng nhập</label>
+                <hr/>
+                <div class="form-floating">
+                    @Html.TextBoxFor(m => m.username, new {@class = "form-control", @Value = ""})
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating">
+                    @Html.PasswordFor(m => m.password, new {@class = "form-control", @Value = ""})
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary mt-3" name="submit" type="submit">Đăng nhập</button>
+            }
+        </div>
     </div>
 </main>
 
