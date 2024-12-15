@@ -24,8 +24,8 @@
   // Đảo ngược danh sách
   years.Reverse();
 
-  // Xác định năm học hiện tại
-  string currentYearOption = DateTime.Now.Month < 9 ? $"{currentYear - 1} - {currentYear}" : $"{currentYear} - {currentYear + 1}";
+  // Xác định năm học hiện tại (15/10 hằng năm)
+  string currentYearOption = DateTime.Now.Day < 15 && DateTime.Now.Month < 10 ? $"{currentYear - 1} - {currentYear}" : $"{currentYear} - {currentYear + 1}";
 }
 
 <head>
