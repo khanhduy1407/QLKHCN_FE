@@ -158,6 +158,7 @@
     <Compile Include="Controllers\DanhMucXetDuyetSinhVienController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
+    <Compile Include="Controllers\PhanBienController.cs" />
     <Compile Include="Controllers\QuyDoiGVController.cs" />
     <Compile Include="Controllers\QuyDoiNCVController.cs" />
     <Compile Include="Controllers\ThanhToanGVController.cs" />
@@ -2075,6 +2076,7 @@
     <Content Include="Content\Images\BANNER UEF.png" />
     <Content Include="Content\Images\banner1.jpg" />
     <Content Include="Content\Images\CONGTTQL1.png" />
+    <Content Include="Content\Images\jdi-logo.png" />
     <Content Include="Content\Images\logo-1.png" />
     <Content Include="Content\Images\logo_hutech.png" />
     <Content Include="Content\Images\seach.png" />
@@ -2602,6 +2604,10 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Views\DanhMucXetDuyetSinhVien\Index.cshtml" />
     <Content Include="Views\NguoiDung\DeTaiSinhVien.cshtml" />
+    <Content Include="Views\PhanBien\BienTapChuyenMon.cshtml" />
+    <Content Include="Views\PhanBien\Index.cshtml" />
+    <Content Include="Views\Shared\_JDILayout.cshtml" />
+    <Content Include="Views\Shared\_PartialJDISideBar.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
