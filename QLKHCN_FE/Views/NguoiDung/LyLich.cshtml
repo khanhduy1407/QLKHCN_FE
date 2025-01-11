@@ -3,15 +3,23 @@
     Layout = "~/Views/Shared/_LayoutUserPage.cshtml";
 }
 
-<div class="all">
-    <div class="w3-bar w3-black" style="margin-bottom: 2%; background-color: #545b62!important">
-        <button class="w3-bar-item w3-button" onclick="openCity('ttcn')">Thông tin cá nhân</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('qtdt')">Quá trình đào tạo</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('qtct')">Quá trình công tác</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('ctcb')">Công trình công bố</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('khac')">Khác</button>
+<div class="all" style="background: #fff;">
+    <div class="w3-bar w3-black" style="margin-bottom: 2%; background-color: #17a2b8!important; border-radius: .25rem; box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);">
+        <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event, 'ttcn')">Thông tin cá nhân</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'qtdt')">Quá trình đào tạo</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'qtct')">Quá trình công tác</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'ctcb')">Công trình công bố</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'khac')">Khác</button>
     </div>
     <style>
+        .w3-container, .w3-panel {
+             padding: 0; 
+        }
+        
+        .table {
+            background-color: #fff;
+        }
+        
         .checkbox-group {
             display: inline-block;
         }
@@ -64,54 +72,33 @@
         }
     </style>
     <div id="ttcn" class="w3-container w3-display-container profile">
-        @*<span onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-display-topright">&times;</span>*@
-
-
         <div id="infor">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title" style="">THÔNG TIN CÁ NHÂN</h3>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table" id="userinfor">
-                    </table>
-                </div>
-            </div>
+            <table class="table" id="userinfor">
+            </table>
         </div>
     </div>
     <div id="qtdt" class="w3-container w3-display-container profile" style="display:none">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright">
-            &times;
-        </span>
         <div id="infor">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Quá trình đào tạo</h3>
-                </div>
-                <div class="card-body">
-                    <table id="lylich" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">
-                                    Bậc đào tạo
-                                </th>
-                                <th style="text-align: center;">
-                                    Nơi đào tạo
-                                </th>
-                                <th style="text-align: center;">
-                                    Chuyên môn
-                                </th>
-                                <th style="text-align: center;">
-                                    Năm tốt nghiệp
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <table id="lylich" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">
+                            Bậc đào tạo
+                        </th>
+                        <th style="text-align: center;">
+                            Nơi đào tạo
+                        </th>
+                        <th style="text-align: center;">
+                            Chuyên môn
+                        </th>
+                        <th style="text-align: center;">
+                            Năm tốt nghiệp
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
         <script>
             var linkapi = "https://localhost:44364/api/LyLich/Get-all";
@@ -129,79 +116,59 @@
     </div>
 
     <div id="qtct" class="w3-container w3-display-container profile" style="display:none">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright">&times;</span>
         <div id="infor">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Quá trình công tác</h3>
-                </div>
-                <div class="card-body">
-                    <table id="lylichct" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">
-                                    Thời gian
-                                </th>
-                                <th style="text-align: center;">
-                                    Vị trí công tác
-                                </th>
-                                <th style="text-align: center;">
-                                    Tổ chức công tác
-                                </th>
-                                <th style="text-align: center;">
-                                    Địa chỉ Tổ chức
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <table id="lylichct" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">
+                            Thời gian
+                        </th>
+                        <th style="text-align: center;">
+                            Vị trí công tác
+                        </th>
+                        <th style="text-align: center;">
+                            Tổ chức công tác
+                        </th>
+                        <th style="text-align: center;">
+                            Địa chỉ Tổ chức
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div id="ctcb" class="w3-container w3-display-container profile" style="display:none">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright">&times;</span>
         <div id="infor">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Công trình công bố</h3>
-                </div>
-                <div class="card-body">
-                    <table id="lylichctcb" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">
-                                    STT
-                                </th>
-                                <th style="text-align: center;">
-                                    Tên công trình
-                                </th>
-                                <th style="text-align: center;">
-                                    Là tác giả hoặc đồng tác giả công trình
-                                </th>
-                                <th style="text-align: center;">
-                                    Nơi công bố
-                                </th>
-                                <th style="text-align: center;">
-                                    Năm công bố
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <table id="lylichctcb" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">
+                            STT
+                        </th>
+                        <th style="text-align: center;">
+                            Tên công trình
+                        </th>
+                        <th style="text-align: center;">
+                            Là tác giả hoặc đồng tác giả công trình
+                        </th>
+                        <th style="text-align: center;">
+                            Nơi công bố
+                        </th>
+                        <th style="text-align: center;">
+                            Năm công bố
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div id="khac" class="w3-container w3-display-container profile" style="display:none">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-button w3-large w3-display-topright">&times;</span>
         <div id="slvb">
             <div id="infor">
                 <div class="card card-info">
@@ -350,26 +317,32 @@
         </div>
     </div>
     <div style="display: flex; justify-content: flex-end; align-items: flex-end; padding: 0.01em 16px;">
-        <button type="submit" class="btn btn-block btn-primary" style="float: right; width: 15%; font-size: 150%; margin-right:1%; font-family: Arial, Helvetica, sans-serif;" id="publish-button">
+        <button type="submit" class="btn btn-block btn-primary" style="margin-right:1%; font-family: Arial, Helvetica, sans-serif;" id="publish-button">
         </button>
-        <button type="submit" class="btn btn-block btn-success" onclick="update()" style="float: right; width: 15%; font-size: 150%; margin-right:1%; font-family: Arial, Helvetica, sans-serif;">
-            LƯU
+        <button type="submit" class="btn btn-block btn-success" onclick="update()" style="margin-right:1%; font-family: Arial, Helvetica, sans-serif;">
+            Lưu thay đổi
         </button>
-        <button type="submit" class="btn btn-block btn-info" onclick="word()" style="float: right; width: 15%; font-size: 150%; font-family: Arial, Helvetica, sans-serif;">
+        <button type="submit" class="btn btn-block btn-info" onclick="word()" style="font-family: Arial, Helvetica, sans-serif;">
             <i class="fa fa-download"></i> Tải lý lịch
         </button>
     </div>
 
     <!--tab-->
     <script>
-        function openCity(proFile) {
-            var i;
-            var x = document.getElementsByClassName("profile");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(proFile).style.display = "block";
-        }</script>
+        function openCity(evt, proFile) {
+          var i, x, tablinks;
+          x = document.getElementsByClassName("profile");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablink");
+          for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+          }
+          document.getElementById(proFile).style.display = "block";
+          evt.currentTarget.className += " w3-red";
+        }
+    </script>
 
     <script>
         var nguoidung;
