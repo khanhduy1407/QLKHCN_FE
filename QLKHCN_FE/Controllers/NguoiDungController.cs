@@ -63,6 +63,16 @@ namespace QLKHCN_FE.Controllers
             return View();
         }
 
+        public ActionResult LyLich2()
+        {
+            if (!IsAuthenticated)
+            {
+                Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+                return RedirectToAction("Login", "NguoiDung");
+            }
+            return View();
+        }
+
         public ActionResult Logout()
         {
             try

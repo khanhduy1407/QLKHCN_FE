@@ -2604,6 +2604,7 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Views\DanhMucXetDuyetSinhVien\Index.cshtml" />
     <Content Include="Views\NguoiDung\DeTaiSinhVien.cshtml" />
+    <Content Include="Views\NguoiDung\LyLich2.cshtml" />
     <Content Include="Views\PhanBien\BienTapChuyenMon.cshtml" />
     <Content Include="Views\PhanBien\Index.cshtml" />
     <Content Include="Views\Shared\_JDILayout.cshtml" />
