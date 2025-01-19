@@ -145,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucScopusController.cs" />
@@ -2602,6 +2603,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Views\Admin\CauHoi.cshtml" />
     <Content Include="Views\DanhMucXetDuyetSinhVien\Index.cshtml" />
     <Content Include="Views\NguoiDung\DeTaiSinhVien.cshtml" />
     <Content Include="Views\NguoiDung\LyLich2.cshtml" />
