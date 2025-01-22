@@ -330,6 +330,7 @@
                 document.getElementById("a_dateSubmit").value = convertDateString(data.a_dateSubmit);
                 
                 // Đính kèm
+                document.getElementById("danhSachDinhKem").innerHTML = "";
                 const fileList = data.danhSachDinhKem;
                 
                 fileList.forEach((fileUrl) => {
