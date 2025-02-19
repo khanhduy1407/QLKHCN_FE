@@ -8527,6 +8527,7 @@
 
   // Hàm load hiển thị danh sách file đã upload dùng xem chi tiết
   function loadUploadedFiles(fileList) {
+    selectedFilesArray = fileList;
     const uploadedFilesContainer = document.getElementById('uploadedFiles');
     uploadedFilesContainer.innerHTML = ''; // Xóa nội dung cũ
 
