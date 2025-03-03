@@ -25,7 +25,7 @@ namespace QLKHCN_FE.Controllers
 
             _httpClient = new HttpClient();
             
-            /*_httpClient.BaseAddress = new Uri("https://localhost:44364/authentication-v2/api/auth/");
+            /*_httpClient.BaseAddress = new Uri("https://apikhcn.uef.edu.vn/authentication-v2/api/auth/");
             */
         }
         public ActionResult abc()
@@ -102,7 +102,7 @@ namespace QLKHCN_FE.Controllers
                     var content = new StringContent(stoken, Encoding.UTF8, "application/json");
 
                     // Make the request
-                    var response = await client.PostAsync("https://localhost:44364/api/NguoiDung/login2?request=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJIb1RlbiI6IlRy4bqnbiBRdeG7kWMgVGhhbyIsIklEVXNlciI6IlRUUTAwMzA4ODAiLCJDaHVjRGFuaCI6IlBow7Mga2hvYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjAiLCJqdGkiOiJhOTEzMDkyNi1mZWQ1LTRhZmUtOGQxYi1mOWJjMGE5MjRhMDUiLCJleHAiOjE3MTAyNDczNDgsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyJ9.APxwI9mmLxZTRTI0muFIosPdzvReb1Thu_Z7eSqbdtY", content);
+                    var response = await client.PostAsync("https://apikhcn.uef.edu.vn/api/NguoiDung/login2?request=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJIb1RlbiI6IlRy4bqnbiBRdeG7kWMgVGhhbyIsIklEVXNlciI6IlRUUTAwMzA4ODAiLCJDaHVjRGFuaCI6IlBow7Mga2hvYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjAiLCJqdGkiOiJhOTEzMDkyNi1mZWQ1LTRhZmUtOGQxYi1mOWJjMGE5MjRhMDUiLCJleHAiOjE3MTAyNDczNDgsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzY0LyJ9.APxwI9mmLxZTRTI0muFIosPdzvReb1Thu_Z7eSqbdtY", content);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -171,7 +171,7 @@ namespace QLKHCN_FE.Controllers
             var json1 = JsonConvert.SerializeObject(request);
             var content1 = new StringContent(json1);
             content1.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync("https://localhost:44364/api/NguoiDung/login", content1);
+            var response = await client.PostAsync("https://apikhcn.uef.edu.vn/api/NguoiDung/login", content1);
 
             if (response.IsSuccessStatusCode)
             {
@@ -236,7 +236,7 @@ namespace QLKHCN_FE.Controllers
                 var content = new StringContent(stoken, Encoding.UTF8, "application/json");
 
                 // Make the request
-                var response = await client.PostAsync("https://localhost:44364/api/NguoiDung/login2?request=" + stoken, content);
+                var response = await client.PostAsync("https://apikhcn.uef.edu.vn/api/NguoiDung/login2?request=" + stoken, content);
 
                 if (response.IsSuccessStatusCode)
                 {
