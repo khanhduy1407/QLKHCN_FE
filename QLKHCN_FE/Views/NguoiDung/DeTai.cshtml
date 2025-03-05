@@ -489,7 +489,7 @@
 </style>
 <script>
     // đặt giá trị min cho input datetime
-    document.getElementById('datesubmit').min = new Date().toISOString().split('T')[0];
+    // document.getElementById('datesubmit').min = new Date().toISOString().split('T')[0];
             
     function loadtable() {
         var sltgc = Number(document.querySelector('#sltgc').value);
@@ -7589,7 +7589,8 @@
     var yearChoosen = valueDatetimePicker.getFullYear();
 
     if (yearChoosen >= 2025) {
-        var scopusUrl = "https://localhost:44364/api/DanhMucWOS";
+        
+        var scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
     } else {
         const scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
@@ -7604,23 +7605,23 @@
     try {
       let res = await fetch(`${scopusUrl}/Get-issn?issn=${inputSearch}`, { headers });
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`${scopusUrl}/Get-eissn?eissn=${inputSearch}`, { headers });
       }
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-issn?issn=${inputSearch}`, { headers });
       }
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-eissn?eissn=${inputSearch}`, { headers });
       }
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
       }
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         toastr.warning("Không tìm thấy sản phẩm trong ISI, Scopus, HĐCDGSNN!");
         document.querySelector('#ketqua').innerHTML = '';
         document.querySelector('#btn_Kissn').checked = true;
@@ -7706,7 +7707,7 @@
     const thang6 = new Date('2023-05-06');
     var yearChoosen = valueDatetimePicker.getFullYear();
     if (yearChoosen >= 2025) {
-        var scopusUrl = "https://localhost:44364/api/DanhMucWOS";
+        var scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
     } else {
         const scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
@@ -7722,14 +7723,14 @@
 
     try {
       let res = await fetch(`${scopusUrl}/Get-issn?issn=${inputSearch}`, { headers });
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`${scopusUrl}/Get-eissn?eissn=${inputSearch}`, { headers });
       }
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
       }
 
-      if (res.status === 404) {
+      if (res.status === 404 || res.status === 400) {
         toastr.warning("Không tim thấy sản phẩm trong ISI, Scopus, HĐCDGSNN!");
         document.querySelector('#ketqua').innerHTML = ``;
         document.querySelector('#btn_Kissn').checked = true;
