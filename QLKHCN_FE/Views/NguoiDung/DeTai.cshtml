@@ -7589,7 +7589,7 @@
     var yearChoosen = valueDatetimePicker.getFullYear();
 
     if (yearChoosen >= 2025) {
-        var scopusUrl = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
+        var scopusUrl = "https://localhost:44364/api/DanhMucWOS";
     } else {
         const scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
@@ -7706,7 +7706,7 @@
     const thang6 = new Date('2023-05-06');
     var yearChoosen = valueDatetimePicker.getFullYear();
     if (yearChoosen >= 2025) {
-        var scopusUrl = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
+        var scopusUrl = "https://localhost:44364/api/DanhMucWOS";
     } else {
         const scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
