@@ -7586,10 +7586,15 @@
       toastr.warning("Vui lòng nhập ngày công bố để tra cứu!");
       return;
     }
+    var yearChoosen = valueDatetimePicker.getFullYear();
 
-    const scopusUrl = valueDatetimePicker > thang6
-      ? "https://localhost:44364/api/DanhMucScimago2023"
-      : "https://localhost:44364/api/DanhMuc";
+    if (yearChoosen >= 2025) {
+        var scopusUrl = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
+    } else {
+        const scopusUrl = valueDatetimePicker > thang6
+          ? "https://localhost:44364/api/DanhMucScimago2023"
+          : "https://localhost:44364/api/DanhMuc";
+    }
 
     const headers = {
       'Authorization': 'Bearer ' + _token,
@@ -7604,15 +7609,15 @@
       }
 
       if (res.status === 404) {
-        res = await fetch(`https://localhost:44364/api/DanhMucScimago/Get-issn?issn=${inputSearch}`, { headers });
+        res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-issn?issn=${inputSearch}`, { headers });
       }
 
       if (res.status === 404) {
-        res = await fetch(`https://localhost:44364/api/DanhMucScimago/Get-eissn?eissn=${inputSearch}`, { headers });
+        res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-eissn?eissn=${inputSearch}`, { headers });
       }
 
       if (res.status === 404) {
-        res = await fetch(`https://localhost:44364/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
+        res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
       }
 
       if (res.status === 404) {
@@ -7699,9 +7704,14 @@
     const inputSearch = document.getElementById("traCuuIssn").value;
     const valueDatetimePicker = new Date(document.getElementById("datesubmit").value);
     const thang6 = new Date('2023-05-06');
-    const scopusUrl = valueDatetimePicker > thang6
-      ? "https://localhost:44364/api/DanhMucScimago2023"
-      : "https://localhost:44364/api/DanhMucScimago";
+    var yearChoosen = valueDatetimePicker.getFullYear();
+    if (yearChoosen >= 2025) {
+        var scopusUrl = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
+    } else {
+        const scopusUrl = valueDatetimePicker > thang6
+          ? "https://localhost:44364/api/DanhMucScimago2023"
+          : "https://localhost:44364/api/DanhMucScimago";
+    }
 
     const headers = {
       'Authorization': 'Bearer ' + _token,
@@ -7716,7 +7726,7 @@
         res = await fetch(`${scopusUrl}/Get-eissn?eissn=${inputSearch}`, { headers });
       }
       if (res.status === 404) {
-        res = await fetch(`https://localhost:44364/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
+        res = await fetch(`https://localhost:44364/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, { headers });
       }
 
       if (res.status === 404) {
