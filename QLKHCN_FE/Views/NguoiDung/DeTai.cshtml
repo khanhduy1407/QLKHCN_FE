@@ -7947,12 +7947,18 @@
             var inputSearch = document.getElementById("traCuuIssn").value;
 
             var valuedatetimepicker = new Date(document.getElementById("datesubmit").value);
+            var yearChoosen = valuedatetimepicker.getFullYear();
             var thang6 = new Date('2023-05-06');
-            if (valuedatetimepicker > thang6) {
-                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+            if (yearChoosen >= 2025) {
+                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
             } else {
-                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMuc";
+                if (valuedatetimepicker > thang6) {
+                    var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+                } else {
+                    var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMuc";
+                }
             }
+            // console.log("_token = " + _token);
             if (inputSearch == "") {
                 /*toastr.warning("empty");*/
             } else {
@@ -7972,7 +7978,7 @@
                             })
                                 .then(function (res3) {
                                     if (res3.status == 404) {
-                                        fetch("https://apikhcn.uef.edu.vn/api/DanhMucScimago/Get-issn?issn=" + inputSearch, {
+                                        fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-issn?issn=${inputSearch}`, {
                                             headers: {
                                                 'Authorization': 'Bearer ' + _token,
                                                 'Content-Type': 'application/json'
@@ -7980,7 +7986,7 @@
                                         })
                                             .then(function (res4) {
                                                 if (res4.status == 404) {
-                                                    fetch("https://apikhcn.uef.edu.vn/api/DanhMucScimago/Get-eissn?eissn=" + inputSearch, {
+                                                    fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-eissn?eissn=${inputSearch}`, {
                                                         headers: {
                                                             'Authorization': 'Bearer ' + _token,
                                                             'Content-Type': 'application/json'
@@ -7988,14 +7994,14 @@
                                                     })
                                                         .then(function (res5) {
                                                             if (res5.status == 404) {
-                                                                fetch("https://apikhcn.uef.edu.vn/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=" + inputSearch, {
+                                                                fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, {
                                                                     headers: {
                                                                         'Authorization': 'Bearer ' + _token,
                                                                         'Content-Type': 'application/json'
                                                                     }
                                                                 }).then(function (res6) {
                                                                     if (res6.status == 404) {
-                                                                        fetch("https://apikhcn.uef.edu.vn/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=" + inputSearch, {
+                                                                        fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, {
                                                                             headers: {
                                                                                 'Authorization': 'Bearer ' + _token,
                                                                                 'Content-Type': 'application/json'
@@ -8044,11 +8050,16 @@
             var inputSearch = document.getElementById("traCuuIssnNew").value;
 
             var valuedatetimepicker = new Date(document.getElementById("datesubmit").value);
+            var yearChoosen = valuedatetimepicker.getFullYear();
             var thang6 = new Date('2023-05-06');
-            if (valuedatetimepicker > thang6) {
-                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+            if (yearChoosen >= 2025) {
+                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucWOS";
             } else {
-                var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+                if (valuedatetimepicker > thang6) {
+                    var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+                } else {
+                    var scopusold = "https://apikhcn.uef.edu.vn/api/DanhMucScimago2023";
+                }
             }
             if (inputSearch == "") {
                 /*toastr.warning("empty");*/
@@ -8069,7 +8080,7 @@
                             })
                                 .then(function (res3) {
                                     if (res3.status == 404) {
-                                        fetch("https://apikhcn.uef.edu.vn/api/DanhMucScimago/Get-issn?issn=" + inputSearch, {
+                                        fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-issn?issn=${inputSearch}`, {
                                             headers: {
                                                 'Authorization': 'Bearer ' + _token,
                                                 'Content-Type': 'application/json'
@@ -8077,7 +8088,7 @@
                                         })
                                             .then(function (res4) {
                                                 if (res4.status == 404) {
-                                                    fetch("https://apikhcn.uef.edu.vn/api/DanhMucScimago/Get-eissn?eissn=" + inputSearch, {
+                                                    fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucScimago" : `DanhMucScopus/${yearChoosen}`}/Get-eissn?eissn=${inputSearch}`, {
                                                         headers: {
                                                             'Authorization': 'Bearer ' + _token,
                                                             'Content-Type': 'application/json'
@@ -8085,14 +8096,14 @@
                                                     })
                                                         .then(function (res5) {
                                                             if (res5.status == 404) {
-                                                                fetch("https://apikhcn.uef.edu.vn/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=" + inputSearch, {
+                                                                fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, {
                                                                     headers: {
                                                                         'Authorization': 'Bearer ' + _token,
                                                                         'Content-Type': 'application/json'
                                                                     }
                                                                 }).then(function (res6) {
                                                                     if (res6.status == 404) {
-                                                                        fetch("https://apikhcn.uef.edu.vn/api/DanhMucTrongNuoc/Get-DanhMucTrongNuoc?issn=" + inputSearch, {
+                                                                        fetch(`https://apikhcn.uef.edu.vn/api/${yearChoosen <= 2024 ? "DanhMucTrongNuoc" : `DanhMucHDGSNN/${yearChoosen}`}/Get-DanhMucTrongNuoc?issn=${inputSearch}`, {
                                                                             headers: {
                                                                                 'Authorization': 'Bearer ' + _token,
                                                                                 'Content-Type': 'application/json'
