@@ -9783,10 +9783,10 @@
         var option = document.querySelector('#coquancongtac-' + i);
         var coquancongtac = option.options[option.selectedIndex].textContent;
         if (inp == "" && coquancongtac == "Cơ quan công tác duy nhất UEF(100%)") {
-            toastr.warning('Vui lòng nhập mã NV HUTECH')
+            toastr.warning('Vui lòng nhập mã NV UEF')
             option.options[0].selected = true;
         } else if (inp == "" && coquancongtac == "(1) UEF – (2) ngoài UEF (80%)") {
-            toastr.warning('Vui lòng nhập mã NV HUTECH')
+            toastr.warning('Vui lòng nhập mã NV UEF')
             option.options[0].selected = true;
         }
     }
