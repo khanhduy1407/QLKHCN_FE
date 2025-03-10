@@ -866,7 +866,7 @@
                     } else if (coquan.includes("(1) UEF – (2) ngoài UEF (50%)")) {
                         table.rows[0].cells[4].innerHTML = `${total / 2}`;
                         table.rows[0].cells[5].innerHTML = `${(total / 2) * 0.9}`;
-                        table.rows[0].cells[6].innerHTML = slBaiTG ? `${diem * slBaiTG}` : `${diem}`;
+                        table.rows[0].cells[6].innerHTML = slBaiTG ? `${(diem / 2) * slBaiTG}` : `${diem / 2}`;
                         if (hdsv == "HDSV") {
                             table.rows[i].cells[7].innerHTML = slBaiTG ? `${(tietchuan / 2 / sltg) * slBaiTG}` : `${tietchuan / 2 / sltg}`;
                         } else {
