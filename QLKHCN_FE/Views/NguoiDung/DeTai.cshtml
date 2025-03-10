@@ -634,7 +634,7 @@
                             } else if (coquan.includes("Cơ quan công tác duy nhất UEF(100%)")) {
                                 table.rows[0].cells[4].innerHTML = `0`;
                                 table.rows[0].cells[5].innerHTML = `0`;
-                                table.rows[0].cells[6].innerHTML = `${diem / 2}`;
+                                table.rows[0].cells[6].innerHTML = `${diem * 0.8}`;
                                 if (hdsv == "HDSV") {
                                     table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
                                 } else {
@@ -643,7 +643,7 @@
                                 if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất UEF(100%)")) {
                                     table.rows[i].cells[4].innerHTML = `0`;
                                     table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
+                                    table.rows[i].cells[6].innerHTML = `${diem * 0.2 / sltgp}`;
                                     if (hdsv == "HDSV") {
                                         table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
                                     } else {
@@ -652,7 +652,7 @@
                                 } if (table.rows[i].cells[2].textContent.includes("(1) UEF – (2) ngoài UEF (50%)")) {
                                     table.rows[i].cells[4].innerHTML = `0`;
                                     table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
+                                    table.rows[i].cells[6].innerHTML = `${diem / 2 * 0.2 / sltgp}`;
                                     if (hdsv == "HDSV") {
                                         table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
                                     } else {
