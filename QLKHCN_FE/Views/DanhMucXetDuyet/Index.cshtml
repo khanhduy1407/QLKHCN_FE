@@ -1037,7 +1037,7 @@
         if (_quyen == "Quyền cao nhất") {
           selectStatus.innerHTML = `
                       <label class="form-label">Trạng thái</label>
-                      <select onchange="changeStatus()" class="form-control" id="status">
+                      <select onchange="changeStatus('${data.groupUser}')" class="form-control" id="status">
                           <option value="Đang đợi duyệt">Đang đợi duyệt</option>
                           <option value="Duyệt lần 1">Duyệt lần 1</option>
                           <option value="Duyệt lần 2">Duyệt lần 2</option>
@@ -1047,7 +1047,7 @@
         } else if (_quyen == "Quyền duyệt 1") {
           selectStatus.innerHTML = `
                       <label class="form-label">Trạng thái</label>
-                      <select onchange="changeStatus()" class="form-control" id="status">
+                      <select onchange="changeStatus('${data.groupUser}')" class="form-control" id="status">
                           <option value="Đang đợi duyệt">Đang đợi duyệt</option>
                           <option value="Duyệt lần 1">Duyệt lần 1</option>
                           <option value="Từ chối">Từ chối</option>
@@ -1055,7 +1055,7 @@
         } else if (_quyen == "Quyền duyệt 2") {
           selectStatus.innerHTML = `
                       <label class="form-label">Trạng thái</label>
-                      <select onchange="changeStatus()" class="form-control" id="status">
+                      <select onchange="changeStatus('${data.groupUser}')" class="form-control" id="status">
                           <option value="Duyệt lần 1">Duyệt lần 1</option>
                           <option value="Duyệt lần 2">Duyệt lần 2</option>
                           <option value="Từ chối" >Từ chối</option>
@@ -1063,7 +1063,7 @@
         } else if (_quyen == "Quyền duyệt 3") {
           selectStatus.innerHTML = `
                       <label class="form-label">Trạng thái</label>
-                      <select onchange="changeStatus()" class="form-control" id="status">
+                      <select onchange="changeStatus('${data.groupUser}')" class="form-control" id="status">
                           <option value="Duyệt lần 2">Duyệt lần 2</option>
                           <option value="Từ chối" >Từ chối</option>
                           <option value="Hoàn Thành">Hoàn Thành</option>
@@ -1230,7 +1230,7 @@
 
     return timelineStep;
   }
-  function changeStatus() {
+  function changeStatus(groupUser) {
     var idDanhMuc = document.getElementById("idDanhMuc").value;
     var status = document.getElementById("status").value;
     // TODO: add send _idUser for update on timeline state
@@ -1249,6 +1249,38 @@
           // toastr.success('Cập nhập dữ liệu thành công.', '');
           update();
           $('.modal').modal('hide');
+          
+          if (status === 'Hoàn Thành' || status === 'Từ chối') {
+            // gửi mail cho tác giả chính
+            const kekhaitg = render_tg(groupUser);
+            const idTGChinh = kekhaitg[0][1].split(" - ")[0]
+            fetch(`https://localhost:44364/api/NguoiDung/GetID?id=${idTGChinh}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': 'Bearer ' + _token,
+                'Content-Type': 'application/json'
+              },
+            })
+              .then(response => response.json())
+              .then(data => {
+                // console.log(data);
+                if (data.emailChinh) {
+                  const mailData = {
+                    to: data.emailChinh,
+                    IDUser: idTGChinh
+                  }
+                  
+                  fetch(`http://localhost:5174/v1/send-email/${status == 'Hoàn Thành' ? 'approved' : 'rejected'}`, {
+                    method: 'POST',
+                    headers: {
+                      'Authorization': 'Bearer ' + _token,
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(mailData)
+                  })
+                }
+              })
+          }
         }
       })
       .catch(error => {
