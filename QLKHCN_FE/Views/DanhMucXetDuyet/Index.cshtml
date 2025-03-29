@@ -369,6 +369,7 @@
             <th>Ghi Chú</th>
             <th>Tác giả</th>
             <th>Trạng thái</th>
+            <th class="exportable" style="visibility: hidden">Minh chứng</th>
             <th></th>
             <th></th>
 
@@ -726,7 +727,32 @@
                 "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
                 "scrollX": true,  // Kích hoạt scroll ngang
                 "scrollCollapse": true, // Tự động thu gọn chiều rộng
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "buttons": [
+                  {
+                    extend: "excel",
+                    exportOptions: {
+                      columns: ':visible, .exportable', // Xuất tất cả các cột hiển thị + cột có class "exportable"
+                      format: {
+                        body: function (data, row, column, node) {
+                          // Chuyển đổi các thẻ <a> thành link có thể click trong Excel
+                          let tempDiv = document.createElement("div");
+                          tempDiv.innerHTML = data;
+                          let links = tempDiv.getElementsByTagName("a");
+    
+                          if (links.length > 0) {
+                            let linkTexts = [];
+                            for (let i = 0; i < links.length; i++) {
+                              linkTexts.push("• " + links[i].href); // Lấy URL từ thẻ <a>
+                            }
+                            return linkTexts.join("\n"); // Xuống dòng nếu có nhiều link
+                          }
+                          return tempDiv.textContent || tempDiv.innerText; // Trả về nội dung nếu không có link
+                        }
+                      }
+                    }
+                  },
+                  "copy", "csv", "pdf", "print", "colvis"
+                ],
                 "data": data,
                 "columns": [
                   { "data": "idDanhMuc", "width": "5%", "className": "dt-center" },
@@ -778,6 +804,58 @@
                       };
                       return "<span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + data + "</span>";
                     }
+                  },
+                  {
+                    "data": function (row) {
+                      let output = "<ul>";
+
+                      if (row.image != "") { // dành cho file upload cũ
+                        var imagePaths = row.image;
+                        var imagePathsArray = imagePaths.split(',');
+              
+                        imagePathsArray.forEach(function (imagePath) {
+                          output += `<li><a href="${imagePath}" target="_blank">${imagePath}</a></li>`;
+                        });
+                      } else {
+                        const fileList = row.fileList;
+                        
+                        fileList.forEach((fileUrl) => {
+                          let fileName = fileUrl.split('/').pop(); // Lấy tên file từ URL
+                          output += `<li><a href="${fileUrl}" target="_blank">${fileName}</a></li>`;
+                        });
+                      }
+                    
+                      output += "</ul>"; // Kết thúc danh sách
+                      return output;
+                    },
+                    "className": "exportable", // Ẩn trên giao diện, nhưng vẫn xuất
+                    "visible": false
+                  },
+                  {
+                    "data": function (row) {
+                      var baseUrl = window.location.origin;
+                      let output = "<ul>";
+                
+                      if (row.image != "") { // dành cho file upload cũ
+                        var imagePaths = row.image;
+                        var imagePathsArray = imagePaths.split(',');
+                
+                        imagePathsArray.forEach(function (imagePath) {
+                          output += `<li><a href="${baseUrl}/${imagePath}" target="_blank">${baseUrl}/${imagePath}</a></li>`;
+                        });
+                      } else {
+                        const fileList = row.fileList;
+                        
+                        fileList.forEach((fileUrl) => {
+                          output += `<li><a href="${baseUrl}${fileUrl}" target="_blank">${baseUrl}${fileUrl}</a></li>`;
+                        });
+                      }
+                    
+                      output += "</ul>"; // Kết thúc danh sách
+                      return output;
+                    },
+                    "className": "exportable", // Ẩn trên giao diện, nhưng vẫn xuất
+                    "visible": false
                   },
                   {
                     "data": null,
@@ -810,7 +888,32 @@
                 "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
                 "scrollX": true,  // Kích hoạt scroll ngang
                 "scrollCollapse": true, // Tự động thu gọn chiều rộng
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "buttons": [
+                  {
+                    extend: "excel",
+                    exportOptions: {
+                      columns: ':visible, .exportable', // Xuất tất cả các cột hiển thị + cột có class "exportable"
+                      format: {
+                        body: function (data, row, column, node) {
+                          // Chuyển đổi các thẻ <a> thành link có thể click trong Excel
+                          let tempDiv = document.createElement("div");
+                          tempDiv.innerHTML = data;
+                          let links = tempDiv.getElementsByTagName("a");
+  
+                          if (links.length > 0) {
+                            let linkTexts = [];
+                            for (let i = 0; i < links.length; i++) {
+                              linkTexts.push("• " + links[i].href); // Lấy URL từ thẻ <a>
+                            }
+                            return linkTexts.join("\n"); // Xuống dòng nếu có nhiều link
+                          }
+                          return tempDiv.textContent || tempDiv.innerText; // Trả về nội dung nếu không có link
+                        }
+                      }
+                    }
+                  },
+                  "copy", "csv", "pdf", "print", "colvis"
+                ],
                 "data": data,
                 "columns": [
                   { "data": "idDanhMuc", "width": "5%", "className": "dt-center" },
@@ -862,6 +965,32 @@
                       };
                       return "<span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + data + "</span>";
                     }
+                  },
+                  {
+                    "data": function (row) {
+                      var baseUrl = window.location.origin;
+                      let output = "<ul>";
+
+                      if (row.image != "") { // dành cho file upload cũ
+                        var imagePaths = row.image;
+                        var imagePathsArray = imagePaths.split(',');
+              
+                        imagePathsArray.forEach(function (imagePath) {
+                          output += `<li><a href="${baseUrl}/${imagePath}" target="_blank">${baseUrl}/${imagePath}</a></li>`;
+                        });
+                      } else {
+                        const fileList = row.fileList;
+                        
+                        fileList.forEach((fileUrl) => {
+                          output += `<li><a href="${baseUrl}${fileUrl}" target="_blank">${baseUrl}${fileUrl}</a></li>`;
+                        });
+                      }
+                    
+                      output += "</ul>"; // Kết thúc danh sách
+                      return output;
+                    },
+                    "className": "exportable", // Ẩn trên giao diện, nhưng vẫn xuất
+                    "visible": false
                   },
                   {
                     "data": null,
