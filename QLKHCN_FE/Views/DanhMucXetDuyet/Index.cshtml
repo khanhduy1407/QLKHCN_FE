@@ -1245,6 +1245,8 @@
       .then(response => response.json())
       .then(data => {
         if (data) {
+          // console.log(data);
+          const baiBaoData = data;
           updateTable();
           // toastr.success('Cập nhập dữ liệu thành công.', '');
           update();
@@ -1264,6 +1266,21 @@
               .then(response => response.json())
               .then(data => {
                 // console.log(data);
+                const notifyData = {
+                  userId: idTGChinh,
+                  message: status == 'Hoàn Thành'
+                    ? `Bài báo "${baiBaoData.tenBaiBao}" của bạn đã được phê duyệt.`
+                    : `Bài báo "${baiBaoData.tenBaiBao}" của bạn đã bị từ chối. Vui lòng kiểm xem Ghi chú của mục bài báo.`
+                }
+                fetch('https://localhost:44364/api/ThongBao/', {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': 'Bearer ' + _token,
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(notifyData)
+                })
+                
                 if (data.emailChinh) {
                   const mailData = {
                     to: data.emailChinh,
