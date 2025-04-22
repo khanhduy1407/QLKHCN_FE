@@ -8331,7 +8331,9 @@
                                         <option value="DanhMucKhac">Danh mục khác</option>
                                     </select>
                                 </div>`;
-                document.querySelector('#trangthaithanhtoan').innerHTML = ``;
+                document.querySelector('#trangthaithanhtoan').innerHTML = `
+                  <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán">
+                  <label for="tickthanhtoan">Công trình xét thanh toán 80% theo quy chế NCV</label>`;
 
             } else if (lhkk === "NCM") {
                 chonLoaiCongTrinh.innerHTML = `
@@ -8359,7 +8361,9 @@
                                         <option value="SPUD">Sản phẩm ứng dụng</option>
                                     </select>
                                 </div>`;
-                document.querySelector('#trangthaithanhtoan').innerHTML = ``;
+                document.querySelector('#trangthaithanhtoan').innerHTML = `
+                  <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán">
+                  <label for="tickthanhtoan">Công trình xét thanh toán 80% theo quy chế NCV</label>`;
             }
 
         } else if (rank === "NCV") {
@@ -8376,6 +8380,9 @@
 
                                     </select>
                                 </div>`;
+                document.querySelector('#trangthaithanhtoan').innerHTML = `
+                  <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán">
+                  <label for="tickthanhtoan">Công trình xét thanh toán 80% theo quy chế NCV</label>`;
             } else if (lhkk === "NCM") {
                 chonLoaiCongTrinh.innerHTML = `
                                 <div class="form-group row">
@@ -8388,6 +8395,9 @@
 
                                     </select>
                                 </div>`;
+                document.querySelector('#trangthaithanhtoan').innerHTML = `
+                  <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán">
+                  <label for="tickthanhtoan">Công trình xét thanh toán 80% theo quy chế NCV</label>`;
             }
         }
         //render_kinhphi();
@@ -9198,6 +9208,11 @@
                         document.querySelector('#trangthaithanhtoan').innerHTML = `
                     <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" checked value="Chưa thanh toán"><label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 12/2023</label>`;
                     }
+                }
+                if (document.getElementById("loaiHinhKeKhai").value == "KKKL") {
+                    ////////alert("a");
+                    document.querySelector('#trangthaithanhtoan').innerHTML = `
+                    <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán"><label for="tickthanhtoan">Công trình xét thanh toán 80% theo quy chế NCV</label>`;
                 }
                 try {
                     document.getElementById("loaiCongTrinh").value = data.loaiCongTrinh;
