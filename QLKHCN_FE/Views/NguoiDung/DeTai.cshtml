@@ -8454,6 +8454,10 @@
     //selectedFilesArray = Array.from(files);
     uploadFiles();
   }
+  
+  function sanitizeFileName(str) {
+    return str.replace(/[\\/:*"<>|]/g, ' ').trim();
+  }
 
   // Hàm upload file
   function uploadFiles() {
@@ -8483,7 +8487,7 @@
         formData.append('file', file);
         formData.append('fileName', file.name);
         formData.append('userId', userId);
-        formData.append('valuetenbaibao', valuetenbaibao);
+        formData.append('valuetenbaibao', sanitizeFileName(valuetenbaibao));
   
         let uploadPromise = new Promise((resolve, reject) => {
           $.ajax({

@@ -777,6 +777,10 @@
         toastr.warning("Vui lòng nhập tên đề tài");
     }
   }
+  
+  function sanitizeFileName(str) {
+    return str.replace(/[\\/:*"<>|]/g, ' ').trim();
+  }
 
   // Hàm upload file
   function uploadFiles(documentId, docPreviewId) {
@@ -803,7 +807,7 @@
       formData.append('file', file);
       formData.append('fileName', file.name);
       formData.append('userId', userId);
-      formData.append('valuetenbaibao', valuetenbaibao);
+      formData.append('valuetenbaibao', sanitizeFileName(valuetenbaibao));
       
       $.ajax({
         url: '/Article/SaveFile',
