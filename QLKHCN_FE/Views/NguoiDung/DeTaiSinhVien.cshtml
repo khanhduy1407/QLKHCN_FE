@@ -419,7 +419,6 @@
             var optionshdsv = document.querySelector('#loaiCongTrinh');
             var hdsv = optionshdsv.options[optionshdsv.selectedIndex].value;
         } catch { }
-        var total = Number(parseCurrency(document.querySelector('#totaltien').textContent)) || 0;
         var tongdonggop = 0;
         for (let j = 0; j < sltg; j++) {
             try {
@@ -463,115 +462,112 @@
                 table.rows[i].cells[3].innerHTML = texttg;
             }
             if (sltgc == 1 && sltgp > 0) {
-                if (sltgc == 1 && sltgp > 0) {
-                    for (let i = 0; i < sltg; i++) {
-                        var coquan = table.rows[0].cells[2].textContent;
-                        try { var donggop = Number(document.querySelector('#donggop-' + i).value); } catch { }
-                        if (sltg > 1) {
-                            if (coquan.includes("Quốc tế - Hutech (0%)") || coquan.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || coquan.includes(" --Chọn cơ quan công tác--")) {
-                                table.rows[0].cells[4].innerHTML = `0`;
-                                table.rows[0].cells[5].innerHTML = `0`;
-                                table.rows[0].cells[6].innerHTML = `0`;
-                                table.rows[0].cells[7].innerHTML = `0`;
-                                if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
-
-                                    }
-
-                                } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
-                                    }
-                                } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `0`;
-                                    table.rows[i].cells[7].innerHTML = `0`;
-                                }
-                            } if (coquan.includes("Hutech-Quốc tế (50%)")) {
-                                table.rows[0].cells[4].innerHTML = `0`;
-                                table.rows[0].cells[5].innerHTML = `0`;
-                                table.rows[0].cells[6].innerHTML = `${diem / 2}`;
-                                if (hdsv == "HDSV") {
-                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                } else {
-                                    table.rows[0].cells[7].innerHTML = `${tietchuan / 2 * 0.8}`;
-                                }
-                                if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
-                                    }
-                                } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
-                                    }
-                                } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `0`;
-                                    table.rows[i].cells[7].innerHTML = `0`;
-                                }
-                            } else if (coquan.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                table.rows[0].cells[4].innerHTML = `0`;
-                                table.rows[0].cells[5].innerHTML = `0`;
-                                table.rows[0].cells[6].innerHTML = `${diem / 2}`;
+                for (let i = 0; i < sltg; i++) {
+                    var coquan = table.rows[0].cells[2].textContent;
+                    try { var donggop = Number(document.querySelector('#donggop-' + i).value); } catch { }
+                    if (sltg > 1) {
+                        if (coquan.includes("Quốc tế - Hutech (0%)") || coquan.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || coquan.includes(" --Chọn cơ quan công tác--")) {
+                            table.rows[0].cells[4].innerHTML = `0`;
+                            table.rows[0].cells[5].innerHTML = `0`;
+                            table.rows[0].cells[6].innerHTML = `0`;
+                            table.rows[0].cells[7].innerHTML = `0`;
+                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem * 0.2 / sltgp}`;
                                 if (hdsv == "HDSV") {
                                     table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
                                 } else {
-                                    table.rows[0].cells[7].innerHTML = `${tietchuan * 0.8}`;
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
+
                                 }
-                                if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
-                                    }
-                                } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `${diem / 2}`;
-                                    if (hdsv == "HDSV") {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                                    } else {
-                                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
-                                    }
-                                } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
-                                    table.rows[i].cells[4].innerHTML = `0`;
-                                    table.rows[i].cells[5].innerHTML = `0`;
-                                    table.rows[i].cells[6].innerHTML = `0`;
-                                    table.rows[i].cells[7].innerHTML = `0`;
+
+                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem / 2 * 0.2 / sltgp}`;
+                                if (hdsv == "HDSV") {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
+                                } else {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
                                 }
+                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `0`;
+                                table.rows[i].cells[7].innerHTML = `0`;
+                            }
+                        } if (coquan.includes("Hutech-Quốc tế (50%)")) {
+                            table.rows[0].cells[4].innerHTML = `0`;
+                            table.rows[0].cells[5].innerHTML = `0`;
+                            table.rows[0].cells[6].innerHTML = `${diem / 2 * 0.8}`;
+                            if (hdsv == "HDSV") {
+                                table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
+                            } else {
+                                table.rows[0].cells[7].innerHTML = `${tietchuan / 2 * 0.8}`;
+                            }
+                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem * 0.2 / sltgp}`;
+                                if (hdsv == "HDSV") {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
+                                } else {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
+                                }
+                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem / 2 * 0.2 / sltgp}`;
+                                if (hdsv == "HDSV") {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
+                                } else {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
+                                }
+                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `0`;
+                                table.rows[i].cells[7].innerHTML = `0`;
+                            }
+                        } else if (coquan.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
+                            table.rows[0].cells[4].innerHTML = `0`;
+                            table.rows[0].cells[5].innerHTML = `0`;
+                            table.rows[0].cells[6].innerHTML = `${diem * 0.8}`;
+                            if (hdsv == "HDSV") {
+                                table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
+                            } else {
+                                table.rows[0].cells[7].innerHTML = `${tietchuan * 0.8}`;
+                            }
+                            if (table.rows[i].cells[2].textContent.includes("Cơ quan công tác duy nhất Hutech (100%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem * 0.2 / sltgp}`;
+                                if (hdsv == "HDSV") {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
+                                } else {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan * 0.2 / sltgp}`;
+                                }
+                            } if (table.rows[i].cells[2].textContent.includes("Hutech-Quốc tế (50%)")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `${diem / 2 * 0.2 / sltgp}`;
+                                if (hdsv == "HDSV") {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
+                                } else {
+                                    table.rows[i].cells[7].innerHTML = `${tietchuan / 2 * 0.2 / sltgp}`;
+                                }
+                            } if (table.rows[i].cells[2].textContent.includes("Quốc tế - Hutech (0%)") || table.rows[i].cells[2].textContent.includes("Cơ quan công tác trong nước - ngoài Hutech (0%)") || table.rows[i].cells[2].textContent.includes(" --Chọn cơ quan công tác--")) {
+                                table.rows[i].cells[4].innerHTML = `0`;
+                                table.rows[i].cells[5].innerHTML = `0`;
+                                table.rows[i].cells[6].innerHTML = `0`;
+                                table.rows[i].cells[7].innerHTML = `0`;
                             }
                         }
                     }
-
                 }
             }
-
+            
             if (sltgc == 1 && sltg == 1) {
                 var coquan = table.rows[0].cells[2].textContent;
                 try {
@@ -586,23 +582,15 @@
                     table.rows[0].cells[7].innerHTML = `0`;
 
                 } else if (coquan.includes("Hutech-Quốc tế (50%)")) {
-                    table.rows[0].cells[4].innerHTML = `${total / 2}`;
-                    table.rows[0].cells[5].innerHTML = `${(total / 2) * 0.9}`;
-                    table.rows[0].cells[6].innerHTML = `${diem}`;
-                    if (hdsv == "HDSV") {
-                        table.rows[i].cells[7].innerHTML = `${tietchuan / 2 / sltg}`;
-                    } else {
-                        table.rows[0].cells[7].innerHTML = `${tietchuan / 2}`;
-                    }
+                    table.rows[0].cells[4].innerHTML = `0`;
+                    table.rows[0].cells[5].innerHTML = `0`;
+                    table.rows[0].cells[6].innerHTML = `${diem / 2}`;
+                    table.rows[0].cells[7].innerHTML = `${tietchuan / 2}`;
                 } else {
-                    table.rows[0].cells[4].innerHTML = `${total}`;
-                    table.rows[0].cells[5].innerHTML = `${(total) * 0.9}`;
+                    table.rows[0].cells[4].innerHTML = `0`;
+                    table.rows[0].cells[5].innerHTML = `0`;
                     table.rows[0].cells[6].innerHTML = `${diem}`;
-                    if (hdsv == "HDSV") {
-                        table.rows[i].cells[7].innerHTML = `${tietchuan / sltg}`;
-                    } else {
-                        table.rows[0].cells[7].innerHTML = `${tietchuan}`;
-                    }
+                    table.rows[0].cells[7].innerHTML = `${tietchuan}`;
                 }
             }
         }
