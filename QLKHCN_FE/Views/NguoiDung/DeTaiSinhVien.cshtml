@@ -336,8 +336,7 @@
           @*<a class="btn btn-outline-danger" href="@Url.Action("DeTai","NguoiDung")">THOÁT</a>*@
           @* Sử dụng sự kiện đóng modal và reset form thay vì reload lại trang *@
           <button class="btn btn-outline-danger" data-dismiss="modal">ĐÓNG</button>
-          <button type="button" class="btn btn btn-primary" id="btn-lvt" style="display: none; margin-left:-62%" onclick="handleSend('lvt')">LƯU VÀ ĐÓNG</button>
-          <button type="button" class="btn btn btn-primary" id="btn-lvtm" style="display: none" onclick="luuVaThemMoi()">LƯU VÀ THÊM MỚI</button>
+          <button type="button" class="btn btn btn-primary" id="btn-luu" style="display: none; margin-left:-62%" onclick="handleSend()" data-dismiss="modal">LƯU</button>
         </div>
       </div>
     </div>
@@ -397,6 +396,97 @@
             ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">0</label>
                                 <label>Điểm: </label><label id="diem">1</label>`;
         }
+    }
+    
+    
+    ////alert(_idUser);
+    function getData() {
+        var timeline = document.getElementById("timeline").value;
+      fetch('https://localhost:44364/api/DanhMucXetDuyetSinhVien/Get-by-userid?userid=' + _idUser + "&startTimes=" + timeline, {
+            headers: {
+                'Authorization': 'Bearer ' + _token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                var tongTien = 0;
+                var stt = 1;
+                const tbody = document.querySelector('#example1 tbody');
+                tbody.innerHTML = "";
+                data.forEach(function (row) {
+                    ////////alert(row.groupUser);
+                    if (row.status == "Đang đợi duyệt") {
+                        txtcolor = "rgba(77, 77, 79, 1)";
+                        bgcolor = "rgba(77, 77, 79, 0.07)";
+                    } else if (row.status == "Duyệt lần 1") {
+                        txtcolor = "rgba(27, 162, 180, 1)";
+                        bgcolor = "rgba(27, 162, 180, 0.07)";
+                    } else if (row.status == "Duyệt lần 2") {
+                        txtcolor = "rgba(16, 117, 187, 1)";
+                        bgcolor = "rgba(16, 117, 187, 0.07)";
+                    } else if (row.status == "Từ chối") {
+                        txtcolor = "rgba(200, 16, 47, 1)";
+                        bgcolor = "rgba(200, 16, 47, 0.07)";
+                    } else {
+                        txtcolor = "rgba(42, 148, 70, 1)";
+                        bgcolor = "rgba(42, 148, 70, 0.07)";
+                    }
+                    var grtg = row.groupUser;
+
+                    var tacgia = getOneAuthor(grtg, _idUser);
+                    ////////alert(tacgia + "/// " + _idUser);
+                    
+                    var catName = getCategory(row.category); 
+                    
+                    var tr = document.createElement('tr');
+                    var ccs = "";
+                    if (row.status == "Từ chối") {
+                        ccs = "Yêu cầu chỉnh sửa";
+                    } else {
+                        ccs = row.status;
+                    }
+                    try {
+                        tr.innerHTML =
+                            "<td>" + stt + "</td>" +
+                            "<td>" + row.tenBaiBao + "</td>" +
+                            "<td>" + row.thoiGianThucHien + "</td>" +
+                            "<td>" + tacgia[3] + "</td>" +
+                            "<td>" + catName + "</td>" +
+                            "<td>" + formatCurrency(row.kinhPhi) + "</td>" +
+                            "<td width='15%' align='center'>" + row.ghiChu + "</td>" +
+                            "<td><span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + ccs + "</span></td>" +
+                            "<td width='3%'><a type='button' data-toggle='modal' data-target='#modal-xl-create' data-backdrop='static' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-edit' style='color: #3276b1;'></i></a></td>" +
+                            "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a></td>";
+
+                        var date = new Date(row.dateSubmit_now);
+                        var day = date.getDate().toString().padStart(2, "0");
+                        var month = (date.getMonth() + 1).toString().padStart(2, "0");
+                        var year = date.getFullYear();
+                        tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${day}/${month}/${year}`);
+
+                        tbody.appendChild(tr);
+                        stt += 1;
+                        tongTien += row.kinhPhi;
+                    } catch { }
+
+                });
+                document.getElementById("tongKinhPhi").textContent = formatCurrency(tongTien);
+                $(function () {
+                    $("#example1").DataTable({
+                      "retrieve": true, // Cho phép sử dụng lại bảng đã được khởi tạo mà không cần khởi tạo lại
+                      "paging": true,
+                      "searching": true,
+                      "ordering": true,
+                      "info": true,
+                      "lengthChange": false,
+                      "autoWidth": false,
+                      "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
+                      "scrollX": true,  // Kích hoạt scroll ngang
+                      "scrollCollapse": true, // Tự động thu gọn chiều rộng
+                    })
+                });
+            });
     }
 
     function loadtable() {
@@ -631,8 +721,7 @@
         document.getElementById('fileDinhKemLyLich').value = "";
         document.getElementById("fileDinhKemLyLichBtn").style.display = "unset";
         document.getElementById('fileDinhKemLyLichDetail').innerHTML = "";
-        document.getElementById("btn-lvt").style.display = "none";
-        document.getElementById("btn-lvtm").style.display = "none";
+        document.getElementById("btn-luu").style.display = "none";
         
         document.getElementById("adminResponse").style.display = "none";
         document.getElementById("ghiChu").value = "";
@@ -640,10 +729,6 @@
         document.getElementById('adminFileListContainer').innerHTML = ''
         
         stepperPrevious();
-    }
-    function luuVaThemMoi() {
-        handleSend("lvtm");
-        clear();
     }
     function check_result() {
         var tenspkhcn = document.querySelector('#tenSanPhamKHCN').value;
@@ -711,14 +796,12 @@
 
         stepper.next()
 
-        document.getElementById("btn-lvt").style.display = "unset";
-        document.getElementById("btn-lvtm").style.display = "unset";
+        document.getElementById("btn-luu").style.display = "unset";
     }
   function stepperPrevious() {
       stepper.previous();
 
-      document.getElementById("btn-lvt").style.display = "none";
-      document.getElementById("btn-lvtm").style.display = "none";
+      document.getElementById("btn-luu").style.display = "none";
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -938,96 +1021,6 @@
             getData();
 
         });
-        ////alert(_idUser);
-        function getData() {
-            var timeline = document.getElementById("timeline").value;
-          fetch('https://localhost:44364/api/DanhMucXetDuyetSinhVien/Get-by-userid?userid=' + _idUser + "&startTimes=" + timeline, {
-                headers: {
-                    'Authorization': 'Bearer ' + _token,
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    var tongTien = 0;
-                    var stt = 1;
-                    const tbody = document.querySelector('#example1 tbody');
-                    tbody.innerHTML = "";
-                    data.forEach(function (row) {
-                        ////////alert(row.groupUser);
-                        if (row.status == "Đang đợi duyệt") {
-                            txtcolor = "rgba(77, 77, 79, 1)";
-                            bgcolor = "rgba(77, 77, 79, 0.07)";
-                        } else if (row.status == "Duyệt lần 1") {
-                            txtcolor = "rgba(27, 162, 180, 1)";
-                            bgcolor = "rgba(27, 162, 180, 0.07)";
-                        } else if (row.status == "Duyệt lần 2") {
-                            txtcolor = "rgba(16, 117, 187, 1)";
-                            bgcolor = "rgba(16, 117, 187, 0.07)";
-                        } else if (row.status == "Từ chối") {
-                            txtcolor = "rgba(200, 16, 47, 1)";
-                            bgcolor = "rgba(200, 16, 47, 0.07)";
-                        } else {
-                            txtcolor = "rgba(42, 148, 70, 1)";
-                            bgcolor = "rgba(42, 148, 70, 0.07)";
-                        }
-                        var grtg = row.groupUser;
-
-                        var tacgia = getOneAuthor(grtg, _idUser);
-                        ////////alert(tacgia + "/// " + _idUser);
-                        
-                        var catName = getCategory(row.category); 
-                        
-                        var tr = document.createElement('tr');
-                        var ccs = "";
-                        if (row.status == "Từ chối") {
-                            ccs = "Yêu cầu chỉnh sửa";
-                        } else {
-                            ccs = row.status;
-                        }
-                        try {
-                            tr.innerHTML =
-                                "<td>" + stt + "</td>" +
-                                "<td>" + row.tenBaiBao + "</td>" +
-                                "<td>" + row.thoiGianThucHien + "</td>" +
-                                "<td>" + tacgia[3] + "</td>" +
-                                "<td>" + catName + "</td>" +
-                                "<td>" + formatCurrency(row.kinhPhi) + "</td>" +
-                                "<td width='15%' align='center'>" + row.ghiChu + "</td>" +
-                                "<td><span class='badge' style='color:" + txtcolor + "!important; background-color:" + bgcolor + "!important;'>" + ccs + "</span></td>" +
-                                "<td width='3%'><a type='button' data-toggle='modal' data-target='#modal-xl-create' data-backdrop='static' onclick='xemchitiet(" + row.idDanhMuc + ")'><i class='fas fa-edit' style='color: #3276b1;'></i></a></td>" +
-                                "<td width='3%'><a type='button' onclick='deleteItem(" + row.idDanhMuc + ")'><i class='fas fa-trash-alt' style='color: #c82333;'></i></a></td>";
-
-                            var date = new Date(row.dateSubmit_now);
-                            var day = date.getDate().toString().padStart(2, "0");
-                            var month = (date.getMonth() + 1).toString().padStart(2, "0");
-                            var year = date.getFullYear();
-                            tr.setAttribute("title", `Dữ liệu bài báo này được cập nhật vào lúc ${day}/${month}/${year}`);
-
-                            tbody.appendChild(tr);
-                            stt += 1;
-                            tongTien += row.kinhPhi;
-                        } catch { }
-
-                    });
-                    document.getElementById("tongKinhPhi").textContent = formatCurrency(tongTien);
-                    $(function () {
-                        $("#example1").DataTable({
-                          "retrieve": true, // Cho phép sử dụng lại bảng đã được khởi tạo mà không cần khởi tạo lại
-                          "paging": true,
-                          "searching": true,
-                          "ordering": true,
-                          "info": true,
-                          "lengthChange": false,
-                          "autoWidth": false,
-                          "responsive": false, // Đặt về false để sử dụng scrollX hiệu quả
-                          "scrollX": true,  // Kích hoạt scroll ngang
-                          "scrollCollapse": true, // Tự động thu gọn chiều rộng
-                        })
-                    });
-                });
-
-        }
         getData();
     });
   
@@ -1053,15 +1046,12 @@
                 articleId = data.idDanhMuc;
                 ////alert(data.status);
                 if (data.status == "Đang đợi duyệt") {
-                    document.getElementById("btn-lvt").disabled = false;
-                    document.getElementById("btn-lvtm").disabled = false;
+                    document.getElementById("btn-luu").disabled = false;
                 } else if (data.status == "Từ chối") {
-                    document.getElementById("btn-lvt").disabled = false;
-                    document.getElementById("btn-lvtm").disabled = false;
+                    document.getElementById("btn-luu").disabled = false;
                 } else {
                     // nên ẩn đi, không xóa 2 nút này
-                    document.getElementById("btn-lvt").style.display = "none";
-                    document.getElementById("btn-lvtm").style.display = "none";
+                    document.getElementById("btn-luu").style.display = "none";
                 }
                 
                 sessionStorage.setItem("NguoiKhai", data.userId);
@@ -1224,7 +1214,7 @@
                     try { document.querySelector('#addtacgia').innerHTML = a; } catch { }
 
                     /////
-                    await Get_issn(renderGet_issn);
+                    // await Get_issn(renderGet_issn);
                     //document.querySelector('#tbtacgiasl').EditData = false;
                 });//
 
@@ -1602,12 +1592,6 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
             .then(response => {
                 if (response.ok) {
                     toastr.success('Đăng ký thành công', '');
-                    window.location.href = '/NguoiDung/DeTaiSinhVien';
-                    if (a == "lvtm") {
-
-                    } else if (a == "lvt") {
-                        window.location.href = '/NguoiDung/DeTaiSinhVien';
-                    }
                 } else {
                     toastr.error('Liên hệ hỗ trợ.', 'Gặp lỗi!')
                     console.log(response)
@@ -1625,26 +1609,25 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
             body: JSON.stringify(data),
         };
         fetch(linksend, options)
-            .then(response => {
+            .then(async (response) => {
                 if (response.ok) {
                     toastr.success('Sửa thành công');
-                    window.location.href = '/NguoiDung/DeTaiSinhVien';
+                    await fetch(`https://localhost:44364/api/PhanBien/Add-lich-su-phan-bien?idDanhMuc=${idmm}`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + _token,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            by: "Tác giả",
+                            content: "Tác giả đã cập nhật thông tin bài báo.",
+                            type: "update",
+                        }),
+                    })
                 } else {
                     toastr.warning('Có lỗi');
                 }
             });
-        fetch(`https://localhost:44364/api/PhanBien/Add-lich-su-phan-bien?idDanhMuc=${idmm}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': 'Bearer ' + _token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                by: "Tác giả",
-                content: "Tác giả đã cập nhật thông tin bài báo.",
-                type: "update",
-            }),
-        })
     }
     function groupUser() {
         var table = document.getElementById("tbtacgia2");
@@ -1745,7 +1728,8 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
         } else {
             update(data, iddmxd);
         }
-
+        clear();
+        getData();
     }
 
     // Hàm k cần enter khi tra mã
