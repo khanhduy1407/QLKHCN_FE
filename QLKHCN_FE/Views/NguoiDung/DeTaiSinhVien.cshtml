@@ -621,7 +621,7 @@
         document.getElementById('moTaSanPhamKHCN').value = "";
         document.getElementById('tgThucHien').value = "5";
         document.getElementById('sanPhamDuKien').value = "";
-        document.getElementById('kinhPhi').value = "";
+        document.getElementById('kinhPhi').value = "0";
         document.getElementById('fileDangKy').value = "";
         document.getElementById("fileDangKyBtn").style.display = "unset";
         document.getElementById('fileDangKyDetail').innerHTML = "";
@@ -1608,13 +1608,9 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                     } else if (a == "lvt") {
                         window.location.href = '/NguoiDung/DeTaiSinhVien';
                     }
-                } else if (response.status == 400) {
-                    console.log(response);
-                    toastr.warning('Trùng tên đề tài');
                 } else {
-
                     toastr.error('Liên hệ hỗ trợ.', 'Gặp lỗi!')
-
+                    console.log(response)
                 }
             });
     }
@@ -1637,6 +1633,18 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                     toastr.warning('Có lỗi');
                 }
             });
+        fetch(`https://localhost:44364/api/PhanBien/Add-lich-su-phan-bien?idDanhMuc=${idmm}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + _token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                by: "Tác giả",
+                content: "Tác giả đã cập nhật thông tin bài báo.",
+                type: "update",
+            }),
+        })
     }
     function groupUser() {
         var table = document.getElementById("tbtacgia2");
@@ -1663,19 +1671,9 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
     }
     ///////// Tính năng mới
 
-
-
     function handleSend(a, x) {
         //2 cái hàm ở trên, mấy cái session với vài chỗ trong cục data
-        var currentDateTime = new Date();
-        currentDateTime.setHours(currentDateTime.getHours() + 7);
-        var formattedDateTime = currentDateTime.toISOString().replace("T", " ").replace("Z", "");
 
-        var date = currentDateTime.getDate();
-        var month = currentDateTime.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần +1
-        var year = currentDateTime.getFullYear();
-
-        var formattedDate = year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
         var NguoiKhai = sessionStorage.getItem("NguoiKhai");
         var Khoa = sessionStorage.getItem("Khoa");
         var hoten = document.getElementById("xinchao").textContent;
@@ -1715,8 +1713,6 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 category: sanPhamDuKien,
                 kinhPhi: kinhPhi || 0,
                 ghiChu: "",
-                dateSubmit: formattedDate,
-                dateSubmit_now: formattedDate,
                 fileDangKy: fileDangKy,
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
@@ -1736,8 +1732,6 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
                 category: sanPhamDuKien,
                 kinhPhi: kinhPhi || 0,
                 ghiChu: ghichu.toString(),
-                dateSubmit: formattedDate, // @* TODO: xử lý tạm thời vì "NULL", cần cập nhật xử lý giữ nguyên giá trị ban đầu trường này *@
-                dateSubmit_now: formattedDate,
                 fileDangKy: fileDangKy,
                 fileThuyetMinh: fileThuyetMinh,
                 fileDinhKemLyLich: fileDinhKemLyLich,
