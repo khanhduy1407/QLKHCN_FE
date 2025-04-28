@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LoginRequest.cs" />
+    <Compile Include="ViewModel\UpdatePasswordRequest.cs" />
     <Compile Include="ViewModel\UserLogin.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2607,6 +2608,7 @@
     <Content Include="Views\DanhMucXetDuyetSinhVien\Index.cshtml" />
     <Content Include="Views\NguoiDung\DeTaiSinhVien.cshtml" />
     <Content Include="Views\NguoiDung\LyLich2.cshtml" />
+    <Content Include="Views\NguoiDung\SetPassword.cshtml" />
     <Content Include="Views\PhanBien\BienTapChuyenMon.cshtml" />
     <Content Include="Views\PhanBien\Index.cshtml" />
     <Content Include="Views\Shared\_JDILayout.cshtml" />

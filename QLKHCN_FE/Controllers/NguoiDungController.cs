@@ -32,25 +32,41 @@ namespace QLKHCN_FE.Controllers
         {
             return View();
         }
-        public ActionResult DeTai()
+        public async Task<ActionResult> DeTai()
         {
-
             if (!IsAuthenticated)
             {
                 Session["ReturnUrl"] = Request.Url.AbsoluteUri;
                 return RedirectToAction("Login", "NguoiDung");
             }
-            return View();
+
+            var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
+
+            if (!isPasswordNullOrEmpty)
+            {
+                return View();
+            }
+
+            Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+            return RedirectToAction("SetPassword", "NguoiDung");
         }
-        public ActionResult DeTaiSinhVien()
+        public async Task<ActionResult> DeTaiSinhVien()
         {
-
             if (!IsAuthenticated)
             {
                 Session["ReturnUrl"] = Request.Url.AbsoluteUri;
                 return RedirectToAction("Login", "NguoiDung");
             }
-            return View();
+
+            var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
+
+            if (!isPasswordNullOrEmpty)
+            {
+                return View();
+            }
+
+            Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+            return RedirectToAction("SetPassword", "NguoiDung");
         }
 
         public ActionResult LyLich()
@@ -89,6 +105,20 @@ namespace QLKHCN_FE.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        public async Task<ActionResult> SetPassword()
+        {
+            var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
+
+            if (isPasswordNullOrEmpty)
+            {
+                return View();
+            }
+
+            return RedirectToAction("DeTai", "NguoiDung");
+        }
+        
         [HttpPost]
         public async Task<ActionResult> Token2()
         {
@@ -293,17 +323,89 @@ namespace QLKHCN_FE.Controllers
                 }
             }
         }
+        
+        [HttpPost]
+        public async Task<ActionResult> SetPassword(UpdatePasswordRequest request)
+        {
+            if (!request.password.Equals(request.confirmPassword))
+            {
+                ModelState.AddModelError("", "Mật khẩu không khớp!");
+                return View();
+            }
+
+            using (var client = new HttpClient())
+            {
+                var user = HttpContext.Session["CurrentUser"] as UserLogin;
+                if (user == null || string.IsNullOrEmpty(user.Token))
+                {
+                    ModelState.AddModelError("", "Không rõ thông tin người dùng, vui lòng đăng nhập lại!");
+                    return View();
+                }
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", user.Token);
+                var json1 = JsonConvert.SerializeObject(new
+                {
+                    username = user.IDUser,
+                    password = request.password
+                });
+                var content1 = new StringContent(json1);
+                content1.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response = await client.PutAsync("https://localhost:44364/api/NguoiDung/set-password-first", content1);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (Session["ReturnUrl"] != null)
+                    {
+                        string returnUrl = Session["ReturnUrl"].ToString();
+                        Session.Remove("ReturnUrl");
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("DeTai", "NguoiDung");
+                }
+                
+                var errorContent = await response.Content.ReadAsStringAsync(); // <<< lấy nội dung lỗi
+                ModelState.AddModelError("", $"Đặt mật khẩu thất bại! Chi tiết: {errorContent}");
+                return View();
+            }
+        }
 
 
         public ActionResult Role()
         {
-
             if (!IsAuthenticated)
             {
                 Session["ReturnUrl"] = Request.Url.AbsoluteUri;
                 return RedirectToAction("Login", "NguoiDung");
             }
             return View();
+        }
+
+        private async Task<bool> isNullOrEmptyPassword()
+        {
+            using (var client = new HttpClient())
+            {
+                var user = HttpContext.Session["CurrentUser"] as UserLogin;
+                if (user == null || string.IsNullOrEmpty(user.Token))
+                {
+                    return true;
+                }
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", user.Token);
+                var response = await client.GetAsync("https://localhost:44364/api/NguoiDung/required");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return true; // Nếu 404 thì trả về true
+                }
+                else
+                {
+                    return false; // Các lỗi khác thì trả false
+                }
+            }
         }
     }
 }
