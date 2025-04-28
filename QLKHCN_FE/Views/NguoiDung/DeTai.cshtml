@@ -16,7 +16,7 @@
     // add list
     years.Add(new
     {
-      Year = $"{year}-07-01 00:00:00.0000000",
+      Year = $"{year}",
       YearOption = $"{year} - {nextYear}"
     });
   }
@@ -25,7 +25,7 @@
   years.Reverse();
 
   // Xác định năm học hiện tại
-  string currentYearOption = DateTime.Now.Month < 9 ? $"{currentYear - 1} - {currentYear}" : $"{currentYear} - {currentYear + 1}";
+  string currentYearOption = DateTime.Now.Day < 15 && DateTime.Now.Month < 10 ? $"{currentYear - 1} - {currentYear}" : $"{currentYear} - {currentYear + 1}";
 }
 
 <head>
