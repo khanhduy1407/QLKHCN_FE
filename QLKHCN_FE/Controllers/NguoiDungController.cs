@@ -40,15 +40,15 @@ namespace QLKHCN_FE.Controllers
                 return RedirectToAction("Login", "NguoiDung");
             }
 
-            var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
-
-            if (!isPasswordNullOrEmpty)
-            {
+            // var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
+            //
+            // if (!isPasswordNullOrEmpty)
+            // {
                 return View();
-            }
-
-            Session["ReturnUrl"] = Request.Url.AbsoluteUri;
-            return RedirectToAction("SetPassword", "NguoiDung");
+            // }
+            //
+            // Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+            // return RedirectToAction("SetPassword", "NguoiDung");
         }
         public async Task<ActionResult> DeTaiSinhVien()
         {
@@ -58,15 +58,15 @@ namespace QLKHCN_FE.Controllers
                 return RedirectToAction("Login", "NguoiDung");
             }
 
-            var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
-
-            if (!isPasswordNullOrEmpty)
-            {
+            // var isPasswordNullOrEmpty = await isNullOrEmptyPassword();
+            //
+            // if (!isPasswordNullOrEmpty)
+            // {
                 return View();
-            }
-
-            Session["ReturnUrl"] = Request.Url.AbsoluteUri;
-            return RedirectToAction("SetPassword", "NguoiDung");
+            // }
+            //
+            // Session["ReturnUrl"] = Request.Url.AbsoluteUri;
+            // return RedirectToAction("SetPassword", "NguoiDung");
         }
 
         public ActionResult LyLich()
