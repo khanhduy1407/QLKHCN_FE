@@ -351,8 +351,8 @@
           }
         </select>
         <div class="dropdown-menu" role="menu" style="">
-          <a class="dropdown-item" onclick="ExportToExcelDVCT(1, $('#selectedKhoa').text())" href="#">Nhóm Nghiên Cứu Mạnh</a>
-          <a class="dropdown-item" onclick="ExportToExcelDVCT(2, $('#selectedKhoa').text())" href="#">Khoa/Viện</a>
+          <a class="dropdown-item" onclick="ExportToExcelDVCT(1, $('#selectedKhoa').text(), true)" href="#">Nhóm Nghiên Cứu Mạnh</a>
+          <a class="dropdown-item" onclick="ExportToExcelDVCT(2, $('#selectedKhoa').text(), true)" href="#">Khoa/Viện</a>
         </div>
       </div>
       <table id="example1" class="table table-bordered table-striped">
@@ -890,10 +890,10 @@
     }
     getData();
   });
-  function ExportToExcelDVCT(xuat, donViCongTac) {
+  function ExportToExcelDVCT(xuat, donViCongTac, xuatAllTacGia) {
     // Tạo URL cho API ExportToExcelDVCT
     var timeline = document.getElementById("timeline").value;
-    var url = 'https://localhost:44364/api/DanhMucXetDuyet/ExportToExcelDVCT?xuat=' + xuat + "&donViCongTac=" + `${donViCongTac}` + '&startTime=' + encodeURIComponent(timeline);
+    var url = `https://localhost:44364/api/DanhMucXetDuyet/ExportToExcelDVCT?xuat=${xuat}&donViCongTac=${donViCongTac}&startTime=${encodeURIComponent(timeline)}&xuatAllTacGia=${xuatAllTacGia}`;
     // Gửi yêu cầu AJAX để tải xuống file Excel
     toastr.info("Đang tải xuống!");
 
