@@ -207,6 +207,7 @@
                   <div class="row">
                     <div class="col-6">
                       <input type="hidden" class="form-control" id="idDanhMuc">
+                      <input type="hidden" class="form-control" id="status">
                       <div class="form-group">
                         <label for="tenBaiBao">Tên bài báo</label>
                         <input type="text" class="form-control" disabled id="tenBaiBao">
@@ -517,6 +518,7 @@
         var valuerank = _ngach;
         var optionslh = document.querySelector('#loaiHinhKeKhai');
         var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;
+        console.log(`sltgc = ${sltgc} | sltgp = ${sltgp} | sltglh = ${sltglh} | sltg = ${sltg} | slBaiTG = ${slBaiTG} | tietchuan = ${tietchuan} | diem = ${diem} | hdsv = ${hdsv} | valuerank = ${valuerank} | valueloaihinh = ${valueloaihinh}`);
         for (let j = 0; j < sltg; j++) {
             try {
                 var donggop = Number(document.querySelector('#donggop-' + j).value);
@@ -7516,8 +7518,10 @@
         } else {
           stepper.next()
 
-          document.getElementById("btn-lvt").style.display = "unset";
-          document.getElementById("btn-lvtm").style.display = "unset";
+          if (document.getElementById("status").value != "Hoàn Thành") {
+            document.getElementById("btn-lvt").style.display = "unset";
+            document.getElementById("btn-lvtm").style.display = "unset";
+          }
 
           try { } catch { }
        }
@@ -7758,6 +7762,11 @@
             if (q.includes("N/A")) {
                 await Get_issnscopus(renderGet_issn);
 
+            } else if (q == "Q1-ESCI" || q == "Q2-ESCI" || q == "Q3-ESCI" || q == "Q4-ESCI") {
+                ketqua.style.display = "block";
+                ketqua.innerHTML = ` <label> Kinh phí bài báo:  </label ><label id="totaltien">0</label>
+                                        <label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm hoàn thành:</label><label id="diem">17.5</label>`;
             } else if (q == "Q1" || q == "Q2" || q == "Q3") {
                 ketqua.style.display = "block";
                 ketqua.innerHTML = ` <label> Kinh phí bài báo:  </label ><label id="totaltien">0</label>
@@ -7802,6 +7811,11 @@
 
                 await Get_issnscopus(renderGet_issn);
 
+            } else if (q == "Q1-ESCI" || q == "Q2-ESCI" || q == "Q3-ESCI" || q == "Q4-ESCI") {
+                ketqua.style.display = "block";
+                ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
+                                        <label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm hoàn thành:</label><label id="diem">17.5</label>`;
             } else if (q == "Q1" || q == "Q2" || q == "Q3") {
                 ketqua.style.display = "block";
                 ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
@@ -7856,6 +7870,11 @@
                 await Get_issnscopus(renderGet_issn);
 
 
+            } else if (q == "Q1-ESCI" || q == "Q2-ESCI" || q == "Q3-ESCI" || q == "Q4-ESCI") {
+                ketqua.style.display = "block";
+                ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
+                                        <label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm hoàn thành:</label><label id="diem">17.5</label>`;
             } else if (q == "Q1" || q == "Q2" || q == "Q3") {
                 ketqua.style.display = "block";
                 ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
@@ -7908,6 +7927,11 @@
             if (q.includes("N/A")) {
                 await Get_issnscopus(renderGet_issn);
 
+            } else if (q == "Q1-ESCI" || q == "Q2-ESCI" || q == "Q3-ESCI" || q == "Q4-ESCI") {
+                ketqua.style.display = "block";
+                ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">0</label>
+                                        <label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm hoàn thành:</label><label id="diem">17.5</label>`;
             } else if (q == "Q1" || q == "Q2" || q == "Q3") {
                 ketqua.style.display = "block";
                 ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">0</label>
@@ -7954,6 +7978,11 @@
 
 
 
+            } else if (q == "Q1-ESCI" || q == "Q2-ESCI" || q == "Q3-ESCI" || q == "Q4-ESCI") {
+                ketqua.style.display = "block";
+                ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
+                                        <label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm hoàn thành:</label><label id="diem">17.5</label>`;
             } else if (q == "Q1" || q == "Q2" || q == "Q3") {
                 ketqua.style.display = "block";
                 ketqua.innerHTML = ` <label> Kinh phí bài báo:</label > <label id="totaltien">${formatCurrency(24000000)}</label>
@@ -8045,14 +8074,21 @@
 
             var category = (document.querySelector('input[id="category-1"]:checked').value);
             if (valueloaihinh == "Kê khai khối lượng") {
-                if (category.includes("Q1")) {
+                if (category == "Q1-ESCI" || category == "Q2-ESCI" || category == "Q3-ESCI" || category == "Q4-ESCI") {
+                    var ketqua = document.getElementById("ketqua");
+                    ketqua.style.display = 'block';
+                    ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                    <label>Điểm:</label><label id="diem">17.5</label>
+                                    <label>Kinh phí:</label><label id="totaltien">0</label>`;
+                }
+                else if (category.includes("Q1")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">120</label>
                                     <label>Điểm:</label><label id="diem">30</label>
                                     <label>Kinh phí:</label><label id="totaltien">0</label>`;
                 }
-                if (category.includes("Q2")) {
+                else if (category.includes("Q2")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">110</label>
@@ -8060,7 +8096,7 @@
                                     <label>Kinh phí:</label><label id="totaltien">0</label>`;
 
                 }
-                if (category.includes("Q3")) {
+                else if (category.includes("Q3")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">100</label>
@@ -8068,7 +8104,7 @@
                                     <label>Kinh phí:</label><label id="totaltien">0</label>`;
 
                 }
-                if (category.includes("Q4")) {
+                else if (category.includes("Q4")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">90</label>
@@ -8076,7 +8112,7 @@
                                     <label>Kinh phí:</label><label id="totaltien">0</label>`;
 
                 }
-                if (category == "Q1" || category == "Q2" || category == "Q3") {
+                else if (category == "Q1" || category == "Q2" || category == "Q3") {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">60</label>
@@ -8122,7 +8158,7 @@
                                 </div>`;
                 document.querySelector('#trangthaithanhtoan').innerHTML = `
                   <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán">
-                  <label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 06/2024</label>`;
+                  <label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 06/2025</label>`;
             }
             else if (lhkk === "DT") {
                 chonLoaiCongTrinh.innerHTML = `
@@ -8371,14 +8407,21 @@
                 ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">${tietchuan}</label>
                                     <label>Điểm:</label><label id="diem">${diem}</label>
                                         <label>Kinh phí:</label><label id="totaltien">0</label>`;
-                if (category.includes("Q1")) {
+                if (category == "Q1-ESCI" || category == "Q2-ESCI" || category == "Q3-ESCI" || category == "Q4-ESCI") {
+                    var ketqua = document.getElementById("ketqua");
+                    ketqua.style.display = 'block';
+                    ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">70</label>
+                                        <label>Điểm:</label><label id="diem">17.5</label>
+                                        <label>Kinh phí:</label><label id="totaltien">0</label>`;
+                }
+                else if (category.includes("Q1")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">120</label>
                                         <label>Điểm:</label><label id="diem">30</label>
                                         <label>Kinh phí:</label><label id="totaltien">0</label>`;
                 }
-                if (category.includes("Q2")) {
+                else if (category.includes("Q2")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">110</label>
@@ -8386,7 +8429,7 @@
                                         <label>Kinh phí:</label><label id="totaltien">0</label>`;
 
                 }
-                if (category.includes("Q3")) {
+                else if (category.includes("Q3")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">100</label>
@@ -8394,14 +8437,14 @@
                                         <label>Kinh phí:</label><label id="totaltien">0</label>`;
 
                 }
-                if (category.includes("Q4")) {
+                else if (category.includes("Q4")) {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">90</label>
                                        <label>Điểm:</label><label id="diem">22.5</label>
                                        <label>Kinh phí:</label><label id="totaltien">0</label>`;
                 }
-                if (category == "Q1" || category == "Q2" || category == "Q3") {
+                else if (category == "Q1" || category == "Q2" || category == "Q3") {
                     var ketqua = document.getElementById("ketqua");
                     ketqua.style.display = 'block';
                     ketqua.innerHTML = `<label>Tiết chuẩn:</label> <label id="tietchuan">60</label>
@@ -8913,6 +8956,7 @@
                 }
 
                 document.getElementById("iddmxd").value = data.idDanhMuc;
+                document.getElementById("status").value = data.status;
                 var input_issn = document.getElementById("input_issn");
                 var choose_lh = document.getElementById("choose_lh");
                 var trangthaithanhtoan = document.getElementById("trangthaithanhtoan");
@@ -8989,7 +9033,7 @@
                 if (document.getElementById("loaiHinhKeKhai").value == "NCM") {
                     ////////alert("a");
                     document.querySelector('#trangthaithanhtoan').innerHTML = `
-                    <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán"><label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 06/2024</label>`;
+                    <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" value="Chưa thanh toán"><label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 06/2025</label>`;
                     if (data.if_2022 == "Chưa thanh toán") {
                         document.querySelector('#trangthaithanhtoan').innerHTML = `
                     <input type="checkbox" id="tickthanhtoan" name="tickthanhtoan" onclick="testst()" checked value="Chưa thanh toán"><label for="tickthanhtoan">Sản phẩm xét thanh toán đợt tháng 12/2023</label>`;
