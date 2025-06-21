@@ -518,7 +518,7 @@
         var valuerank = _ngach;
         var optionslh = document.querySelector('#loaiHinhKeKhai');
         var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;
-        console.log(`sltgc = ${sltgc} | sltgp = ${sltgp} | sltglh = ${sltglh} | sltg = ${sltg} | slBaiTG = ${slBaiTG} | tietchuan = ${tietchuan} | diem = ${diem} | hdsv = ${hdsv} | valuerank = ${valuerank} | valueloaihinh = ${valueloaihinh}`);
+        console.log(`sltgc = ${sltgc} | sltgp = ${sltgp} | sltglh = ${sltglh} | sltg = ${sltg} | tietchuan = ${tietchuan} | diem = ${diem} | hdsv = ${hdsv} | valuerank = ${valuerank} | valueloaihinh = ${valueloaihinh}`);
         for (let j = 0; j < sltg; j++) {
             try {
                 var donggop = Number(document.querySelector('#donggop-' + j).value);
@@ -7592,11 +7592,12 @@
     }
     var yearChoosen = valueDatetimePicker.getFullYear();
 
+    var scopusUrl = "";
     if (yearChoosen >= 2025) {
         
-        var scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
+        scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
     } else {
-        const scopusUrl = valueDatetimePicker > thang6
+        scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
           : "https://localhost:44364/api/DanhMuc";
     }
@@ -7710,10 +7711,11 @@
     const valueDatetimePicker = new Date(document.getElementById("datesubmit").value);
     const thang6 = new Date('2023-05-06');
     var yearChoosen = valueDatetimePicker.getFullYear();
+    var scopusUrl = "";
     if (yearChoosen >= 2025) {
-        var scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
+        scopusUrl = `https://localhost:44364/api/DanhMucWOS/${yearChoosen}`;
     } else {
-        const scopusUrl = valueDatetimePicker > thang6
+        scopusUrl = valueDatetimePicker > thang6
           ? "https://localhost:44364/api/DanhMucScimago2023"
           : "https://localhost:44364/api/DanhMucScimago";
     }
