@@ -432,7 +432,7 @@
                       <h3 class="card-title">THÔNG TIN TÁC GIẢ</h3>
                     </div>
                     <p style="color: red; font-weight: bold;">
-                      ⚠️ Bạn bắt buộc phải nhấn nút <b>"Thêm tác giả"</b> sau khi nhập thông tin vào ô ở cột <b>"Mã tác giả"</b>, nếu không hệ thống sẽ không cho phép lưu.
+                      ⚠️ Bạn bắt buộc phải nhấn nút <b>"Thêm tác giả"</b> sau khi nhập thông tin vào ô ở cột <b>"Mã nhân viên"</b>, nếu không hệ thống sẽ không cho phép lưu.
                     </p>
                     @*Ban dt*@
                     <div class="table-container">
@@ -10495,7 +10495,7 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
     
       for (let row of dongTacGia) {
         const oMaNhanVien = row.cells[1]; // Cột mã nhân viên
-        if (oMaNhanVien && !oMaNhanVien.textContent.includes("-")) {
+        if (oMaNhanVien && !/^[A-Z0-9]+ - .+$/u.test(oMaNhanVien.textContent.trim())) {
           alert("⚠️ Bạn phải nhấn nút \"Thêm tác giả\" để hoàn tất thông tin trước khi lưu.");
           return false;
         }
