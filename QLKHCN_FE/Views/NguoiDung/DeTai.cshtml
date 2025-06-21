@@ -431,6 +431,9 @@
                     <div class="card-header">
                       <h3 class="card-title">THÔNG TIN TÁC GIẢ</h3>
                     </div>
+                    <p style="color: red; font-weight: bold;">
+                      ⚠️ Bạn bắt buộc phải nhấn nút <b>"Thêm tác giả"</b> sau khi nhập thông tin vào ô ở cột <b>"Mã tác giả"</b>, nếu không hệ thống sẽ không cho phép lưu.
+                    </p>
                     @*Ban dt*@
                     <div class="table-container">
 
@@ -7410,7 +7413,6 @@
     }
     function luuVaThemMoi() {
         handleSend("lvtm");
-        clear();
     }
     function check_result() {
         var categoryedit = sessionStorage.getItem("cate");
@@ -10477,153 +10479,179 @@ ${user.hoTen} - ${user.donViCongTac}</dt>`;
     }
     ///////// Tính năng mới
 
+    function convertDChar(input) {
+      return input.replace(/Ð/g, 'Đ').replace(/ð/g, 'đ');
+    }
 
+    function kiemTraThemTacGia() {
+      const bangTacGia = document.getElementById('tablethanhtoan');
+    
+      if (!bangTacGia) {
+        alert("Không tìm thấy bảng tác giả.");
+        return false;
+      }
+
+      const dongTacGia = bangTacGia.querySelectorAll('tbody tr');
+    
+      for (let row of dongTacGia) {
+        const oMaNhanVien = row.cells[1]; // Cột mã nhân viên
+        if (oMaNhanVien && !oMaNhanVien.textContent.includes("-")) {
+          alert("⚠️ Bạn phải nhấn nút \"Thêm tác giả\" để hoàn tất thông tin trước khi lưu.");
+          return false;
+        }
+      }
+    
+      // Nếu qua hết vòng lặp, tức là hợp lệ
+      return true;
+    }
 
     function handleSend(a, x) {
-        //2 cái hàm ở trên, mấy cái session với vài chỗ trong cục data
-        var trangthai = "";
-        var optionslh = document.querySelector('#loaiHinhKeKhai');
-        var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;
-        try {
-            var a = document.querySelector('#tickthanhtoan');
-            if (valueloaihinh == "Nghiên cứu mạnh" && a.checked == true) {
-                trangthai = "Chưa thanh toán";
-            } else if (valueloaihinh == "Nghiên cứu mạnh" && a.checked == false) {
-                trangthai = "Đã thanh toán";
-            } else {
-                trangthai = "";
-            }
-        } catch { }
-        /////
-        var currentDateTime = new Date();
-        currentDateTime.setHours(currentDateTime.getHours() + 7);
-        var formattedDateTime = currentDateTime.toISOString().replace("T", " ").replace("Z", "");
-
-        var date = currentDateTime.getDate();
-        var month = currentDateTime.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần +1
-        var year = currentDateTime.getFullYear();
-
-        var formattedDate = year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
-        var NguoiKhai = sessionStorage.getItem("NguoiKhai");
-        var Khoa = sessionStorage.getItem("Khoa");
-        var NguoiSua = sessionStorage.getItem("NguoiSua");
-        var TrangthaiEdit = sessionStorage.getItem("TrangThaiThanhToan");
-        var iddmxd = document.getElementById("iddmxd").value;
-        var loaiHinhKeKhai = document.getElementById("loaiHinhKeKhai").value;
-        try {
-            var loaiCongtrinh = document.getElementById("loaiCongTrinh").value;
-        } catch {
-            var loaiCongtrinh = "";
-        }
-        try {
-            var valuetype = document.querySelector('input[name="yc"]:checked').value;
-        } catch {
-            var valuetype = "";
-        }
-        var hoten = document.getElementById("xinchao").textContent;
-        var soDOI = document.getElementById("sodoi").value;
-        var minhchung = selectedFilesArray;
-        var sltgc = Number(document.querySelector('#sltgc').value);
-        var sltgp = Number(document.querySelector('#sltgp').value);
-        var sltglh = Number(document.querySelector('#sltglh').value);
-        var sltg = sltgc + sltgp + sltglh;
-        var s = 0;
-        for (let tiennum = 1; tiennum < sltg + 1; tiennum++) {
-            tongtien = Number(document.querySelector('#tbtacgia2').rows[tiennum].cells[4].textContent);
-            s += tongtien;
-        }
-        var date = document.querySelector('#datesubmit').value;
-        var valuerank = _ngach;
-        var valuetenbaibao = document.querySelector('#tenSanPhamKHCN').value;
-        try {
-            var valuecategory = document.querySelector('input[id="category-1"]:checked').value;
-        } catch
-        {
+        if (kiemTraThemTacGia()) {
+            //2 cái hàm ở trên, mấy cái session với vài chỗ trong cục data
+            var trangthai = "";
+            var optionslh = document.querySelector('#loaiHinhKeKhai');
+            var valueloaihinh = optionslh.options[optionslh.selectedIndex].textContent;
             try {
-                var valuecategory = document.querySelector('input[name="category"]:checked').nextSibling.textContent;
+                var a = document.querySelector('#tickthanhtoan');
+                if (valueloaihinh == "Nghiên cứu mạnh" && a.checked == true) {
+                    trangthai = "Chưa thanh toán";
+                } else if (valueloaihinh == "Nghiên cứu mạnh" && a.checked == false) {
+                    trangthai = "Đã thanh toán";
+                } else {
+                    trangthai = "";
+                }
+            } catch { }
+            /////
+            var currentDateTime = new Date();
+            currentDateTime.setHours(currentDateTime.getHours() + 7);
+            var formattedDateTime = currentDateTime.toISOString().replace("T", " ").replace("Z", "");
+    
+            var date = currentDateTime.getDate();
+            var month = currentDateTime.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần +1
+            var year = currentDateTime.getFullYear();
+    
+            var formattedDate = year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0');
+            var NguoiKhai = convertDChar(sessionStorage.getItem("NguoiKhai"));
+            var Khoa = sessionStorage.getItem("Khoa");
+            var NguoiSua = convertDChar(sessionStorage.getItem("NguoiSua"));
+            var TrangthaiEdit = sessionStorage.getItem("TrangThaiThanhToan");
+            var iddmxd = document.getElementById("iddmxd").value;
+            var loaiHinhKeKhai = document.getElementById("loaiHinhKeKhai").value;
+            try {
+                var loaiCongtrinh = document.getElementById("loaiCongTrinh").value;
+            } catch {
+                var loaiCongtrinh = "";
             }
-            catch {
-                var valuecategory = document.querySelector('input[name="yc"]:checked').value;
+            try {
+                var valuetype = document.querySelector('input[name="yc"]:checked').value;
+            } catch {
+                var valuetype = "";
             }
-        }
-        try { var valuelbname = document.querySelector('#lbname').textContent; } catch { var valuelbname = "" }
-        try { var valuelbissn = document.querySelector('#lbissn').textContent; } catch {
-            try { var valuelbissn = document.querySelector('#traCuuIssn').value; } catch { var valuelbissn = "" }
-        }
-        var total = parseCurrency(document.querySelector('#totaltien').textContent) || 0;
-        try { var valuelbeissn = document.querySelector('#lbeissn').textContent; } catch { var valuelbeissn = "" }
-        var tg = groupUser();
-        var ghichu = sessionStorage.getItem("GhiChu");
-        ////alert(ghichu);
-        ////alert(Khoa + " - " + hoten);
-        ////////alert(loaiCongtrinh);
-        if (iddmxd == "") {
-            var data = {
-
-                loaiHinhKeKhai: loaiHinhKeKhai,
-                loaiCongtrinh: loaiCongtrinh,
-                journal_name: valuelbname,
-                issn: valuelbissn,
-                eissn: valuelbeissn,
-                category: valuecategory,
-                citations: "",//Tên  người sửa
-                if_2022: trangthai,
-                jci: Khoa + " - " + hoten,
-                percentageOAGold: "",
-                userId: _idUser,
-                rank: valuerank,
-                imageTenBB: "",
-                image: "",
-                fileList: minhchung,
-                link: soDOI,
-                tenBaiBao: valuetenbaibao,
-                type: valuetype,
-                groupUser: tg,
-                status: "Đang đợi duyệt",
-                quantity: sltg.toString(),
-                total: s.toString(),
-                ghiChu: "",
-                dateSubmit: date,
-                dateSubmit_now: formattedDate
+            var hoten = document.getElementById("xinchao").textContent;
+            var soDOI = document.getElementById("sodoi").value;
+            var minhchung = selectedFilesArray;
+            var sltgc = Number(document.querySelector('#sltgc').value);
+            var sltgp = Number(document.querySelector('#sltgp').value);
+            var sltglh = Number(document.querySelector('#sltglh').value);
+            var sltg = sltgc + sltgp + sltglh;
+            var s = 0;
+            for (let tiennum = 1; tiennum < sltg + 1; tiennum++) {
+                tongtien = Number(document.querySelector('#tbtacgia2').rows[tiennum].cells[4].textContent);
+                s += tongtien;
             }
-        } else {
-            var data = {
-                idDanhMuc: iddmxd,
-                loaiHinhKeKhai: loaiHinhKeKhai,
-                loaiCongtrinh: loaiCongtrinh,
-                journal_name: valuelbname,
-                issn: valuelbissn,
-                eissn: valuelbeissn,
-                category: valuecategory,
-                citations: NguoiSua + _idUser + "; ",
-                if_2022: trangthai,
-                jci: Khoa + " - " + hoten,
-                percentageOAGold: "",
-                userId: NguoiKhai,
-                rank: valuerank,
-                imageTenBB: "",
-                image: "",
-                fileList: minhchung,
-                link: soDOI,
-                tenBaiBao: valuetenbaibao,
-                type: valuetype,
-                groupUser: tg,
-                status: "Đang đợi duyệt",
-                quantity: sltg.toString(),
-                total: s.toString(),
-                ghiChu: ghichu.toString(),
-                dateSubmit: date,
-                dateSubmit_now: formattedDate
-
+            var date = document.querySelector('#datesubmit').value;
+            var valuerank = _ngach;
+            var valuetenbaibao = document.querySelector('#tenSanPhamKHCN').value;
+            try {
+                var valuecategory = document.querySelector('input[id="category-1"]:checked').value;
+            } catch
+            {
+                try {
+                    var valuecategory = document.querySelector('input[name="category"]:checked').nextSibling.textContent;
+                }
+                catch {
+                    var valuecategory = document.querySelector('input[name="yc"]:checked').value;
+                }
             }
+            try { var valuelbname = document.querySelector('#lbname').textContent; } catch { var valuelbname = "" }
+            try { var valuelbissn = document.querySelector('#lbissn').textContent; } catch {
+                try { var valuelbissn = document.querySelector('#traCuuIssn').value; } catch { var valuelbissn = "" }
+            }
+            var total = parseCurrency(document.querySelector('#totaltien').textContent) || 0;
+            try { var valuelbeissn = document.querySelector('#lbeissn').textContent; } catch { var valuelbeissn = "" }
+            var tg = convertDChar(groupUser());
+            var ghichu = sessionStorage.getItem("GhiChu");
+            ////alert(ghichu);
+            ////alert(Khoa + " - " + hoten);
+            ////////alert(loaiCongtrinh);
+            if (iddmxd == "") {
+                var data = {
+    
+                    loaiHinhKeKhai: loaiHinhKeKhai,
+                    loaiCongtrinh: loaiCongtrinh,
+                    journal_name: valuelbname,
+                    issn: valuelbissn,
+                    eissn: valuelbeissn,
+                    category: valuecategory,
+                    citations: "",//Tên  người sửa
+                    if_2022: trangthai,
+                    jci: Khoa + " - " + hoten,
+                    percentageOAGold: "",
+                    userId: _idUser,
+                    rank: valuerank,
+                    imageTenBB: "",
+                    image: "",
+                    fileList: minhchung,
+                    link: soDOI,
+                    tenBaiBao: valuetenbaibao,
+                    type: valuetype,
+                    groupUser: tg,
+                    status: "Đang đợi duyệt",
+                    quantity: sltg.toString(),
+                    total: s.toString(),
+                    ghiChu: "",
+                    dateSubmit: date,
+                    dateSubmit_now: formattedDate
+                }
+            } else {
+                var data = {
+                    idDanhMuc: iddmxd,
+                    loaiHinhKeKhai: loaiHinhKeKhai,
+                    loaiCongtrinh: loaiCongtrinh,
+                    journal_name: valuelbname,
+                    issn: valuelbissn,
+                    eissn: valuelbeissn,
+                    category: valuecategory,
+                    citations: NguoiSua + _idUser + "; ",
+                    if_2022: trangthai,
+                    jci: Khoa + " - " + hoten,
+                    percentageOAGold: "",
+                    userId: NguoiKhai,
+                    rank: valuerank,
+                    imageTenBB: "",
+                    image: "",
+                    fileList: minhchung,
+                    link: soDOI,
+                    tenBaiBao: valuetenbaibao,
+                    type: valuetype,
+                    groupUser: tg,
+                    status: "Đang đợi duyệt",
+                    quantity: sltg.toString(),
+                    total: s.toString(),
+                    ghiChu: ghichu.toString(),
+                    dateSubmit: date,
+                    dateSubmit_now: formattedDate
+    
+                }
+            }
+    
+            if (articleId == "") {
+                send(data, a);
+            } else {
+                update(data, iddmxd);
+            }
+            clear();
         }
-
-        if (articleId == "") {
-            send(data, a);
-        } else {
-            update(data, iddmxd);
-        }
-
     }
 
     // Hàm k cần enter khi tra mã
